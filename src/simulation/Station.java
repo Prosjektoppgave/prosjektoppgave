@@ -31,32 +31,32 @@ public class Station {
         this.id = id;
     }
 
-    public HashMap<Double, Double> getBikeReturnedMedian() {
-        return bikeReturnedMedian;
+    public double getBikeReturnedMedian(double hour) {
+        return bikeReturnedMedian.get(hour);
     }
 
     public void setBikeReturnedMedian(double hour, double bikeReturnedStd) {
         this.bikeReturnedMedian.put(hour, bikeReturnedStd);
     }
 
-    public HashMap<Double, Double> getBikeReturnedStd() {
-        return bikeReturnedStd;
+    public double getBikeReturnedStd(double hour) {
+        return bikeReturnedStd.get(hour);
     }
 
     public void setBikeReturnedStd(double hour, double bikeReturnedStd) {
         this.bikeReturnedStd.put(hour, bikeReturnedStd);
     }
 
-    public HashMap<Double, Double> getBikeWantedMedian() {
-        return bikeWantedMedian;
+    public double getBikeWantedMedian(double hour) {
+        return bikeWantedMedian.get(hour);
     }
 
     public void setBikeWantedMedian(double hour, double bikeWantedMedian) {
         this.bikeWantedMedian.put(hour, bikeWantedMedian);
     }
 
-    public HashMap<Double, Double> getBikeWantedStd() {
-        return bikeWantedStd;
+    public double getBikeWantedStd(double hour) {
+        return bikeWantedStd.get(hour);
     }
 
     public void setBikeWantedStd(double hour, double bikeReturnedStd) {
@@ -67,7 +67,29 @@ public class Station {
         this.numberOfSlots = numberOfSlots;
     }
 
+    public ArrayList<Double> getBikeWantedSimulated() {
+        return bikeWantedSimulated;
+    }
 
+    public void setBikeWantedSimulated(double timeSinceLastBikeWanted) {
+        this.bikeWantedSimulated.add(timeSinceLastBikeWanted);
+    }
+
+    public void createBikeWantedSimulated() {
+        this.bikeWantedSimulated = new ArrayList<>();
+    }
+
+    public ArrayList<Double> getBikeReturnedSimulated() {
+        return bikeReturnedSimulated;
+    }
+
+    public void setBikeReturnedSimulated(double timeSinceLastBikeReturned) {
+        this.bikeReturnedSimulated.add(timeSinceLastBikeReturned);
+    }
+
+    public void createBikeReturnedSimulated() {
+        this.bikeReturnedSimulated = new ArrayList<>();
+    }
 
     public String toString(){
 
