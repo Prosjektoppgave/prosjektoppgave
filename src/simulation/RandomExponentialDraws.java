@@ -8,3 +8,5 @@ public class RandomExponentialDraws {
     }
 
 }
+
+//Dette er en test
