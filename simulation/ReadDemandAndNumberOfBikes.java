@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class ReadDemandAndNumberOfBikes {
 
 
-    public static ArrayList<Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
+    public static ArrayList<simulation.Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
         ArrayList<Station> stations = new ArrayList<>();
 
         //Read demand file

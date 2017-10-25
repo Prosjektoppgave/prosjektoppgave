@@ -13,7 +13,7 @@ public class Simulation {
 
 
     public Simulation() throws IOException, JSONException {
-        stationIdList = StationList.readStationIdList();
+        stationIdList = simulation.StationList.readStationIdList();
         stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
     }
 
@@ -30,7 +30,7 @@ public class Simulation {
         station.createBikeReturnedSimulated();
 
         while (currentTime < startTime + durationOfSimulation) {
-            double currentTimeHour = TimeConverter.convertSecondsToHourRounded(currentTime);
+            double currentTimeHour = simulation.TimeConverter.convertSecondsToHourRounded(currentTime);
             double bikeWantedMedian = station.getBikeWantedMedian(currentTimeHour);
             double timeUntilNextBikeWanted = RandomExponentialDraws.drawFromExponentialDistribution(60/bikeWantedMedian*60);
             if (currentTime + timeUntilNextBikeWanted < startTime + durationOfSimulation){
@@ -42,7 +42,7 @@ public class Simulation {
         currentTime = startTime;
 
         while (currentTime < startTime + durationOfSimulation) {
-            double currentTimeHour = TimeConverter.convertSecondsToHourRounded(currentTime);
+            double currentTimeHour = simulation.TimeConverter.convertSecondsToHourRounded(currentTime);
             double bikeReturnedMedian = station.getBikeReturnedMedian(currentTimeHour);
             double timeUntilNextBikeReturned = RandomExponentialDraws.drawFromExponentialDistribution(60/bikeReturnedMedian*60);
             if (currentTime + timeUntilNextBikeReturned < startTime + durationOfSimulation) {
