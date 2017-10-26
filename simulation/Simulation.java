@@ -94,7 +94,7 @@ public class Simulation {
         String filename = "Simulering.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         for (ArrayList<Double> arrivalTime: arrivalTimes) {
-            writer.println(arrivalTime.get(0) + ", " + arrivalTime.get(1) + ", " + arrivalTime.get(2));
+            writer.println(arrivalTime.get(0) + ", " + arrivalTime.get(1).intValue() + ", " + arrivalTime.get(2));
         }
         writer.close();
     }
