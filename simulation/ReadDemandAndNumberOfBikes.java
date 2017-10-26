@@ -23,7 +23,7 @@ public class ReadDemandAndNumberOfBikes {
             String line = in.nextLine();
             Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
             if (element.hasNextInt()) {
-                int lineNumber = element.nextInt();
+                element.nextInt(); //linenumber
                 int stationId = element.nextInt();
 
                 if (stationIdList.contains(stationId)) {
@@ -34,22 +34,15 @@ public class ReadDemandAndNumberOfBikes {
                         stations.add(station);
                     }
 
-                    String title = element.next();
-                    station.setNumberOfSlots(Double.parseDouble(element.next()));
-                    double hour = element.nextDouble();
+                    element.next();                                                     //title
+                    station.setNumberOfSlots(Double.parseDouble(element.next()));       //nr of slots
+                    double hour = element.nextDouble();                                 //hour
 
-                    Double bikeWantedMedian = Double.parseDouble(element.next());
-                    station.setBikeWantedMedian(hour, bikeWantedMedian);
-
-                    Double bikeWantedStd = Double.parseDouble(element.next());
-                    station.setBikeWantedStd(hour, bikeWantedStd);
-
-                    Double bikeReturnedMedian = Double.parseDouble(element.next());
-                    station.setBikeReturnedMedian(hour, bikeReturnedMedian);
-
-                    Double bikeReturnedStd = Double.parseDouble(element.next());
-                    station.setBikeReturnedStd(hour, bikeReturnedStd);
-
+                    //Read mean and stardard deviation for arrival and departure
+                    station.setBikeWantedMedian(hour, Double.parseDouble(element.next()));
+                    station.setBikeWantedStd(hour, Double.parseDouble(element.next()));
+                    station.setBikeReturnedMedian(hour, Double.parseDouble(element.next()));
+                    station.setBikeReturnedStd(hour, Double.parseDouble(element.next()));
                 }
             }
             element.close();
