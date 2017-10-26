@@ -12,11 +12,11 @@ public class ReadDemandAndNumberOfBikes {
     public static ArrayList<simulation.Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
         ArrayList<Station> stations = new ArrayList<>();
 
-        //Read demand file
+        //Read demand.txt file
         File inputFile = new File("demand.txt");
         Scanner in = new Scanner(inputFile);
         int previousValueRead = 0;
-        HashMap<Integer, Integer> stationToNUmberOfBikesMap = readNumberOfBikes();
+        HashMap<Integer, Integer> stationInitialNUmberOfBikesMap = readNumberOfBikes();
         Station station = new Station(-1, -1);
 
         while (in.hasNextLine()){
@@ -30,24 +30,24 @@ public class ReadDemandAndNumberOfBikes {
                     if (previousValueRead != stationId) {
 
                         previousValueRead = stationId;
-                        station = new Station(stationId, stationToNUmberOfBikesMap.get(stationId));
+                        station = new Station(stationId, stationInitialNUmberOfBikesMap.get(stationId));
                         stations.add(station);
                     }
 
                     String title = element.next();
-                    station.setNumberOfSlots(element.nextDouble());
+                    station.setNumberOfSlots(Double.parseDouble(element.next()));
                     double hour = element.nextDouble();
 
-                    Double bikeWantedMedian = element.nextDouble();
+                    Double bikeWantedMedian = Double.parseDouble(element.next());
                     station.setBikeWantedMedian(hour, bikeWantedMedian);
 
-                    Double bikeWantedStd = element.nextDouble();
+                    Double bikeWantedStd = Double.parseDouble(element.next());
                     station.setBikeWantedStd(hour, bikeWantedStd);
 
-                    Double bikeReturnedMedian = element.nextDouble();
+                    Double bikeReturnedMedian = Double.parseDouble(element.next());
                     station.setBikeReturnedMedian(hour, bikeReturnedMedian);
 
-                    Double bikeReturnedStd = element.nextDouble();
+                    Double bikeReturnedStd = Double.parseDouble(element.next());
                     station.setBikeReturnedStd(hour, bikeReturnedStd);
 
                 }
@@ -59,6 +59,7 @@ public class ReadDemandAndNumberOfBikes {
 
     }
 
+    // Reads inputfile NumberOfBikes.txt and returns a hashmap with station id vs. initial number of bikes.
     public static HashMap<Integer, Integer> readNumberOfBikes() throws FileNotFoundException {
         HashMap<Integer, Integer> stationToNumberOfBikesMap = new HashMap<>();
 

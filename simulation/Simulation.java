@@ -17,9 +17,11 @@ public class Simulation {
         stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
     }
 
-    public void run(double startTime, double durationOfSimulation){
+    public void run(double startTimeHour, double durationOfSimulationHour){
+        double startTimeSeconds = simulation.TimeConverter.convertHourtoSeconds(startTimeHour);
+        double durationSeconds = simulation.TimeConverter.convertHourtoSeconds(durationOfSimulationHour);
         for (Station station : stations) {
-            simulate(station, startTime, durationOfSimulation);
+            simulate(station, startTimeSeconds, durationSeconds);
         }
     }
 
@@ -55,8 +57,8 @@ public class Simulation {
 
     public static void main(String[] args) throws IOException, JSONException {
         Simulation simulation = new Simulation();
-        simulation.run(28800, 3600); //Simulate 1 hour, starting at 8:00(28800)
+        simulation.run(8, 1); //Simulate 1 hour, starting at 8:00
 
     }
-
 }
+
