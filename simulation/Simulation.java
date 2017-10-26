@@ -2,25 +2,56 @@ package simulation;
 
 import org.json.JSONException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
+
+
 
 public class Simulation {
 
     private ArrayList<Integer> stationIdList;
     private ArrayList<Station> stations;
+    private ArrayList<ArrayList<Double>> arrivalTimes;
 
 
+    public static void main(String[] args) throws IOException, JSONException {
+        Simulation simulation = new Simulation();                   //Read input data
+        simulation.run(8, 3);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
+        simulation.printArrivalTimes();
+    }
+
+
+    //Constructor for simulation
     private Simulation() throws IOException, JSONException {
         stationIdList = simulation.StationList.readStationIdList();
         stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
+        arrivalTimes = new ArrayList<>();
     }
 
     private void run(double startTime, double durationOfSimulation){
         for (Station station : stations) {
             simulate(station, startTime, durationOfSimulation);
         }
+
+        //Sort list by arrival time
+        Collections.sort(this.arrivalTimes, new Comparator<ArrayList<Double>>() {
+            @Override
+            public int compare(ArrayList<Double> arrival1, ArrayList<Double> arrival2) {
+                double diff = arrival1.get(0) - (arrival2.get(0));
+
+                if( diff < 0 ){
+                    return -1;
+                } else if ( diff > 0 ) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
     }
 
     private void simulate(Station station, double startTime, double durationOfSimulation){
@@ -33,12 +64,8 @@ public class Simulation {
             double bikeWantedMedian = station.getBikeWantedMedian(currentTime);
             double bikeWantedStandardDeviation = station.getBikeWantedStd(currentTime);
             int numberOfBikesWanted = (int) RandomDraws.drawNormal(bikeWantedMedian, bikeWantedStandardDeviation);
-
-            for(int i=0; i<numberOfBikesWanted; i++) {
-                double timeOfArrival = RandomDraws.drawArrivalTimes(currentTime);
-                station.setBikeWantedSimulated(timeOfArrival);
-            }
-            currentTime = currentTime + 1;
+            drawArrivals(station.getId(),-1.00, numberOfBikesWanted, currentTime);
+            currentTime++;
         }
 
         currentTime = startTime;
@@ -47,22 +74,30 @@ public class Simulation {
             double bikeReturnedMedian = station.getBikeReturnedMedian(currentTime);
             double bikeReturnedSd = station.getBikeReturnedStd(currentTime);
             int numberOfBikesReturned = (int) RandomDraws.drawNormal(bikeReturnedMedian, bikeReturnedSd);
-
-            for(int i=0; i<numberOfBikesReturned; i++) {
-                double timeOfArrival = RandomDraws.drawArrivalTimes(currentTime);
-                station.setBikeReturnedSimulated(timeOfArrival);
-            }
+            drawArrivals(station.getId(),1.00, numberOfBikesReturned, currentTime);
             currentTime = currentTime + 1;
         }
     }
 
-
-
-    public static void main(String[] args) throws IOException, JSONException {
-        Simulation simulation = new Simulation(); //Read input data
-        simulation.run(8, 1); //Simulate 1 hour, starting at 8
+    //This method draws arrivals and saves input in arrivalTimes
+    private void drawArrivals(int stationId, double stationLoad, int numberOfdraws, double currentTime) {
+        for(int i=0; i<numberOfdraws; i++) {
+            ArrayList<Double> arrivalTimeEntry = new ArrayList<>();
+            arrivalTimeEntry.add(RandomDraws.drawArrivalTimes(currentTime));    //Arrival time
+            arrivalTimeEntry.add((double) stationId);                           //Station ID
+            arrivalTimeEntry.add(stationLoad);                                  //0 if wanted, 1 if returned
+            arrivalTimes.add(arrivalTimeEntry);
+        }
     }
 
+    private void printArrivalTimes() throws FileNotFoundException, UnsupportedEncodingException {
+        String filename = "Simulering.txt";
+        PrintWriter writer = new PrintWriter(filename, "UTF-8");
+        for (ArrayList<Double> arrivalTime: arrivalTimes) {
+            writer.println(arrivalTime.get(0) + ", " + arrivalTime.get(1) + ", " + arrivalTime.get(2));
+        }
+        writer.close();
+    }
 
 }
 
