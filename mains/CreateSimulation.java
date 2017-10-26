@@ -1,5 +1,9 @@
-package simulation;
+package mains;
 
+import classes.Station;
+import functions.RandomDraws;
+import functions.ReadDemandAndNumberOfBikes;
+import functions.ReadStationList;
 import org.json.JSONException;
 
 import java.io.FileNotFoundException;
@@ -12,7 +16,7 @@ import java.util.Comparator;
 
 
 
-public class Simulation {
+public class CreateSimulation {
 
     private ArrayList<Integer> stationIdList;
     private ArrayList<Station> stations;
@@ -20,15 +24,15 @@ public class Simulation {
 
 
     public static void main(String[] args) throws IOException, JSONException {
-        Simulation simulation = new Simulation();                   //Read input data
+        CreateSimulation simulation = new CreateSimulation();                   //Read input data
         simulation.run(8, 3);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
         simulation.printArrivalTimes();
     }
 
 
-    //Constructor for simulation
-    private Simulation() throws IOException, JSONException {
-        stationIdList = simulation.StationList.readStationIdList();
+    //Constructor for mains
+    private CreateSimulation() throws IOException, JSONException {
+        stationIdList = ReadStationList.readStationIdList();
         stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
         arrivalTimes = new ArrayList<>();
     }

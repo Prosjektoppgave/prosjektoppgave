@@ -1,6 +1,5 @@
-package simulation;
+package functions;
 
-import java.util.ArrayList;
 import java.util.Random;
 import static org.apache.commons.lang.math.RandomUtils.nextDouble;
 

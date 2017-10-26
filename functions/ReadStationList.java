@@ -1,11 +1,11 @@
-package simulation;
+package functions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StationList {
+public class ReadStationList {
 
     public static ArrayList<Integer> readStationIdList() throws FileNotFoundException {
         File inputfile = new File("stationList.txt");

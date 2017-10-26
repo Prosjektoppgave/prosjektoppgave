@@ -1,4 +1,4 @@
-package simulation;
+package functions;
 
 import static java.lang.StrictMath.floor;
 

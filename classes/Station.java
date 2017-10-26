@@ -1,4 +1,4 @@
-package simulation;
+package classes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +24,16 @@ public class Station {
         this.bikeWantedStd = new HashMap<>();
     }
 
+    //Number of bikes
+    public int getNumberOfBikes() {
+        return numberOfBikes;
+    }
+
+    public void setNumberOfBikes(int numberOfBikes) {
+        this.numberOfBikes = numberOfBikes;
+    }
+
+    //Id
     public int getId() {
         return id;
     }
@@ -31,6 +41,7 @@ public class Station {
         this.id = id;
     }
 
+    //BikeReturnedMedian
     public double getBikeReturnedMedian(double hour) {
         return bikeReturnedMedian.get(hour);
     }
@@ -39,6 +50,7 @@ public class Station {
         this.bikeReturnedMedian.put(hour, bikeReturnedStd);
     }
 
+    //BikeReturnedStd
     public double getBikeReturnedStd(double hour) {
         return bikeReturnedStd.get(hour);
     }
@@ -47,6 +59,7 @@ public class Station {
         this.bikeReturnedStd.put(hour, bikeReturnedStd);
     }
 
+    //BikeWantedMedian
     public double getBikeWantedMedian(double hour) {
         return bikeWantedMedian.get(hour);
     }
@@ -55,6 +68,7 @@ public class Station {
         this.bikeWantedMedian.put(hour, bikeWantedMedian);
     }
 
+    //BikeWantedStd
     public double getBikeWantedStd(double hour) {
         return bikeWantedStd.get(hour);
     }
@@ -63,8 +77,18 @@ public class Station {
         this.bikeWantedStd.put(hour, bikeReturnedStd);
     }
 
+    //Nr of slots
     public void setNumberOfSlots(double numberOfSlots) {
         this.numberOfSlots = numberOfSlots;
+    }
+
+    public double getNumberOfSlots() {
+        return numberOfSlots;
+    }
+
+    //BikeWantedSimulated
+    public void createBikeWantedSimulated() {
+        this.bikeWantedSimulated = new ArrayList<>();
     }
 
     public ArrayList<Double> getBikeWantedSimulated() {
@@ -75,8 +99,9 @@ public class Station {
         this.bikeWantedSimulated.add(timeSinceLastBikeWanted);
     }
 
-    public void createBikeWantedSimulated() {
-        this.bikeWantedSimulated = new ArrayList<>();
+    //BikeReturnedSimulated
+    public void createBikeReturnedSimulated() {
+        this.bikeReturnedSimulated = new ArrayList<>();
     }
 
     public ArrayList<Double> getBikeReturnedSimulated() {
@@ -87,10 +112,7 @@ public class Station {
         this.bikeReturnedSimulated.add(timeSinceLastBikeReturned);
     }
 
-    public void createBikeReturnedSimulated() {
-        this.bikeReturnedSimulated = new ArrayList<>();
-    }
-
+    //Print
     public String toString(){
 
       return "BikdeId: "+ id;

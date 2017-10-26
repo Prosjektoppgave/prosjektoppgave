@@ -1,4 +1,6 @@
-package simulation;
+package functions;
+
+import classes.Station;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +11,7 @@ import java.util.Scanner;
 public class ReadDemandAndNumberOfBikes {
 
 
-    public static ArrayList<simulation.Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
+    public static ArrayList<Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
         ArrayList<Station> stations = new ArrayList<>();
 
         //Read demand.txt file
