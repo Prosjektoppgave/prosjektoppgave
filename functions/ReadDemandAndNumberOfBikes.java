@@ -11,8 +11,8 @@ import java.util.Scanner;
 public class ReadDemandAndNumberOfBikes {
 
 
-    public static ArrayList<Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
-        ArrayList<Station> stations = new ArrayList<>();
+    public static HashMap<Integer, Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
+        HashMap<Integer, Station> stations = new HashMap<>();
 
         //Read demand.txt file
         File inputFile = new File("demand.txt");
@@ -33,7 +33,7 @@ public class ReadDemandAndNumberOfBikes {
 
                         previousValueRead = stationId;
                         station = new Station(stationId, stationInitialNUmberOfBikesMap.get(stationId));
-                        stations.add(station);
+                        stations.put(station.getId(), station);
                     }
 
                     element.next();                                                     //title

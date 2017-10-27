@@ -10,7 +10,7 @@ public class Station {
     private HashMap<Double, Double> bikeReturnedStd;
     private HashMap<Double, Double> bikeWantedMedian;
     private HashMap<Double, Double> bikeWantedStd;
-    private int numberOfBikes;
+    private double numberOfBikes;
     private Double numberOfSlots;
     private ArrayList<Double> bikeWantedSimulated;
     private ArrayList<Double> bikeReturnedSimulated;
@@ -29,12 +29,16 @@ public class Station {
     }
 
     //Number of bikes
-    public int getNumberOfBikes() {
+    public double getNumberOfBikes() {
         return numberOfBikes;
     }
 
-    public void setNumberOfBikes(int numberOfBikes) {
+    public void setNumberOfBikes(double numberOfBikes) {
         this.numberOfBikes = numberOfBikes;
+    }
+
+    public void addBikeToStation(double bikes) {
+        this.numberOfBikes = this.numberOfBikes + bikes;
     }
 
     //Id

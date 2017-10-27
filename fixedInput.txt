@@ -3,24 +3,20 @@
 !Objective weights
 a1 : 1
 
-lengthOfPlanningHorizon:30
+lengthOfPlanningHorizon:10
 
 !Stations
-nStations: 6
-maxVisits: 2
+nStations: 4
+maxVisits: 1
 
 stationIds : [
 1
 2
 3
-4
-5
 0
 ]
 
 stationsCapacities : [
-10
-10
 10
 10
 10
@@ -32,13 +28,9 @@ safetyInventoryMargin : [
 0
 0
 0
-0
-0
 ]	
 
 optimalState : [
-5
-5
 5
 5
 5
@@ -46,17 +38,15 @@ optimalState : [
 ]
 
 !Vecihcles
-nVehicles: 2
+nVehicles: 1
 vehicleParkingTime : 2
 unitHandlingTime: 0.25
 
 vehicleIds : [
 1
-2
 ]
 
 vehicleCapacity : [
-10
 10
 ]
 

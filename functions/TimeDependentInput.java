@@ -7,11 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class TimeDependentInput {
 
-    public static void printTimeDependentInput (ArrayList<Station> stations, ArrayList<Vehicle> vehicles, double currentTime) throws FileNotFoundException, UnsupportedEncodingException {
+    public static void printTimeDependentInput (HashMap<Integer, Station> stations, ArrayList<Vehicle> vehicles, double currentTime) throws FileNotFoundException, UnsupportedEncodingException {
         String filename = "timeDependentInputTest.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
@@ -41,7 +42,7 @@ public class TimeDependentInput {
         //stationsInitialLoad
         writer.println();
         writer.println("stationsInitialLoad : [");
-        for (Station station : stations) {
+        for (Station station : stations.values()) {
             writer.println(station.getNumberOfBikes());
         }
         writer.println("0");
@@ -50,7 +51,7 @@ public class TimeDependentInput {
         //stationDemand - net demand per minute
         writer.println();
         writer.println("stationDemand : [");
-        for (Station station : stations) {
+        for (Station station : stations.values()) {
             double bikeWanted = station.getBikeWantedMedian(TimeConverter.convertSecondsToHourRounded(currentTime));
             double bikeReturned = station.getBikeReturnedMedian(TimeConverter.convertSecondsToHourRounded(currentTime));
             writer.println((bikeReturned-bikeWanted)/60);
@@ -61,8 +62,8 @@ public class TimeDependentInput {
         //drivingTime
         writer.println();
         writer.println("drivingTime : [");
-        for (Station origin : stations) {
-            for (Station destination : stations) {
+        for (Station origin : stations.values()) {
+            for (Station destination : stations.values()) {
                 if (origin.getId() == destination.getId()) {
                     writer.print("0 ");
                 } else {
@@ -71,7 +72,7 @@ public class TimeDependentInput {
             }
             writer.println("0");
         }
-        for (Station station:stations) {
+        for (Station station:stations.values()) {
             writer.print("0 ");
         }
         writer.println("0");

@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class ReadVehicleInput {
 
     public static ArrayList<Vehicle> readVehicleInput() throws FileNotFoundException {
+
         ArrayList<Vehicle> vehicles = new ArrayList<>();
 
         //Read vehicleInitial.txt file

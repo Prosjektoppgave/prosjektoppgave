@@ -13,13 +13,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import java.util.HashMap;
 
 
 public class CreateSimulation {
 
     private ArrayList<Integer> stationIdList;
-    private ArrayList<Station> stations;
+    private HashMap<Integer, Station> stations;
     private ArrayList<ArrayList<Double>> arrivalTimes;
 
 
@@ -38,7 +38,7 @@ public class CreateSimulation {
     }
 
     private void run(double startTime, double durationOfSimulation){
-        for (Station station : stations) {
+        for (Station station : stations.values()) {
             simulate(station, startTime, durationOfSimulation);
         }
 
@@ -95,7 +95,7 @@ public class CreateSimulation {
     }
 
     private void printArrivalTimes() throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "Simulering.txt";
+        String filename = "simulering.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         for (ArrayList<Double> arrivalTime: arrivalTimes) {
             writer.println(arrivalTime.get(0) + ", " + arrivalTime.get(1).intValue() + ", " + arrivalTime.get(2));

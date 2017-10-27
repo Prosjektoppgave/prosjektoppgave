@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import classes.Station;
 import org.json.JSONArray;
@@ -18,9 +19,10 @@ import org.json.JSONObject;
 
 public class Distance {
 
-    public static void getDrivingTimes(ArrayList<Station> stations) throws IOException, JSONException {
-        for (Station origin: stations) {
-            for (Station destination: stations) {
+    public static void getDrivingTimes(HashMap<Integer, Station> stations) throws IOException, JSONException {
+
+        for (Station origin: stations.values()) {
+            for (Station destination: stations.values()) {
                 if(origin.getId() != destination.getId()) {
                     int drivingTimeSek = getDrivingTimeBetweenCoordinates(origin, destination);
                     double drivingTimeMin = ((double) drivingTimeSek)/60;

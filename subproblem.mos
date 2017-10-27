@@ -584,9 +584,44 @@ Objective1 :=
 minimize(Objective1);
 
 
+
+!PRINT TO FILE
+
+fopen("outputXpress.txt",F_OUTPUT);
+
+	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
+		writeln("x " + ii+" " + mm +" "+ jj+" " + nn+" " + vv);
+	end-do
+	
+	forall (ii in Stations, mm in Visits | getsol(visitTime(ii,mm))> 0) do
+		writeln("t " + ii + " " + mm + " " + getsol(visitTime(ii,mm)));
+	end-do
+	
+	forall (ii in Stations, mm in Visits | sum(vv in Vehicles)getsol(loadingQuantity(ii,mm,vv)) > 0.1) do 
+		writeln("l " + ii + " " + mm + " " + sum(vv in Vehicles)getsol(loadingQuantity(ii,mm, vv)));
+	end-do
+	
+	forall (ii in Stations, mm in Visits | sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv))> 0.1) do
+		writeln("u " + ii + " " + mm + " " + sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv)));
+	end-do
+	
+fclose(F_OUTPUT);
+
+end-model
+
+
+
+
+
+
+
+
+
+
 !PRINT
 
 writeln('Objective value: ' + getsol(Objective1));
+
 
 forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
 	writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
@@ -601,86 +636,83 @@ writeln('Remaining time to final station: ' + getsol(remainingTimeToFinalStation
 end-do
 
 
-forall (ii in Stations) do
+forall (ii in Stations | ii<> nStations) do
 	writeln;
 	writeln('STATION ' + ii +':');
-	writeln('Initial load: ' + stationsInitialLoad(ii));
-	forall (mm in Visits, vv in Vehicles ) do
-		writeln('Visit time: ' + getsol(visitTime(ii,mm)));
-		if(mm = 1) then
-			writeln('Demand before visit: ' + getsol(visitTime(ii,mm))*stationDemand(ii)); 
-		elif (getsol(visitTime(ii,mm))=0) then
-			writeln('Demand before visit: ' + (getsol(visitTime(ii,mm)))*stationDemand(ii)); 	
-		else
-			writeln('Demand before visit: ' + (getsol(visitTime(ii,mm))-getsol(visitTime(ii,mm-1)))*stationDemand(ii)); 	
-		end-if	
-		writeln('Station load when starting visit ' + mm + ' : ' + getsol(loadAtStation(ii,mm))); 
-		
-		writeln('Station load at horizon: ' + getsol(inventoryAtHorizon(ii)));
-		writeln('Station full at horizon: ' + getsol(deltaFullHorizon(ii)));
-		writeln('Station empty at horizon: ' + getsol(deltaEmptyHorizon(ii)));
-		writeln('Deviation: ' + getsol(deviation(ii)));
-		writeln('delta: ' + getsol(delta(ii,mm)));
-		writeln('theta: ' + getsol(theta(ii,mm)));
-		writeln('gamma: ' + getsol(gamma(ii)));
-		
-		
-		
-		if(getsol(starvation(ii,mm))>0.001) then
-			writeln('Starvation: ' + getsol(starvation(ii,mm)));
-		end-if	
-		if(getsol(congestion(ii,mm))>0.001) then
-			writeln('Congestion: ' + getsol(congestion(ii,mm)));
-		end-if	
-		
-		
+	writeln("Initial load: " + stationsInitialLoad(ii));
+	
+	!Scenario 1
+	if (getsol(gamma(ii))<0.5) then
+		writeln("No visits");
 		if(getsol(starvationBeforeHorizon(ii))>0.001) then
 			writeln('Starvation before horizon: ' + getsol(starvationBeforeHorizon(ii)));
-		end-if	
-		if(getsol(congestionBeforeHorizon(ii))>0.001) then
+		elif (getsol(congestionBeforeHorizon(ii))>0.001) then
 			writeln('Congestion before horizon: ' + getsol(congestionBeforeHorizon(ii)));
+		else
+			writeln("No violations before horizon");
 		end-if	
-		
-		if(getsol(starvationAfterHorizon(ii))>0.001) then
-			writeln('Starvation After horizon: ' + getsol(starvationAfterHorizon(ii)));
-		end-if	
-		if(getsol(congestionAfterHorizon(ii))>0.001) then
-			writeln('Congestion After horizon: ' + getsol(congestionAfterHorizon(ii)));
-		end-if
-		
-		if (getsol(loadingQuantity(ii,mm,vv)) > 0.1) then
-			writeln('Quantity loaded to station: ' + getsol(loadingQuantity(ii,mm,vv)));
-		end-if
-		if (getsol(unloadingQuantity(ii,mm,vv)) > 0.1) then
-			writeln('Quantity unloaded from station: ' + getsol(unloadingQuantity(ii,mm,vv)));
-		end-if
-		writeln('Vehicle load after visit: ' + getsol(loadAtVehicle(ii,mm,vv)));
-	end-do
-end-do	
-
-
-forall(vv in Vehicles) do
-	writeln;
-	writeln('VEHICLE ' + vv);
-	writeln('Initial load: ' + vehicleInitialLoad(vv));
-	forall(ii in Stations, mm in Visits) do
-		writeln('Vehicle load after visit (' + ii +','+ mm +'): '+ getsol(loadAtVehicle(ii,mm,vv)));
-	end-do	
-end-do
-
-writeln(- 1100*(2-(getsol(theta(1,1))+getsol(delta(1,1)))));
-
-end-model
-
-
-
-
-
-
-
-
 	
-
-
-
-
+	!Scenario 2 or 3
+	elif(getsol(gamma(ii))>0.5) then
+		forall (mm in Visits) do
+			if(sum(jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))> 0.1) then
+				writeln("-----------------");
+				writeln("Visit nr. " + mm);
+				writeln("Visit time: " + getsol(visitTime(ii,mm)));
+				if(mm = 1) then
+					writeln('Demand before visit: ' + getsol(visitTime(ii,mm))*stationDemand(ii)); 
+				elif (getsol(visitTime(ii,mm))=0) then
+					writeln('Demand before visit: ' + (getsol(visitTime(ii,mm)))*stationDemand(ii)); 	
+				else
+					writeln('Demand before visit: ' + (getsol(visitTime(ii,mm))-getsol(visitTime(ii,mm-1)))*stationDemand(ii)); 	
+				end-if
+				writeln('Station load when starting visit ' + mm + ' : ' + getsol(loadAtStation(ii,mm))); 
+				if (sum(vv in Vehicles) getsol(loadingQuantity(ii,mm,vv)) > 0.1) then
+					writeln('Quantity loaded to station: ' + sum(vv in Vehicles)getsol(loadingQuantity(ii,mm,vv)));
+				elif (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv)) > 0.1) then
+					writeln('Quantity unloaded from station: ' + sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv)));
+				end-if
+				
+				
+				!If not last visit and before T
+				if (getsol(theta(ii,mm)) < 0.5 and getsol(delta(ii,mm)) < 0.5) then 		
+					if(getsol(starvation(ii,mm))>0.001) then
+						writeln('Starvation: ' + getsol(starvation(ii,mm)));
+					elif(getsol(congestion(ii,mm))>0.001) then
+						writeln('Congestion: ' + getsol(congestion(ii,mm)));
+					end-if	
+				
+				!If last visit before T
+				elif (getsol(theta(ii,mm)) > 0.5 and getsol(delta(ii,mm)) < 0.5) then 
+					if(getsol(starvation(ii,mm))>0.001) then
+						writeln('Starvation: ' + getsol(starvation(ii,mm)));
+					elif(getsol(congestion(ii,mm))>0.001) then
+						writeln('Congestion: ' + getsol(congestion(ii,mm)));
+					end-if	
+					if(getsol(starvationBeforeHorizon(ii))>0.001) then
+						writeln('Starvation before horizon: ' + getsol(starvationBeforeHorizon(ii)));
+					elif (getsol(congestionBeforeHorizon(ii))>0.001) then
+						writeln('Congestion before horizon: ' + getsol(congestionBeforeHorizon(ii)));
+					else
+						writeln("No violations before horizon");
+					end-if	
+				
+				!If last visit is after T
+				elif(getsol(theta(ii,mm)) > 0.5 and getsol(delta(ii,mm)) > 0.5) then
+					if(getsol(starvation(ii,mm))>0.001) then
+						writeln('Starvation: ' + getsol(starvation(ii,mm)));
+					elif(getsol(congestion(ii,mm))>0.001) then
+						writeln('Congestion: ' + getsol(congestion(ii,mm)));
+					end-if	
+					if(getsol(starvationAfterHorizon(ii))>0.001) then
+						writeln('Starvation After horizon: ' + getsol(starvationAfterHorizon(ii)));
+					elif(getsol(congestionAfterHorizon(ii))>0.001) then
+						writeln('Congestion After horizon: ' + getsol(congestionAfterHorizon(ii)));
+					end-if
+				end-if
+			end-if	
+		end-do
+	end-if
+	
+	
+end-do

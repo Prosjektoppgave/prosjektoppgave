@@ -1,11 +1,11 @@
-package functions;
+package xpress;
 
 import com.dashoptimization.*;
 import java.lang.*;
 import java.util.ArrayList;
 import java.io.*;
 
-public class Xpress {
+public class RunXpress {
 
     public static void runXpress() throws XPRMCompileException, IOException {
         XPRM mosel;

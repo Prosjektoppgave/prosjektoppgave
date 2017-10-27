@@ -1,7 +1,6 @@
 package functions;
 
 import java.util.Random;
-import static org.apache.commons.lang.math.RandomUtils.nextDouble;
 
 
 public class RandomDraws {
@@ -11,7 +10,7 @@ public class RandomDraws {
         return (r.nextGaussian() * standardDeviation) + mean;
     }
 
-    //Draw a random arrival time between startTime and startTime+1
+    //Draw a random arrival VisitTime between startTime and startTime+1
     public static double drawArrivalTimes (double startTime){
         return TimeConverter.convertHourtoSeconds(Math.random()+startTime);
     }
