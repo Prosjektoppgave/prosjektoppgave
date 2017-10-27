@@ -14,6 +14,9 @@ public class Station {
     private Double numberOfSlots;
     private ArrayList<Double> bikeWantedSimulated;
     private ArrayList<Double> bikeReturnedSimulated;
+    private HashMap<Integer, Double> drivingTime;
+    private double latitude;
+    private double longitude;
 
     public Station(int id, int numberOfBikes) {
         this.id = id;
@@ -22,6 +25,7 @@ public class Station {
         this.bikeReturnedStd = new HashMap<>();
         this.bikeWantedMedian = new HashMap<>();
         this.bikeWantedStd = new HashMap<>();
+        this.drivingTime = new HashMap<>();
     }
 
     //Number of bikes
@@ -77,6 +81,15 @@ public class Station {
         this.bikeWantedStd.put(hour, bikeReturnedStd);
     }
 
+    //DrivingTime
+    public double getDrivingTimeToStation(int stationId) {
+        return drivingTime.get(stationId);
+    }
+
+    public void addLengthToStation(int stationid, double drivingTime) {
+        this.drivingTime.put(stationid, drivingTime);
+    }
+
     //Nr of slots
     public void setNumberOfSlots(double numberOfSlots) {
         this.numberOfSlots = numberOfSlots;
@@ -111,6 +124,26 @@ public class Station {
     public void setBikeReturnedSimulated(double timeSinceLastBikeReturned) {
         this.bikeReturnedSimulated.add(timeSinceLastBikeReturned);
     }
+
+    //Longitude
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    //Latitude
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double altitude) {
+        this.latitude = altitude;
+    }
+
+
 
     //Print
     public String toString(){

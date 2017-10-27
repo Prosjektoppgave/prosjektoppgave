@@ -54,11 +54,11 @@ public class ReadDemandAndNumberOfBikes {
 
     }
 
-    // Reads inputfile NumberOfBikes.txt and returns a hashmap with station id vs. initial number of bikes.
+    // Reads inputfile stationInitial.txt and returns a hashmap with station id vs. initial number of bikes.
     public static HashMap<Integer, Integer> readNumberOfBikes() throws FileNotFoundException {
         HashMap<Integer, Integer> stationToNumberOfBikesMap = new HashMap<>();
 
-        File inputFile = new File("NumberOfBikes.txt");
+        File inputFile = new File("stationInitial.txt");
         Scanner in = new Scanner(inputFile);
         while (in.hasNextLine()){
             String line = in.nextLine();
