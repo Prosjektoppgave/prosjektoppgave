@@ -19,15 +19,13 @@ public class RunXpress {
         mosel = new XPRM();
 
         //Compile model
-        System.out.println("Compiling 'Subproblem.mos'");
         mosel.compile("subproblem.mos");
 
         //Load bim file
-        System.out.println("Loading 'Subproblem.bim'");
         mod = mosel.loadModel("subproblem.bim");
 
         //Execute model
-        System.out.println("Executing 'Subproblem.mos'");
+        System.out.println("Run 'Subproblem.mos'");
         mod.run();
 
         //Stop if no solution is found

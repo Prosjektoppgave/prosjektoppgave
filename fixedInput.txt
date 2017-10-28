@@ -4,20 +4,26 @@ artificialStation: 0
 maxVisits: 1
 
 Stations : [
-26
-27
-28
-29
-30
+162
+67
+148
+69
+118
+230
+90
+142
 0
 ]
 
 stationsCapacities : [
-21
+18
+9
+24
 10
-30
-29
-12
+18
+20
+20
+9
 0
 ]
 
@@ -28,14 +34,20 @@ safetyInventoryMargin : [
 0.0
 0.0
 0.0
+0.0
+0.0
+0.0
 ]
 
 optimalState : [
-10
+9
+4
+12
 5
-15
-14
-6
+9
+10
+10
+4
 0
 ]
 vehicleParkingTime: 2.0

@@ -645,7 +645,7 @@ fopen("outputXpress.txt",F_OUTPUT);
 		writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
 	end-do
 	
-	forall (ii in Stations, mm in Visits ) do
+	forall (ii in Stations, mm in Visits | getsol(visitTime(ii,mm)) > 0.1) do
 		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
 	end-do
 	

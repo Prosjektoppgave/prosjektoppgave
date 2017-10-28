@@ -33,7 +33,7 @@ public class RunSimulation {
     //To be filled in
     private double timeHorizon = 30;
     private double initialStartTime = 8*60;                                 //Current VisitTime in minutes
-    private double stopTime = 9*60;                                        //Stop VisitTime in minutes
+    private double stopTime = 20*60;                                        //Stop VisitTime in minutes
     private int maxVisit = 1;
     private double vehicleParkingTime = 2;                                  //Minutes
     private double vehicleUnitHandlingTime = 0.25;                          //Minutes
@@ -123,27 +123,18 @@ public class RunSimulation {
                 double timeToNextStation = simulationStartTime + stationVisit.getTimeNextVisit()-simulationStoptime;
                 vehicle.setTimeToNextStation(timeToNextStation);
                 vehicle.setNextStation(stationVisit.getNextStationId());
-                System.out.println("1");
-                System.out.println("Next station: " + stationVisit.getNextStationId());
-                System.out.println("Time to next station: " + timeToNextStation);
             } else if (stationVisit.isFirstvisit() & (stationVisit.getTime() + simulationStartTime) >= simulationStoptime){
                 int vehicleId = stationVisit.getVehicle();
                 Vehicle vehicle = vehicles.get(vehicleId);
                 double timeToNextStation = simulationStartTime + stationVisit.getTime()-simulationStoptime;
                 vehicle.setTimeToNextStation(timeToNextStation);
                 vehicle.setNextStation(stationVisit.getStationId());
-                System.out.println("2");
-                System.out.println("Next station: " + stationVisit.getStationId());
-                System.out.println("Time to next station: " + timeToNextStation);
             }  else if (stationVisit.getNextStationId() == 0 & stationVisit.getTime()+simulationStartTime < simulationStoptime ) {
                 int vehicleId = stationVisit.getVehicle();
                 Vehicle vehicle = vehicles.get(vehicleId);
                 double timeToNextStation = 0;
                 vehicle.setTimeToNextStation(timeToNextStation);
                 vehicle.setNextStation(stationVisit.getStationId());
-                System.out.println("3");
-                System.out.println("Next station: " + stationVisit.getStationId());
-                System.out.println("Time to next station: " + timeToNextStation);
             }
         }
     }
@@ -197,7 +188,10 @@ public class RunSimulation {
 
             boolean noMoreDemand = (timeNextDemand < currentTime || timeNextDemand > stopTime);
             boolean noMoreStationVisits = timeNextStationVisit < currentTime || timeNextStationVisit >= stopTime;
-            boolean endReached = (simulationStoptime == stopTime);
+            boolean endReached = (simulationStoptime >= stopTime);
+            System.out.println("noMore demand: " + noMoreDemand);
+            System.out.println("noMoreStationVisits: " + noMoreStationVisits);
+            System.out.println("endReached: " + endReached);
 
             //Check if simulation is complete
             if ( noMoreDemand & noMoreStationVisits & endReached) {
@@ -209,12 +203,19 @@ public class RunSimulation {
             }
 
             //Check if simulation has to be run again
-            else if ((timeNextDemand < currentTime || timeNextDemand > simulationStoptime) & (timeNextStationVisit < currentTime || timeNextStationVisit >= simulationStoptime) & simulationStoptime < stopTime) {
+            boolean demand = (timeNextDemand < currentTime || timeNextDemand > simulationStoptime);
+            boolean stationVisit = (timeNextStationVisit < currentTime || timeNextStationVisit >= simulationStoptime);
+            boolean stop = simulationStoptime < stopTime;
+            System.out.println("demand: " + demand); /////DENNE BLIR FEIL
+            System.out.println("stationVisit: " + stationVisit);
+            System.out.println("stop: " + stop);
+
+
+            if ( demand & stationVisit & stop) {
+                System.out.println("Remaining time to stop: " + (stopTime-currentTime));
                 determineRemainingDrivingTimeAndStation(stationVisits, simulationStartTime, simulationStoptime, vehicles);
                 WriteXpressFiles.printTimeDependentInput(stations, vehicles, simulationStoptime);
-                System.out.println("Xpress skal starte");
-                RunXpress.runXpress();
-                System.out.println("Xpress er ferdig");
+                RunXpress.runXpress();;
                 readXpressOutput();
                 simulationStartTime = simulationStoptime;
                 simulationStoptime = (simulationStartTime + timeToNextSimulation < stopTime ) ? simulationStartTime + timeToNextSimulation : stopTime;

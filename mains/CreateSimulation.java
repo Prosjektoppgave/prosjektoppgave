@@ -25,7 +25,7 @@ public class CreateSimulation {
 
     public static void main(String[] args) throws IOException, JSONException {
         CreateSimulation simulation = new CreateSimulation();                   //Read input data
-        simulation.run(8, 3);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
+        simulation.run(8, 12);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
         simulation.printArrivalTimes();
     }
 

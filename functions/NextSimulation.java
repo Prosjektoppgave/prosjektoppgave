@@ -16,6 +16,7 @@ public class NextSimulation {
             }
         }
         System.out.println("Next simulation " + nextSimulation);
+        System.out.println();
         return nextSimulation;
     }
 
