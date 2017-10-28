@@ -1,6 +1,5 @@
 package classes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Station {
@@ -10,17 +9,16 @@ public class Station {
     private HashMap<Double, Double> bikeReturnedStd;
     private HashMap<Double, Double> bikeWantedMedian;
     private HashMap<Double, Double> bikeWantedStd;
-    private double numberOfBikes;
-    private Double numberOfSlots;
-    private ArrayList<Double> bikeWantedSimulated;
-    private ArrayList<Double> bikeReturnedSimulated;
+    private double load;
+    private int capacity;
     private HashMap<Integer, Double> drivingTime;
     private double latitude;
     private double longitude;
+    private double inventoryMargin = 0;
 
     public Station(int id, int numberOfBikes) {
         this.id = id;
-        this.numberOfBikes = numberOfBikes;
+        this.load = numberOfBikes;
         this.bikeReturnedMedian = new HashMap<>();
         this.bikeReturnedStd = new HashMap<>();
         this.bikeWantedMedian = new HashMap<>();
@@ -29,16 +27,16 @@ public class Station {
     }
 
     //Number of bikes
-    public double getNumberOfBikes() {
-        return numberOfBikes;
+    public double getLoad() {
+        return load;
     }
 
-    public void setNumberOfBikes(double numberOfBikes) {
-        this.numberOfBikes = numberOfBikes;
+    public void setLoad(double load) {
+        this.load = load;
     }
 
     public void addBikeToStation(double bikes) {
-        this.numberOfBikes = this.numberOfBikes + bikes;
+        this.load = load + bikes;
     }
 
     //Id
@@ -95,38 +93,12 @@ public class Station {
     }
 
     //Nr of slots
-    public void setNumberOfSlots(double numberOfSlots) {
-        this.numberOfSlots = numberOfSlots;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
-    public double getNumberOfSlots() {
-        return numberOfSlots;
-    }
-
-    //BikeWantedSimulated
-    public void createBikeWantedSimulated() {
-        this.bikeWantedSimulated = new ArrayList<>();
-    }
-
-    public ArrayList<Double> getBikeWantedSimulated() {
-        return bikeWantedSimulated;
-    }
-
-    public void setBikeWantedSimulated(double timeSinceLastBikeWanted) {
-        this.bikeWantedSimulated.add(timeSinceLastBikeWanted);
-    }
-
-    //BikeReturnedSimulated
-    public void createBikeReturnedSimulated() {
-        this.bikeReturnedSimulated = new ArrayList<>();
-    }
-
-    public ArrayList<Double> getBikeReturnedSimulated() {
-        return bikeReturnedSimulated;
-    }
-
-    public void setBikeReturnedSimulated(double timeSinceLastBikeReturned) {
-        this.bikeReturnedSimulated.add(timeSinceLastBikeReturned);
+    public int getCapacity() {
+        return capacity;
     }
 
     //Longitude
@@ -147,7 +119,14 @@ public class Station {
         this.latitude = altitude;
     }
 
+    //Inventory margin
+    public double getInventoryMargin() {
+        return inventoryMargin;
+    }
 
+    public void setInventoryMargin(double inventoryMargin) {
+        this.inventoryMargin = inventoryMargin;
+    }
 
     //Print
     public String toString(){

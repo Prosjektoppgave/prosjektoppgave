@@ -1,39 +1,32 @@
-! Variable input parameters to sub-proble
-
-!Vehicles
 vehicleInitialStation : [
-2
+26
+27
 ]
 
 vehicleRemainingTimeToInitialStation : [
-3
+5.0
+0.0
 ]
 
 vehicleInitialLoad : [
-2
+10
+10
 ]
 
-!Stations
 stationsInitialLoad : [
-10
-8
-1
+10.0
+10.0
 0
 ]
 
 stationDemand : [
-0.5
-1
--1.5
+-0.27121621196507667
+-0.2716085377045539
 0
 ]
 
-!Driving time
 drivingTime : [
-0 2 4 0
-2 0 5 0
-4 5 0 0
-0 0 0 0 
+0 11.166666666666666  0
+8.783333333333333  0 0
+0 0 0
 ]
-
-

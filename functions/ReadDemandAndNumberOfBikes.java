@@ -37,7 +37,7 @@ public class ReadDemandAndNumberOfBikes {
                     }
 
                     element.next();                                                     //title
-                    station.setNumberOfSlots(Double.parseDouble(element.next()));       //nr of slots
+                    station.setCapacity((int) Double.parseDouble(element.next()));      //nr of slots
                     double hour = element.nextDouble();                                 //hour
 
                     //Read mean and stardard deviation for arrival and departure

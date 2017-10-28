@@ -61,8 +61,6 @@ public class CreateSimulation {
     private void simulate(Station station, double startTime, double durationOfSimulation){
 
         double currentTime = startTime;
-        station.createBikeWantedSimulated();
-        station.createBikeReturnedSimulated();
 
         while (currentTime < startTime + durationOfSimulation) {
             double bikeWantedMedian = station.getBikeWantedMedian(currentTime);

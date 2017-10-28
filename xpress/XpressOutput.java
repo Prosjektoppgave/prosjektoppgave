@@ -1,6 +1,8 @@
 package xpress;
 
 import classes.Flow;
+import classes.Station;
+import classes.Vehicle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,9 +13,8 @@ import java.util.Scanner;
 public class XpressOutput {
 
     private ArrayList<Flow> flows = new ArrayList<>();
-    private HashMap<ArrayList<Integer>, Double> times = new HashMap<>();
+    private HashMap<Double, Integer> times = new HashMap<>();
     private HashMap<ArrayList<Integer>, Double> loads = new HashMap<>();
-    private ArrayList<Double> timesList = new ArrayList<>();
 
 
     //Getters and setters
@@ -25,11 +26,11 @@ public class XpressOutput {
         this.flows = flows;
     }
 
-    public HashMap<ArrayList<Integer>, Double> getTimes() {
+    public HashMap<Double, Integer> getTimes() {
         return times;
     }
 
-    public void setTimes(HashMap<ArrayList<Integer>, Double> times) {
+    public void setTimes(HashMap<Double, Integer> times) {
         this.times = times;
     }
 
@@ -41,10 +42,10 @@ public class XpressOutput {
         this.loads = loads;
     }
 
-
+    //Get next simulation
     public double getNextSimulation() {
         double nextSimulation = 1000;
-        for (double time: timesList) {
+        for (double time: times.keySet()) {
             if (time > 0 & time < nextSimulation)
                 nextSimulation = time;
         }
@@ -94,16 +95,12 @@ public class XpressOutput {
                 if (actionCode.matches("t")) {
 
                     //Origin
-                    ArrayList<Integer> stationVisit = new ArrayList<>();
                     int originStation = element.nextInt();
-                    stationVisit.add(originStation);
                     int originVisit = element.nextInt();
-                    stationVisit.add(originVisit);
 
                     //Time
                     double time = Double.parseDouble(element.next());
-                    times.put(stationVisit, time);
-                    timesList.add(time);
+                    times.put(time, originStation);
                 }
 
                 //Read load varibles
@@ -125,7 +122,6 @@ public class XpressOutput {
                     int visit = element.nextInt();
                     stationVisit.add(visit);
                     double load = -(Double.parseDouble(element.next()));
-                    times.put(stationVisit, load);
                     loads.put(stationVisit,load);
                 }
             }
@@ -133,8 +129,15 @@ public class XpressOutput {
         in.close();
     }
 
-    //Count violations
-    public void countViolations(double currenTime, double stopTime) {
+    //Update loads
+    public void updateTimeDependentInput(HashMap<Integer, Station> stations , ArrayList<Vehicle> vehicles) {
+        double simulationTime = getNextSimulation();
 
+        //Update station load
+        for (double time : this.times.keySet()) {
+            if (time < simulationTime & time > 0){
+                int stationId = times.get(time);
+            }
+        }
     }
 }

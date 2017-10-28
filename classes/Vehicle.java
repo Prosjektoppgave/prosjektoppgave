@@ -55,4 +55,8 @@ public class Vehicle {
         this.load = load;
     }
 
+    public void addLoad(int newLoad) {
+        this.load = load + newLoad;
+    }
+
 }

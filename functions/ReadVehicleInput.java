@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public class ReadVehicleInput {
 
-    public static ArrayList<Vehicle> readVehicleInput() throws FileNotFoundException {
+    public static HashMap<Integer, Vehicle> readVehicleInput() throws FileNotFoundException {
 
-        ArrayList<Vehicle> vehicles = new ArrayList<>();
+        HashMap<Integer, Vehicle> vehicles = new HashMap<>();
 
         //Read vehicleInitial.txt file
         File inputFile = new File("vehicleInitial.txt");
@@ -27,8 +27,9 @@ public class ReadVehicleInput {
                 vehicle.setNextStation(element.nextInt());
                 vehicle.setTimeToNextStation(element.nextInt());
                 vehicle.setLoad(element.nextInt());
-                vehicle.setCapacity(30);
-                vehicles.add(vehicle);
+                vehicle.setCapacity(element.nextInt());
+
+                vehicles.put(id, vehicle);
             }
             element.close();
         }
