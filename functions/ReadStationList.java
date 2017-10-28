@@ -17,6 +17,7 @@ public class ReadStationList {
             int stationId = stationIdTextFile.nextInt();
             stationIdList.add(stationId);
         }
+        stationIdTextFile.close();
         return(stationIdList);
     }
 

@@ -24,6 +24,8 @@ public class RunSimulation {
     private HashMap<Integer, Vehicle> vehicles;
     private double congestions = 0;
     private double starvations = 0;
+    private int visits = 0;
+    private int happyCustomers = 0;
     private XpressOutput xpress;
     private double timeToNextSimulation;                                   //in seconds
     private ArrayList<StationVisit> stationVisits;
@@ -62,6 +64,7 @@ public class RunSimulation {
                 this.congestions++;
             } else {
                 station.addBikeToStation(load);
+                this.happyCustomers ++;
             }
         } else if (load < 0) {
             //Check for starvation
@@ -69,8 +72,10 @@ public class RunSimulation {
                 this.starvations++;
             } else {
                 station.addBikeToStation(load);
+                this.happyCustomers ++;
             }
         }
+        this.visits ++;
     }
 
     private void upDateStationVisit (StationVisit stationVisit) {
@@ -110,12 +115,36 @@ public class RunSimulation {
         }
     }
 
-    private void determineRemainingDrivingTime(ArrayList<StationVisit> stationVisits, double simulationStoptime) {
-        
-
+    private void determineRemainingDrivingTimeAndStation(ArrayList<StationVisit> stationVisits, double simulationStartTime, double simulationStoptime, HashMap<Integer, Vehicle> vehicles) {
         for (StationVisit stationVisit : stationVisits) {
-            boolean lastVisitBeforeHorizon = true;
-
+            if ((stationVisit.getTime()+simulationStartTime )< simulationStoptime & (stationVisit.getTimeNextVisit()+simulationStartTime) >= simulationStoptime) {
+                int vehicleId = stationVisit.getVehicle();
+                Vehicle vehicle = vehicles.get(vehicleId);
+                double timeToNextStation = simulationStartTime + stationVisit.getTimeNextVisit()-simulationStoptime;
+                vehicle.setTimeToNextStation(timeToNextStation);
+                vehicle.setNextStation(stationVisit.getNextStationId());
+                System.out.println("1");
+                System.out.println("Next station: " + stationVisit.getNextStationId());
+                System.out.println("Time to next station: " + timeToNextStation);
+            } else if (stationVisit.isFirstvisit() & (stationVisit.getTime() + simulationStartTime) >= simulationStoptime){
+                int vehicleId = stationVisit.getVehicle();
+                Vehicle vehicle = vehicles.get(vehicleId);
+                double timeToNextStation = simulationStartTime + stationVisit.getTime()-simulationStoptime;
+                vehicle.setTimeToNextStation(timeToNextStation);
+                vehicle.setNextStation(stationVisit.getStationId());
+                System.out.println("2");
+                System.out.println("Next station: " + stationVisit.getStationId());
+                System.out.println("Time to next station: " + timeToNextStation);
+            }  else if (stationVisit.getNextStationId() == 0 & stationVisit.getTime()+simulationStartTime < simulationStoptime ) {
+                int vehicleId = stationVisit.getVehicle();
+                Vehicle vehicle = vehicles.get(vehicleId);
+                double timeToNextStation = 0;
+                vehicle.setTimeToNextStation(timeToNextStation);
+                vehicle.setNextStation(stationVisit.getStationId());
+                System.out.println("3");
+                System.out.println("Next station: " + stationVisit.getStationId());
+                System.out.println("Time to next station: " + timeToNextStation);
+            }
         }
     }
 
@@ -139,6 +168,7 @@ public class RunSimulation {
         double loadNextDemand = 0;
         int stationIdNextDemand = 0;
         double timeNextStationVisit = -1;
+        boolean moreStationVisits = false;
 
         while(simulating) {
 
@@ -160,21 +190,40 @@ public class RunSimulation {
             //Update next station visit
             if (stationVisitIterator < stationVisits.size()) {
                 timeNextStationVisit = stationVisits.get(stationVisitIterator).getTime()+simulationStartTime;
+                moreStationVisits = true;
+            } else {
+                moreStationVisits = false;
             }
 
+            boolean noMoreDemand = (timeNextDemand < currentTime || timeNextDemand > stopTime);
+            boolean noMoreStationVisits = timeNextStationVisit < currentTime || timeNextStationVisit >= stopTime;
+            boolean endReached = (simulationStoptime == stopTime);
+
             //Check if simulation is complete
-            if ((timeNextDemand < currentTime || timeNextDemand > stopTime) & (timeNextStationVisit < currentTime || timeNextStationVisit >= stopTime) & (simulationStoptime == stopTime)) {
+            if ( noMoreDemand & noMoreStationVisits & endReached) {
+                System.out.println("Congestions: " + congestions);
+                System.out.println("Starvation: " + starvations);
+                System.out.println("Number of customers: " + visits);
+                System.out.println("Number of happy customers: " + happyCustomers);
                 break;
             }
 
             //Check if simulation has to be run again
             else if ((timeNextDemand < currentTime || timeNextDemand > simulationStoptime) & (timeNextStationVisit < currentTime || timeNextStationVisit >= simulationStoptime) & simulationStoptime < stopTime) {
-                determineRemainingDrivingTime(stationVisits, simulationStoptime);
+                determineRemainingDrivingTimeAndStation(stationVisits, simulationStartTime, simulationStoptime, vehicles);
+                WriteXpressFiles.printTimeDependentInput(stations, vehicles, simulationStoptime);
+                System.out.println("Xpress skal starte");
+                RunXpress.runXpress();
+                System.out.println("Xpress er ferdig");
+                readXpressOutput();
+                simulationStartTime = simulationStoptime;
+                simulationStoptime = (simulationStartTime + timeToNextSimulation < stopTime ) ? simulationStartTime + timeToNextSimulation : stopTime;
+                stationVisitIterator = 0;
             }
 
             //Register new load
             else {
-                if (timeNextDemand <= timeNextStationVisit) {
+                if (timeNextDemand <= timeNextStationVisit || !moreStationVisits) {
                     upDateLoadAndViolation(stationIdNextDemand, loadNextDemand);
                     lastIterationDemand = true;
                     currentTime = timeNextDemand;

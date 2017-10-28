@@ -6,16 +6,25 @@ maxVisits: 1
 Stations : [
 26
 27
+28
+29
+30
 0
 ]
 
 stationsCapacities : [
 21
 10
+30
+29
+12
 0
 ]
 
 safetyInventoryMargin : [
+0.0
+0.0
+0.0
 0.0
 0.0
 0.0
@@ -24,6 +33,9 @@ safetyInventoryMargin : [
 optimalState : [
 10
 5
+15
+14
+6
 0
 ]
 vehicleParkingTime: 2.0
@@ -31,10 +43,8 @@ unitHandlingTime: 0.25
 
 Vehicles : [
 1
-2
 ]
 
 vehicleCapacity : [
-30
 30
 ]

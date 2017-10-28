@@ -284,7 +284,7 @@ forall (ii in Stations, mm in Visits| ii<>artificialStation) do
 end-do
 
 
-!------------CAPACITY LOADING ----------------------
+!------------VEHICLE LOADING CONSTRAINTS ----------------------
 
 forall (vv in Vehicles ) do
 	!(5.6)
@@ -619,29 +619,43 @@ fopen("outputXpress.txt",F_OUTPUT);
 		write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*nn));
 		write(" ");
 		
+		!Time next stationVisit
+		write(sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn)));
+		write(" ");
+		
+		!First station
+		forall (vv in Vehicles) do
+			if (ii = vehicleInitialStation(vv) and mm = 1) then
+				write("1");
+			else
+				write("0");
+			end-if
+		end-do
+		
 		writeln;
+
+
 			
 	end-do
+	
 	fclose(F_OUTPUT);
+	
+	
+	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
+		writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
+	end-do
+	
+	forall (ii in Stations, mm in Visits ) do
+		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
+	end-do
+	
+	end-model
+
 
 
 
 
 	!PRINT
-	
-	
-	writeln("Violations");
-	forall(ii in Stations, mm in Visits) do
-		writeln("Congestion for " + ii + " " + mm + " : " + getsol(congestion(ii,mm)));
-		writeln("Starvation for " + ii + " " + mm + " : " + getsol(starvation(ii,mm)));
-	end-do 
-	
-	forall(ii in Stations) do 
-		writeln("Congestion before horizon for " + ii +  " : " + getsol(congestionBeforeHorizon(ii)));
-		writeln("Starvation before horizon for " + ii +  " : " + getsol(starvationBeforeHorizon(ii)));
-		writeln("Congestion after horizon for " + ii +  " : " + getsol(congestionAfterHorizon(ii)));
-		writeln("Starvation after horizon for " + ii +  " : " + getsol(starvationAfterHorizon(ii)));
-	end-do
 	
 	writeln('Objective value: ' + getsol(Objective1));
 	

@@ -15,7 +15,7 @@ public class NextSimulation {
                 nextSimulation = time;
             }
         }
-
+        System.out.println("Next simulation " + nextSimulation);
         return nextSimulation;
     }
 

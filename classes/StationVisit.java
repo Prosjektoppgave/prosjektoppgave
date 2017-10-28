@@ -10,9 +10,11 @@ public class StationVisit {
     private int vehicle;
     private int nextStationId;
     private int nextStationVisit;
+    private double timeNextVisit;
+    private boolean firstvisit;
 
 
-    public StationVisit(int stationId, int stationVisitNr, int stationLoad, double time, int vehicle, int nextStationId, int nextStationVisit) {
+    public StationVisit(int stationId, int stationVisitNr, int stationLoad, double time, int vehicle, int nextStationId, int nextStationVisit, double timeNextVisit, boolean firstVisit) {
         this.stationId = stationId;
         this.stationVisitNr = stationVisitNr;
         this.load = stationLoad;
@@ -20,6 +22,8 @@ public class StationVisit {
         this.vehicle = vehicle;
         this.nextStationId = nextStationId;
         this.nextStationVisit = nextStationVisit;
+        this.timeNextVisit = timeNextVisit;
+        this.firstvisit = firstVisit;
     }
 
     //GETTERS AND SETTERS
@@ -77,6 +81,22 @@ public class StationVisit {
 
     public void setNextStationVisit(int nextStationVisit) {
         this.nextStationVisit = nextStationVisit;
+    }
+
+    public double getTimeNextVisit() {
+        return timeNextVisit;
+    }
+
+    public void setTimeNextVisit(double timeNextVisit) {
+        this.timeNextVisit = timeNextVisit;
+    }
+
+    public boolean isFirstvisit() {
+        return firstvisit;
+    }
+
+    public void setFirstvisit(boolean firstvisit) {
+        this.firstvisit = firstvisit;
     }
 
 }

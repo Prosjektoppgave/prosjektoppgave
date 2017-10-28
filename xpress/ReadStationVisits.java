@@ -31,8 +31,10 @@ public class ReadStationVisits {
                 int vehicle = element.nextInt();
                 int nextStationId = element.nextInt();
                 int nextStationVisit = element.nextInt();
+                double TimenextStation = Double.parseDouble(element.next());
+                boolean firstVisit = ((element.nextInt()) == 1);
 
-                StationVisit stationVisit = new StationVisit(stationId, stationVisitNr, stationLoad, time, vehicle, nextStationId, nextStationVisit);
+                StationVisit stationVisit = new StationVisit(stationId, stationVisitNr, stationLoad, time, vehicle, nextStationId, nextStationVisit, TimenextStation, firstVisit);
 
                 stationVisits.add(stationVisit);
             }
