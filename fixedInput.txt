@@ -20,12 +20,6 @@ safetyInventoryMargin : [
 0.0
 0.0
 ]
-
-optimalState : [
-9
-4
-0
-]
 vehicleParkingTime: 2.0
 unitHandlingTime: 0.25
 

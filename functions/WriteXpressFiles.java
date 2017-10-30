@@ -48,6 +48,15 @@ public class WriteXpressFiles {
         writer.println("0");
         writer.println("]");
 
+        //optimalState
+        writer.println();
+        writer.println("optimalState : [");
+        for (Station station : stations.values()) {
+            writer.println(station.getOptimalState(TimeConverter.convertSecondsToHourRounded(currentTime*60)));
+        }
+        writer.println("0");
+        writer.println("]");
+
         //stationDemand - net demand per minute
         writer.println();
         writer.println("stationDemand : [");
@@ -116,15 +125,6 @@ public class WriteXpressFiles {
             writer.println(station.getInventoryMargin());
         }
         writer.println("0.0");
-        writer.println("]");
-
-        //optimalState
-        writer.println();
-        writer.println("optimalState : [");
-        for (Station station : stations.values()) {
-            writer.println(station.getCapacity()/2);
-        }
-        writer.println("0");
         writer.println("]");
 
 

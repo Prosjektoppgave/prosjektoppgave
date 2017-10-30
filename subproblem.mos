@@ -55,7 +55,10 @@ declarations
 	unitHandlingTime:  								real;
 	lengthOfPlanningHorizon:						real;
 	vehicleCapacity: 			array(Vehicles) 	of integer;	
+<<<<<<< HEAD
 	optimalState:				array(Stations)		of real;
+=======
+>>>>>>> 44f73ee01531e1919628770e44943c8a4537fb57
 end-declarations
 
 initializations from DataFileFixedInput
@@ -65,7 +68,6 @@ initializations from DataFileFixedInput
 	unitHandlingTime;
 	lengthOfPlanningHorizon;
 	vehicleCapacity;	
-	optimalState;
 end-initializations
 
 
@@ -80,6 +82,7 @@ declarations
 	stationDemand:  						array(Stations) 			of real;
 	drivingTime:  							array(Stations, Stations) 	of real;
 	M:																	real;
+	optimalState:				array(Stations)		of integer;
 end-declarations
 
 initializations from DataFileTimeDependentInput
@@ -89,6 +92,7 @@ initializations from DataFileTimeDependentInput
 	stationsInitialLoad;
 	stationDemand;
 	drivingTime;	
+	optimalState;
 end-initializations
 
 !VARIABLES
