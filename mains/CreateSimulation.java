@@ -21,6 +21,7 @@ public class CreateSimulation {
     private ArrayList<Integer> stationIdList;
     private HashMap<Integer, Station> stations;
     private ArrayList<ArrayList<Double>> arrivalTimes;
+    private String outPutFileName = "simulation1";
 
 
     public static void main(String[] args) throws IOException, JSONException {
@@ -93,7 +94,7 @@ public class CreateSimulation {
     }
 
     private void printArrivalTimes() throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "simulering.txt";
+        String filename = outPutFileName;
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
         for (ArrayList<Double> arrivalTime: arrivalTimes) {
             writer.println(arrivalTime.get(0) + ", " + arrivalTime.get(1).intValue() + ", " + arrivalTime.get(2));

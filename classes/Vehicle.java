@@ -7,9 +7,12 @@ public class Vehicle {
 
     private int id;
     private int nextStation;
+    private int nextStationInitial;
     private double timeToNextStation;
-    private int capacity;
+    private double timeToNextStationInitial;
+    private int capacity = 30;
     private int load;
+    private int initialLoad;
 
     public Vehicle(int id) {
         this.id = id;
@@ -58,5 +61,30 @@ public class Vehicle {
     public void addLoad(int newLoad) {
         this.load = load + newLoad;
     }
+
+    public int getInitialLoad() {
+        return initialLoad;
+    }
+
+    public void setInitialLoad(int initialLoad) {
+        this.initialLoad = initialLoad;
+    }
+
+    public int getNextStationInitial() {
+        return nextStationInitial;
+    }
+
+    public void setNextStationInitial(int nextStationInitial) {
+        this.nextStationInitial = nextStationInitial;
+    }
+
+    public double getTimeToNextStationInitial() {
+        return timeToNextStationInitial;
+    }
+
+    public void setTimeToNextStationInitial(double timeToNextStationInitial) {
+        this.timeToNextStationInitial = timeToNextStationInitial;
+    }
+
 
 }

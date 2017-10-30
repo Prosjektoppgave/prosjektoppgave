@@ -9,7 +9,9 @@ public class Station {
     private HashMap<Double, Double> bikeReturnedStd;
     private HashMap<Double, Double> bikeWantedMedian;
     private HashMap<Double, Double> bikeWantedStd;
+    private String place;
     private double load;
+    private double initialLoad;
     private int capacity;
     private HashMap<Integer, Double> drivingTime;
     private double latitude;
@@ -24,6 +26,7 @@ public class Station {
         this.bikeWantedMedian = new HashMap<>();
         this.bikeWantedStd = new HashMap<>();
         this.drivingTime = new HashMap<>();
+        this.initialLoad = numberOfBikes;
     }
 
     //Number of bikes
@@ -126,6 +129,22 @@ public class Station {
 
     public void setInventoryMargin(double inventoryMargin) {
         this.inventoryMargin = inventoryMargin;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public double getInitialLoad() {
+        return initialLoad;
+    }
+
+    public void setInitialLoad(double initialLoad) {
+        this.initialLoad = initialLoad;
     }
 
     //Print

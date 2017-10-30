@@ -7,7 +7,6 @@ import functions.*;
 import org.json.JSONException;
 import classes.Station;
 import xpress.ReadStationVisits;
-import xpress.XpressOutput;
 import xpress.RunXpress;
 
 import java.io.File;
@@ -19,6 +18,16 @@ import java.util.Scanner;
 
 public class RunSimulation {
 
+    //To be filled in
+    private double timeHorizon = 30;
+    private double initialStartTime = 8*60;                                 //Current VisitTime in minutes
+    private double stopTime = 10*60;                                        //Stop VisitTime in minutes
+    private int maxVisit = 1;
+    private double vehicleParkingTime = 2;                                  //Minutes
+    private double vehicleUnitHandlingTime = 0.25;                          //Minutes
+    String simulationFile = "simulering.txt";
+
+
     private ArrayList<Integer> stationIdList;
     private HashMap<Integer, Station> stations;
     private HashMap<Integer, Vehicle> vehicles;
@@ -26,17 +35,9 @@ public class RunSimulation {
     private double starvations = 0;
     private int visits = 0;
     private int happyCustomers = 0;
-    private XpressOutput xpress;
     private double timeToNextSimulation;                                   //in seconds
     private ArrayList<StationVisit> stationVisits;
-
-    //To be filled in
-    private double timeHorizon = 30;
-    private double initialStartTime = 8*60;                                 //Current VisitTime in minutes
-    private double stopTime = 20*60;                                        //Stop VisitTime in minutes
-    private int maxVisit = 1;
-    private double vehicleParkingTime = 2;                                  //Minutes
-    private double vehicleUnitHandlingTime = 0.25;                          //Minutes
+    private int numberOfXpress = 0;
 
     public static void main(String[] args) throws IOException, JSONException, XPRMCompileException {
         RunSimulation simulation = new RunSimulation();                 //Read initial data
@@ -144,11 +145,12 @@ public class RunSimulation {
         WriteXpressFiles.printFixedInput(stations, vehicles, timeHorizon, maxVisit, vehicleParkingTime, vehicleUnitHandlingTime);
         WriteXpressFiles.printTimeDependentInput(stations, vehicles, currentTime);
         RunXpress.runXpress();
+        numberOfXpress ++;
         readXpressOutput();
         double simulationStartTime = initialStartTime;
         double simulationStoptime = (initialStartTime + this.timeToNextSimulation < stopTime ) ? initialStartTime + this.timeToNextSimulation : stopTime;
 
-        File inputFile = new File("simulering.txt");
+        File inputFile = new File(simulationFile);
         Scanner in = new Scanner(inputFile);
 
         boolean simulating = true;
@@ -178,20 +180,18 @@ public class RunSimulation {
                 element.close();
             }
 
-            //Update next station visit
-            if (stationVisitIterator < stationVisits.size()) {
+            boolean updateNextStationVisit = stationVisitIterator < stationVisits.size();
+            if (updateNextStationVisit) {
                 timeNextStationVisit = stationVisits.get(stationVisitIterator).getTime()+simulationStartTime;
                 moreStationVisits = true;
             } else {
                 moreStationVisits = false;
             }
 
-            boolean noMoreDemand = (timeNextDemand < currentTime || timeNextDemand > stopTime);
-            boolean noMoreStationVisits = timeNextStationVisit < currentTime || timeNextStationVisit >= stopTime;
+
+            boolean noMoreDemand = (timeNextDemand <= currentTime || timeNextDemand >= stopTime);
+            boolean noMoreStationVisits = timeNextStationVisit <= currentTime || timeNextStationVisit >= stopTime;
             boolean endReached = (simulationStoptime >= stopTime);
-            System.out.println("noMore demand: " + noMoreDemand);
-            System.out.println("noMoreStationVisits: " + noMoreStationVisits);
-            System.out.println("endReached: " + endReached);
 
             //Check if simulation is complete
             if ( noMoreDemand & noMoreStationVisits & endReached) {
@@ -199,27 +199,27 @@ public class RunSimulation {
                 System.out.println("Starvation: " + starvations);
                 System.out.println("Number of customers: " + visits);
                 System.out.println("Number of happy customers: " + happyCustomers);
+                PrintResults.printResults(stations, vehicles, congestions, starvations, visits, happyCustomers, timeHorizon, initialStartTime, stopTime, maxVisit, numberOfXpress, simulationFile);
                 break;
             }
 
             //Check if simulation has to be run again
-            boolean demand = (timeNextDemand < currentTime || timeNextDemand > simulationStoptime);
-            boolean stationVisit = (timeNextStationVisit < currentTime || timeNextStationVisit >= simulationStoptime);
+            boolean demand = (timeNextDemand <= currentTime || timeNextDemand >= simulationStoptime);
+            boolean stationVisit = (timeNextStationVisit <= currentTime || timeNextStationVisit >= simulationStoptime);
             boolean stop = simulationStoptime < stopTime;
-            System.out.println("demand: " + demand); /////DENNE BLIR FEIL
-            System.out.println("stationVisit: " + stationVisit);
-            System.out.println("stop: " + stop);
-
 
             if ( demand & stationVisit & stop) {
                 System.out.println("Remaining time to stop: " + (stopTime-currentTime));
                 determineRemainingDrivingTimeAndStation(stationVisits, simulationStartTime, simulationStoptime, vehicles);
                 WriteXpressFiles.printTimeDependentInput(stations, vehicles, simulationStoptime);
-                RunXpress.runXpress();;
+                RunXpress.runXpress();
+                numberOfXpress ++;
                 readXpressOutput();
-                simulationStartTime = simulationStoptime;
-                simulationStoptime = (simulationStartTime + timeToNextSimulation < stopTime ) ? simulationStartTime + timeToNextSimulation : stopTime;
+                timeNextStationVisit = -1;
                 stationVisitIterator = 0;
+                simulationStartTime = simulationStoptime;
+                currentTime = simulationStartTime;
+                simulationStoptime = (simulationStartTime + timeToNextSimulation < stopTime ) ? simulationStartTime + timeToNextSimulation : stopTime;
             }
 
             //Register new load
@@ -228,7 +228,7 @@ public class RunSimulation {
                     upDateLoadAndViolation(stationIdNextDemand, loadNextDemand);
                     lastIterationDemand = true;
                     currentTime = timeNextDemand;
-                } else {
+                } else if (moreStationVisits){
                     upDateStationVisit(stationVisits.get(stationVisitIterator));
                     lastIterationDemand = false;
                     stationVisitIterator ++;

@@ -36,7 +36,7 @@ public class ReadDemandAndNumberOfBikes {
                         stations.put(station.getId(), station);
                     }
 
-                    element.next();                                                     //title
+                    station.setPlace(element.next());                                   //title
                     station.setCapacity((int) Double.parseDouble(element.next()));      //nr of slots
                     double hour = element.nextDouble();                                 //hour
 

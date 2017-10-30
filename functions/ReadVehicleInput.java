@@ -24,10 +24,15 @@ public class ReadVehicleInput {
             if (element.hasNextInt()) {
                 int id = element.nextInt();
                 Vehicle vehicle = new Vehicle(id);
-                vehicle.setNextStation(element.nextInt());
-                vehicle.setTimeToNextStation(element.nextInt());
-                vehicle.setLoad(element.nextInt());
-                vehicle.setCapacity(element.nextInt());
+                int nextStationInitial = element.nextInt();
+                vehicle.setNextStation(nextStationInitial);
+                vehicle.setNextStationInitial(nextStationInitial);
+                double timeToNextStationInitial = (Double.parseDouble(element.next()));
+                vehicle.setTimeToNextStation(timeToNextStationInitial);
+                vehicle.setTimeToNextStationInitial(timeToNextStationInitial);
+                int load = element.nextInt();
+                vehicle.setLoad(load);
+                vehicle.setInitialLoad(load);
 
                 vehicles.put(id, vehicle);
             }
