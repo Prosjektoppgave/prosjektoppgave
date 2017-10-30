@@ -8,17 +8,22 @@ import java.util.Scanner;
 public class ReadStationList {
 
     public static ArrayList<Integer> readStationIdList() throws FileNotFoundException {
-        File inputfile = new File("stationList.txt");
-        Scanner stationIdTextFile = new Scanner(inputfile);
-
         ArrayList<Integer> stationIdList = new ArrayList<>();
 
-        while (stationIdTextFile.hasNextInt()) {
-            int stationId = stationIdTextFile.nextInt();
-            stationIdList.add(stationId);
+        File inputfile = new File("stationInitial.txt");
+        Scanner in = new Scanner(inputfile);
+
+        while (in.hasNextLine()) {
+            String line = in.nextLine();
+            Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
+            if (element.hasNextInt()) {
+                int stationId = element.nextInt();
+                element.nextInt();
+                stationIdList.add(stationId);
+            }
+            element.close();
         }
-        stationIdTextFile.close();
+        in.close();
         return(stationIdList);
     }
-
 }
