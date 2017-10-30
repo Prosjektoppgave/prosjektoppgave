@@ -161,6 +161,7 @@ public class RunSimulation {
         double loadNextDemand = 0;
         int stationIdNextDemand = 0;
         double timeNextStationVisit = -1;
+        boolean searchForDemand = true;
         boolean moreStationVisits = false;
 
         while(simulating) {
@@ -170,14 +171,24 @@ public class RunSimulation {
 
             //Update demand if last iteration was demand
             if (nextDemand) {
-                String line = in.nextLine();
-                Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
-                if (element.hasNext()) {
-                    timeNextDemand = Double.parseDouble(element.next())/60;
-                    stationIdNextDemand = element.nextInt();
-                    loadNextDemand = Double.parseDouble(element.next());
+                while(searchForDemand) {
+                    String line = in.nextLine();
+                    Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
+                    if (element.hasNext()) {
+                        double nextDemandTime = Double.parseDouble(element.next())/60;
+                        int stationId = element.nextInt();
+                        double load = Double.parseDouble(element.next());
+                        if(stationIdList.contains(stationId)) {
+                            stationIdNextDemand = stationId;
+                            timeNextDemand = nextDemandTime;
+                            loadNextDemand = load;
+                            break;
+                        }
+
+                    }
+                    element.close();
                 }
-                element.close();
+
             }
 
             boolean updateNextStationVisit = stationVisitIterator < stationVisits.size();

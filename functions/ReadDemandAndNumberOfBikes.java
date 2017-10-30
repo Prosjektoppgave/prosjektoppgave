@@ -64,7 +64,9 @@ public class ReadDemandAndNumberOfBikes {
             String line = in.nextLine();
             Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
             if (element.hasNextInt()) {
-                stationToNumberOfBikesMap.put(element.nextInt(), element.nextInt());
+                int stationId = element.nextInt();
+                int initialLoad = element.nextInt();
+                stationToNumberOfBikesMap.put(stationId, initialLoad);
             }
         }
         in.close();
