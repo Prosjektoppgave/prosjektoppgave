@@ -9,6 +9,7 @@ public class Station {
     private HashMap<Double, Double> bikeReturnedStd;
     private HashMap<Double, Double> bikeWantedMedian;
     private HashMap<Double, Double> bikeWantedStd;
+    private HashMap<Double, Double> optimalState;
     private String place;
     private double load;
     private double initialLoad;
@@ -26,6 +27,7 @@ public class Station {
         this.bikeWantedMedian = new HashMap<>();
         this.bikeWantedStd = new HashMap<>();
         this.drivingTime = new HashMap<>();
+        this.optimalState = new HashMap<>();
         this.initialLoad = numberOfBikes;
     }
 
@@ -84,6 +86,15 @@ public class Station {
 
     public void setBikeWantedStd(double hour, double bikeReturnedStd) {
         this.bikeWantedStd.put(hour, bikeReturnedStd);
+    }
+
+    //OptimalState
+    public double getOptimalState(double hour) {
+        return optimalState.get(hour);
+    }
+
+    public void setOptimalState(double hour, double optimalState) {
+        this.optimalState.put(hour, optimalState);
     }
 
     //DrivingTime

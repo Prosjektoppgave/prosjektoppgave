@@ -23,9 +23,8 @@ public class ReadDemandAndNumberOfBikes {
 
         while (in.hasNextLine()){
             String line = in.nextLine();
-            Scanner element = new Scanner(line).useDelimiter("\\s*,\\s*");
+            Scanner element = new Scanner(line).useDelimiter("\\s*;\\s*");
             if (element.hasNextInt()) {
-                element.nextInt(); //linenumber
                 int stationId = element.nextInt();
 
                 if (stationIdList.contains(stationId)) {
@@ -45,6 +44,7 @@ public class ReadDemandAndNumberOfBikes {
                     station.setBikeWantedStd(hour, Double.parseDouble(element.next()));
                     station.setBikeReturnedMedian(hour, Double.parseDouble(element.next()));
                     station.setBikeReturnedStd(hour, Double.parseDouble(element.next()));
+                    station.setOptimalState(hour, Double.parseDouble(element.next()));
                 }
             }
             element.close();
@@ -72,5 +72,4 @@ public class ReadDemandAndNumberOfBikes {
         in.close();
         return stationToNumberOfBikesMap;
     }
-
 }

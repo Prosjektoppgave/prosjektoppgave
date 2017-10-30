@@ -49,7 +49,7 @@ public class RunSimulation {
         this.stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
         this.vehicles = ReadVehicleInput.readVehicleInput();
         Coordination.lookUpCoordinations(stations, stationIdList);
-        Distance.getDrivingTimes(stations);
+        //Distance.getDrivingTimes(stations);
     }
 
     private void readXpressOutput() throws FileNotFoundException {
