@@ -5,12 +5,24 @@ maxVisits: 1
 
 Stations : [
 162
+67
+148
+69
+118
+230
+90
 142
 0
 ]
 
 stationsCapacities : [
 18
+9
+24
+10
+18
+20
+20
 9
 0
 ]
@@ -19,7 +31,15 @@ safetyInventoryMargin : [
 0.0
 0.0
 0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
 ]
+
+
 vehicleParkingTime: 2.0
 unitHandlingTime: 0.25
 
