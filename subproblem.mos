@@ -55,7 +55,6 @@ declarations
 	unitHandlingTime:  								real;
 	lengthOfPlanningHorizon:						real;
 	vehicleCapacity: 			array(Vehicles) 	of integer;
-	optimalState:				array(Stations)		of real;
 end-declarations
 
 initializations from DataFileFixedInput
@@ -79,7 +78,7 @@ declarations
 	stationDemand:  						array(Stations) 			of real;
 	drivingTime:  							array(Stations, Stations) 	of real;
 	M:																	real;
-	optimalState:				array(Stations)		of integer;
+	optimalState:							array(Stations)				of real;
 end-declarations
 
 initializations from DataFileTimeDependentInput

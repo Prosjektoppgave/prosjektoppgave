@@ -1,0 +1,35 @@
+vehicleInitialStation : [
+142
+]
+
+vehicleRemainingTimeToInitialStation : [
+0.0
+]
+
+vehicleInitialLoad : [
+11
+]
+
+stationsInitialLoad : [
+18.0
+8.0
+0
+]
+
+optimalState : [
+9.0
+2.0
+0
+]
+
+stationDemand : [
+-0.13336173765800724
+-0.0469966014139447
+0
+]
+
+drivingTime : [
+0 2.6166666666666667  0
+2.25  0 0
+0 0 0
+]

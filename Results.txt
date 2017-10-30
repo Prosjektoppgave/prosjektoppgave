@@ -85,3 +85,30 @@ Violation percentage:                      12.365591397849462
 
 
 
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0                 
+Max number of visits, Xpress:              1                    
+Simulation file:                           simulering.txt       
+Start time simulation (min):               8.0                  
+Stop time simulation (min):                10.0                 
+Number of stations:                        2                    
+Number of vehicles:                        1                    
+
+STATIONS
+Id    Name                                 Initial load   
+162   Vulkan                               10.0           
+142   Jakob kirke                          0.0            
+
+VEHICLES
+Id    Initial load    Initial station      Time to initial station 
+1     10              162                  5.0                  
+
+RESULTS
+Number of customers:                       378   
+Number of starvations:                     30.0  
+Number of congestions:                     14.0  
+Violation percentage:                      11.64021164021164 
+
+
+
