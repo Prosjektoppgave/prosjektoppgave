@@ -573,16 +573,19 @@ declarations
 end-declarations
 
 Objective1 := 
-	sum(ii in Stations, mm in Visits)(starvation(ii,mm)+congestion(ii,mm))
-	+ sum(ii in Stations)(starvationBeforeHorizon(ii)+ congestionBeforeHorizon(ii))
-	- sum(ii in Stations) (starvationAfterHorizon(ii)+ congestionAfterHorizon(ii))
+	sum(ii in Stations, mm in Visits)starvation(ii,mm)
+	+ sum(ii in Stations, mm in Visits)congestion(ii,mm)
+	+ sum(ii in Stations) starvationBeforeHorizon(ii)
+	+ sum(ii in Stations) congestionBeforeHorizon(ii)
+	- sum(ii in Stations) starvationAfterHorizon(ii)
+	- sum(ii in Stations) congestionAfterHorizon(ii)
 	+ 0.5*sum(ii in Stations)deviation(ii)
-	+ 0.01*sum(ii in Stations, mm in Visits)visitTime(ii,mm);
+	+ 0.0001*sum(ii in Stations, mm in Visits)visitTime(ii,mm);
 minimize(Objective1);
 
 
 
-!PRINT TO FILE
+!PRINT TO FILE IKKE ENDRE!!!!!!
 
 fopen("outputXpress.txt",F_OUTPUT);
 	forall (ii in Stations, mm in Visits | getsol(sum(vv in Vehicles)loadingQuantity(ii,mm,vv)) > 0.1 or getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm,vv))>0.1) do
@@ -641,6 +644,10 @@ fopen("outputXpress.txt",F_OUTPUT);
 	fclose(F_OUTPUT);
 	
 	
+	
+	!PRINT
+	
+	
 	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
 		writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
 	end-do
@@ -649,14 +656,13 @@ fopen("outputXpress.txt",F_OUTPUT);
 		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
 	end-do
 	
-	end-model
+
+end-model
 
 
 
 
 
-	!PRINT
-	
 	writeln('Objective value: ' + getsol(Objective1));
 	
 	
@@ -757,4 +763,4 @@ fopen("outputXpress.txt",F_OUTPUT);
 	end-do
 
 
-end-model
+	end-model

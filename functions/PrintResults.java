@@ -63,7 +63,6 @@ public class PrintResults {
             out.println();
             out.println();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
