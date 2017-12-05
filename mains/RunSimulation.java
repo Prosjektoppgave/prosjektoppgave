@@ -20,11 +20,12 @@ public class RunSimulation {
 
     //To be filled in
     private double timeHorizon = 30;
-    private double initialStartTime = 8*60;                                 //Current VisitTime in minutes
+    private double initialStartTime = 7*60;                                 //Current VisitTime in minutes
     private double stopTime = 10*60;                                        //Stop VisitTime in minutes
     private int maxVisit = 1;
     private double vehicleParkingTime = 2;                                  //Minutes
     private double vehicleUnitHandlingTime = 0.25;                          //Minutes
+    private int visitInterval = 8;
     String simulationFile = "simulering.txt";
 
 
@@ -142,7 +143,7 @@ public class RunSimulation {
 
     private void run() throws IOException, XPRMCompileException {
         double currentTime = initialStartTime;
-        WriteXpressFiles.printFixedInput(stations, vehicles, timeHorizon, maxVisit, vehicleParkingTime, vehicleUnitHandlingTime);
+        WriteXpressFiles.printFixedInput(stations, vehicles, timeHorizon, maxVisit, vehicleParkingTime, vehicleUnitHandlingTime, visitInterval);
         WriteXpressFiles.printTimeDependentInput(stations, vehicles, currentTime);
         RunXpress.runXpress();
         numberOfXpress ++;

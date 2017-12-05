@@ -68,6 +68,30 @@ public class WriteXpressFiles {
         writer.println("0");
         writer.println("]");
 
+        //StarvationStations - station with negative net demand
+        writer.println();
+        writer.println("StarvationStations : [");
+        for (Station station : stations.values()) {
+            double bikeWanted = station.getBikeWantedMedian(TimeConverter.convertSecondsToHourRounded(currentTime*60));
+            double bikeReturned = station.getBikeReturnedMedian(TimeConverter.convertSecondsToHourRounded(currentTime*60));
+            if (bikeReturned-bikeWanted <= 0 ) {
+                writer.println(station.getId());
+            }
+        }
+        writer.println("]");
+
+        //CongestionStations - station with positive net demand
+        writer.println();
+        writer.println("CongestionStations : [");
+        for (Station station : stations.values()) {
+            double bikeWanted = station.getBikeWantedMedian(TimeConverter.convertSecondsToHourRounded(currentTime*60));
+            double bikeReturned = station.getBikeReturnedMedian(TimeConverter.convertSecondsToHourRounded(currentTime*60));
+            if (bikeReturned-bikeWanted >= 0 ) {
+                writer.println(station.getId());
+            }
+        }
+        writer.println("]");
+
         //drivingTime
         writer.println();
         writer.println("drivingTime : [");
@@ -90,7 +114,7 @@ public class WriteXpressFiles {
         writer.close();
     }
 
-    public static void printFixedInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double timeHorizon, int maxVisits, double vehicleParkingTime, double vehicleUnitHandlingTime)
+    public static void printFixedInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double timeHorizon, int maxVisits, double vehicleParkingTime, double vehicleUnitHandlingTime, int visitInterval)
             throws FileNotFoundException, UnsupportedEncodingException {
         String filename = "fixedInput.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
@@ -99,6 +123,7 @@ public class WriteXpressFiles {
         writer.println("lengthOfPlanningHorizon : " + timeHorizon );
         writer.println("artificialStation: 0");
         writer.println("maxVisits: " + maxVisits);
+        writer.println("visitInterval: " + visitInterval);
 
         //Stations
         writer.println();

@@ -2,28 +2,29 @@ a1 : 1
 lengthOfPlanningHorizon : 30.0
 artificialStation: 0
 maxVisits: 1
+visitInterval: 8
 
 Stations : [
-162
-67
+35
 148
-69
-118
-230
-90
-142
+101
+103
+152
+154
+75
+44
 0
 ]
 
 stationsCapacities : [
-18
-9
 24
-10
+24
+30
+42
 18
-20
-20
-9
+39
+36
+12
 0
 ]
 
@@ -38,8 +39,6 @@ safetyInventoryMargin : [
 0.0
 0.0
 ]
-
-
 vehicleParkingTime: 2.0
 unitHandlingTime: 0.25
 
