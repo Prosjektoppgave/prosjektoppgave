@@ -660,6 +660,8 @@ end-do
 
 declarations
 	Objective1:		linctr;
+	violations1: 	linctr;
+	deviation1: 		linctr;
 end-declarations
 
 Objective1 := 
@@ -671,9 +673,20 @@ Objective1 :=
 	- sum(ii in Stations) congestionAfterHorizon(ii)
 	+ 1.1*sum(ii in Stations)deviation(ii)
 	- sum(ii in Stations) deviationReward(ii)
-	+ 0.1*sum(vv in Vehicles) remainingTimeToFinalStation(vv)
+	+ 0.75*sum(vv in Vehicles) remainingTimeToFinalStation(vv)
 	+ 0.001*sum(ii in Stations, mm in Visits)visitTime(ii,mm);
 	
+violations1 := 
+	sum(ii in Stations, mm in Visits)starvation(ii,mm)
+	+ sum(ii in Stations, mm in Visits)congestion(ii,mm)
+	+ sum(ii in Stations) starvationBeforeHorizon(ii)
+	+ sum(ii in Stations) congestionBeforeHorizon(ii)
+	- sum(ii in Stations) starvationAfterHorizon(ii)
+	- sum(ii in Stations) congestionAfterHorizon(ii);
+	
+deviation1 := 
+	sum(ii in Stations)deviation(ii);
+
 
 	
 minimize(Objective1);
@@ -747,54 +760,17 @@ fopen("outputXpress.txt",F_OUTPUT);
 	end-do
 	
 	forall (ii in Stations, mm in Visits,vv in Vehicles | getsol(unloadingQuantity(ii,mm,vv))>0.1) do
-		writeln('unloading(' + ii + ',' + mm + ',' +  vv + ') = ' + getsol(unloadingQuantity(ii,mm,vv)));
+		writeln('unloading from station ' + ii +': -' + getsol(unloadingQuantity(ii,mm,vv)));
 	end-do
 	
 	forall (ii in Stations, mm in Visits,vv in Vehicles | getsol(loadingQuantity(ii,mm,vv))>0.1) do
-		writeln('loading(' + ii + ',' + mm + ',' +  vv + ') = ' + getsol(loadingQuantity(ii,mm,vv)));
+		writeln('loading to station ' + ii + ',: ' + getsol(loadingQuantity(ii,mm,vv)));
 	end-do
-	
-	forall (ii in Stations, mm in Visits | getsol(visitTime(ii,mm)) > 0.1) do
-		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
-	end-do
-	
-	
-	forall(vv in Vehicles) do
-		writeln("Vehicle load at horizon: " + getsol(inventoryAtHorizonVehicle(vv)));
-	end-do
-	
-	forall(ii in Stations) do
-	 	writeln("Deviation reward for station " + ii + ": " + getsol(deviationReward(ii)));
-	end-do
-	
-	
-	writeln("DELTA");
-	forall (ii in Stations, mm in Visits)do
-		writeln("Delta (" + ii + "," + mm + "): " + getsol(delta(ii,mm)));
-	end-do
-	
-	!writeln;
-	!writeln("VISIT TIME");
-	!forall (ii in Stations, mm in Visits)do
-	!	writeln("Visit time (" + ii + "," + mm + "): " + getsol(visitTime(ii,mm)));
-	!end-do
 	
 
-writeln('Objective value: ' + getsol(Objective1));
-	
-	
-	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
-		writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
-	end-do
-	
-	forall (ii in Stations, mm in Visits ) do
-		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
-	end-do
-	
-	forall (vv in Vehicles) do
-	writeln('Remaining time to final station: ' + getsol(remainingTimeToFinalStation(vv)));
-	end-do
-	
+writeln('Violations: ' + getsol(violations1));
+writeln('deviation: ' + getsol(deviation1));	
+
 	
 	forall (ii in Stations | ii<> artificialStation) do
 		writeln;
