@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput.txt';
+	DataFileFixedInput 				= 'fixedInput4.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInput4.txt';
 end-parameters
 
 !SETS
@@ -123,28 +123,29 @@ declarations
 	congestionAfterHorizon:			dynamic array(Stations)											of mpvar;
 	starvationAfterHorizon:			dynamic array(Stations)											of mpvar;
 	inventoryAtHorizon:				dynamic array(Stations)											of mpvar;
-	inventoryAtHorizonVehicle		:		dynamic array(Vehicles)											of mpvar;
+	inventoryAtHorizonVehicle:		dynamic array(Vehicles)											of mpvar;
 	gamma:							dynamic array(Stations)											of mpvar;
 	delta:							dynamic array(Stations, Visits)									of mpvar;
 	theta:							dynamic array(Stations, Visits)									of mpvar;
 	deviation:						dynamic array(Stations)											of mpvar;
 	deviationReward:				dynamic array(Stations)											of mpvar;
-	!NEW
 	sigmaLow:						dynamic array(Vehicles)											of mpvar;	
-	!NEW
 	sigmaHigh:						dynamic array(Vehicles)											of mpvar;	
 end-declarations
 	
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
 	if (jj <> vehicleInitialStation(vv))then
 		create(flow(ii, mm, jj, nn, vv));
-		flow(ii,mm,jj,nn,vv) is_binary;
+		!if (ii = vehicleInitialStation(vv))then 
+			flow(ii,mm,jj,nn,vv) is_binary;
+		!end-if	
 	elif (nn <> 1) then
 		create(flow(ii, mm, jj, nn, vv));
-		flow(ii,mm,jj,nn,vv) is_binary;
+		!if (ii = vehicleInitialStation(vv))then 
+			flow(ii,mm,jj,nn,vv) is_binary;
+		!end-if	
 	end-if
 end-do
-
 
 forall (ii in Stations, mm in Visits) do
 	create(visitTime(ii, mm));
@@ -215,7 +216,8 @@ declarations
 	endTime2:				dynamic array(Stations, Visits, Vehicles)		of linctr;
 	timeHorizon:			dynamic array(Stations, Visits)					of linctr;
 	violationsBeforeVistit:	dynamic array(Stations)							of linctr;
-	violations:				dynamic array(Stations, Visits)					of linctr;
+	violations1:				dynamic array(Stations, Visits)					of linctr;
+	violations2:				dynamic array(Stations, Visits)					of linctr;
 	violationIfCongestion1:	dynamic array(Stations, Visits)					of linctr;
 	violationIfCongestion2:	dynamic array(Stations, Visits)					of linctr;
 	violationIfStarvation1:	dynamic array(Stations, Visits)					of linctr;
@@ -270,17 +272,16 @@ declarations
 	deltaEnd:				dynamic array(Visits)							of linctr;
 	horizonVehicle1:		dynamic array(Stations, Visits, Stations, Visits, Vehicles)		of linctr;
 	horizonVehicle2:		dynamic array(Stations, Visits, Stations, Visits, Vehicles)		of linctr;
-	rewardIfAfterHorizon:	dynamic array(Stations)									of linctr;
+	rewardIfAfterHorizon:	dynamic array(Stations)								of linctr;
 	deviationRev1: 			dynamic array(Stations)								of linctr;
 	deviationRev2: 			dynamic array(Stations)								of linctr;
 	sigmaH:					dynamic array(Vehicles)								of linctr;
 	sigmaL:					dynamic array(Vehicles)								of linctr;
-	lowVisit:				dynamic array(StarvationStations, Visits, Vehicles)					of linctr;
-	highVisit:				dynamic array(CongestionStations, Visits, Vehicles)					of linctr;
+	lowVisit:				dynamic array(StarvationStations, Visits, Vehicles)	of linctr;
 end-declarations
 
 
-!NEW!!!!!!!!!!!!
+
 !-----REWARD FUNCTIONS-----------
 
 forall (ii in Stations) do
@@ -471,10 +472,14 @@ end-do
 
 forall (ii in Stations, mm in Visits | mm <> 1) do
 	!(5.19)
-	violations(ii,mm) :=
+	violations1(ii,mm) :=
 		loadAtStation(ii,mm-1)+sum(vv in Vehicles)(loadingQuantity(ii,mm-1,vv)-unloadingQuantity(ii,mm-1,vv))
 		+stationDemand(ii)*(visitTime(ii,mm)-visitTime(ii,mm-1))
-		+starvation(ii,mm)-congestion(ii,mm) = loadAtStation(ii,mm);
+		+starvation(ii,mm)-congestion(ii,mm) >= loadAtStation(ii,mm) - 1000*(1-sum(jj in Stations, nn in Visits, vv in Vehicles)flow(ii,mm,jj,nn,vv));
+	violations2(ii,mm) :=
+		loadAtStation(ii,mm-1)+sum(vv in Vehicles)(loadingQuantity(ii,mm-1,vv)-unloadingQuantity(ii,mm-1,vv))
+		+stationDemand(ii)*(visitTime(ii,mm)-visitTime(ii,mm-1))
+		+starvation(ii,mm)-congestion(ii,mm) <= loadAtStation(ii,mm) + 1000*(1-sum(jj in Stations, nn in Visits, vv in Vehicles)flow(ii,mm,jj,nn,vv));
 end-do
 
 forall (ii in Stations, mm in Visits | ii<>artificialStation) do
@@ -530,8 +535,6 @@ forall (mm in Visits) do
 		delta(artificialStation, mm) = 1;
 end-do
 
-
-!NEW
 !Theta = 1 if visit (im) is last visit for station i
 forall(ii in Stations, mm in Visits) do
 	if (mm <> maxVisits) then
@@ -660,34 +663,31 @@ end-do
 
 declarations
 	Objective1:		linctr;
-	violations1: 	linctr;
-	deviation1: 		linctr;
+	violations11: 	linctr;
+	deviation1: 	linctr;
+	totalReward:	linctr;
 end-declarations
-
-Objective1 := 
-	sum(ii in Stations, mm in Visits)starvation(ii,mm)
-	+ sum(ii in Stations, mm in Visits)congestion(ii,mm)
-	+ sum(ii in Stations) starvationBeforeHorizon(ii)
-	+ sum(ii in Stations) congestionBeforeHorizon(ii)
-	- sum(ii in Stations) starvationAfterHorizon(ii)
-	- sum(ii in Stations) congestionAfterHorizon(ii)
-	+ 1.1*sum(ii in Stations)deviation(ii)
-	- sum(ii in Stations) deviationReward(ii)
-	+ 0.75*sum(vv in Vehicles) remainingTimeToFinalStation(vv)
-	+ 0.001*sum(ii in Stations, mm in Visits)visitTime(ii,mm);
 	
-violations1 := 
+violations11 := 
 	sum(ii in Stations, mm in Visits)starvation(ii,mm)
 	+ sum(ii in Stations, mm in Visits)congestion(ii,mm)
 	+ sum(ii in Stations) starvationBeforeHorizon(ii)
 	+ sum(ii in Stations) congestionBeforeHorizon(ii)
 	- sum(ii in Stations) starvationAfterHorizon(ii)
 	- sum(ii in Stations) congestionAfterHorizon(ii);
+
 	
 deviation1 := 
 	sum(ii in Stations)deviation(ii);
+	
+totalReward :=
+	-0.75*sum(ii in Stations) deviationReward(ii)
+	+ 0.6*sum(vv in Vehicles) remainingTimeToFinalStation(vv);
 
-
+Objective1 := 
+				violations11
+	+ 0.75*		deviation1
+	+ 0.1*		totalReward;
 	
 minimize(Objective1);
 
@@ -768,8 +768,11 @@ fopen("outputXpress.txt",F_OUTPUT);
 	end-do
 	
 
-writeln('Violations: ' + getsol(violations1));
+writeln('Violations: ' + getsol(violations11));
 writeln('deviation: ' + getsol(deviation1));	
+writeln('Reward: ' + getsol(totalReward));
+writeln('Objective value: ' + getsol(Objective1));
+writeln;
 
 	
 	forall (ii in Stations | ii<> artificialStation) do

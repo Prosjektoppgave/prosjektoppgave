@@ -3,7 +3,7 @@ vehicleInitialStation : [
 ]
 
 vehicleRemainingTimeToInitialStation : [
-5.0
+0.0
 ]
 
 vehicleInitialLoad : [
