@@ -14,7 +14,7 @@ public class WriteXpressFiles {
 
     public static void printTimeDependentInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles,
                                                 double currentTime, double lengthOfPlanningHorizon, int maxVisits) throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "timeDependentInput4.txt";
+        String filename = "timeDependentInput.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
         //lengthOfPlanningHorizon
@@ -130,7 +130,7 @@ public class WriteXpressFiles {
 
     public static void printFixedInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double vehicleParkingTime, double vehicleUnitHandlingTime, int visitInterval)
             throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "fixedInput4.txt";
+        String filename = "fixedInput.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
         writer.println("a1 : 1");
