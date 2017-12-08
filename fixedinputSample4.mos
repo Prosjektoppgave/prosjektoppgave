@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput4.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput4.txt';
+	DataFileFixedInput 				= 'fixedInput.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInput.txt';
 end-parameters
 
 !SETS
@@ -26,9 +26,6 @@ end-declarations
 
 initializations from DataFileFixedInput
 	artificialStation;
-end-initializations
-
-initializations from DataFileTimeDependentInput
 	maxVisits;
 end-initializations
 
@@ -65,9 +62,9 @@ declarations
 	safetyInventoryMargin: 		array(Stations) 	of real;
 	vehicleParkingTime:  							real;
 	unitHandlingTime:  								real;
+	lengthOfPlanningHorizon:						real;
 	vehicleCapacity: 			array(Vehicles) 	of integer;	
 	visitInterval: integer;
-	drivingTime:  							array(Stations, Stations) 	of real;
 end-declarations
 
 initializations from DataFileFixedInput
@@ -75,9 +72,9 @@ initializations from DataFileFixedInput
 	safetyInventoryMargin;
 	vehicleParkingTime;
 	unitHandlingTime;
+	lengthOfPlanningHorizon;
 	vehicleCapacity;	
 	visitInterval;
-	drivingTime;
 end-initializations
 
 
@@ -90,9 +87,9 @@ declarations
 	vehicleInitialLoad: 					array(Vehicles) 			of integer;
 	stationsInitialLoad:  					array(Stations) 			of real;
 	stationDemand:  						array(Stations) 			of real;
+	drivingTime:  							array(Stations, Stations) 	of real;
 	M:																	real;
 	optimalState:				            array(Stations)		        of real;
-	lengthOfPlanningHorizon:						real;
 end-declarations
 
 initializations from DataFileTimeDependentInput
@@ -101,8 +98,8 @@ initializations from DataFileTimeDependentInput
 	vehicleInitialLoad;
 	stationsInitialLoad;
 	stationDemand;
+	drivingTime;	
 	optimalState;
-	lengthOfPlanningHorizon;
 end-initializations
 
 !VARIABLES
@@ -134,7 +131,6 @@ declarations
 	deviationReward:				dynamic array(Stations)											of mpvar;
 	sigmaLow:						dynamic array(Vehicles)											of mpvar;	
 	sigmaHigh:						dynamic array(Vehicles)											of mpvar;	
-	timePenalty:					dynamic array(Vehicles)											of mpvar;
 end-declarations
 	
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
@@ -179,7 +175,6 @@ forall (vv in Vehicles) do
 	sigmaLow(vv) is_binary;
 	create(sigmaHigh(vv));
 	sigmaHigh(vv) is_binary;
-	create(timePenalty(vv));
 end-do
 
 forall (ii in Stations, mm in Visits, vv in Vehicles) do
@@ -216,8 +211,7 @@ end-do
 
 declarations
 	singleVisit:			dynamic array(Stations, Visits)					of linctr;
-	initialTime1:			dynamic array(Vehicles)							of linctr;
-	initialTime2:			dynamic array(Vehicles)							of linctr;
+	initialTime:			dynamic array(Vehicles)							of linctr;
 	endTime1:				dynamic array(Stations, Visits, Vehicles)		of linctr;
 	endTime2:				dynamic array(Stations, Visits, Vehicles)		of linctr;
 	timeHorizon:			dynamic array(Stations, Visits)					of linctr;
@@ -281,25 +275,25 @@ declarations
 	rewardIfAfterHorizon:	dynamic array(Stations)								of linctr;
 	deviationRev1: 			dynamic array(Stations)								of linctr;
 	deviationRev2: 			dynamic array(Stations)								of linctr;
-	sigmaH:				dynamic array(Vehicles)								of linctr;
-	sigmaL:				dynamic array(Vehicles)								of linctr;
+	sigmaH:					dynamic array(Vehicles)								of linctr;
+	sigmaL:					dynamic array(Vehicles)								of linctr;
 	lowVisit:				dynamic array(StarvationStations, Visits, Vehicles)	of linctr;
-	penalty:				dynamic array(Vehicles) 							of linctr;
-	test: 	linctr;
-	test2: 	linctr;
 end-declarations
+
+
 
 !-----REWARD FUNCTIONS-----------
 
-
 forall (ii in Stations) do
 	!Only reward if station is visited after horizon
-	M := 1000;
-	!stationsCapacities(ii);
+	M := stationsCapacities(ii);
 	rewardIfAfterHorizon(ii) :=
 		deviationReward(ii) <= sum(mm in Visits)delta(ii,mm)*M;
+!	!Reward for deviation = deviation if visited over time horizon
+	deviationRev1(ii):= 
+		deviationReward(ii) >= deviation(ii) -M*(1-sum(mm in Visits)delta(ii,mm));
 	deviationRev2(ii):= 
-		deviationReward(ii) <= deviation(ii);
+		deviationReward(ii) <= deviation(ii) +M*(1-sum(mm in Visits)delta(ii,mm));
 end-do	
 
 
@@ -310,9 +304,6 @@ forall (vv in Vehicles) do
 	!SigmaHigh is 1 if inventory level at vehicle v is above (capacity-visitInterval) at time horizon
 	SigmaH(vv) :=
 		inventoryAtHorizonVehicle(vv) <= vehicleCapacity(vv)-visitInterval+visitInterval*sigmaHigh(vv);
-	!only penalty if after timehorizon
-	penalty(vv) :=
-		 timePenalty(vv) >= remainingTimeToFinalStation(vv);
 end-do
 
 forall(ii in StarvationStations, mm in Visits, vv in Vehicles) do
@@ -324,6 +315,8 @@ forall(ii in CongestionStations, mm in Visits, vv in Vehicles) do
 	highVisit(ii,mm,vv) :=
 		flow(ii,mm,artificialStation,1,vv) <= (1-sigmaHigh(vv)) + (1-delta(ii,mm));
 end-do
+
+
 
 !----------------------------------
 
@@ -404,8 +397,7 @@ forall (ii in Stations, mm in Visits | ii<>artificialStation) do
 end-do	
 
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles) do
-	M := 10000;
-	!vehicleCapacity(vv);
+	M := vehicleCapacity(vv);
 	horizonVehicle1(ii,mm,jj,nn,vv) :=
 		inventoryAtHorizonVehicle(vv) >= loadAtVehicle(ii,mm,vv)-(2-delta(jj,nn)+delta(ii,mm)-flow(ii,mm,jj,nn,vv))*M;
 	horizonVehicle2(ii,mm,jj,nn,vv) :=
@@ -419,34 +411,29 @@ end-do
 
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits | jj <> artificialStation and ii <> artificialStation) do
 	!(5.11)
-	M := 1000; 
-	!lengthOfPlanningHorizon + unitHandlingTime*minlist(max(ww in Vehicles) vehicleCapacity(ww), max(ss in Stations) stationsCapacities(ss)) + vehicleParkingTime + max(kk in Stations)drivingTime(kk, ii)
-	!+unitHandlingTime*minlist(max(ww in Vehicles)vehicleCapacity(ww),stationsCapacities(ii))+ vehicleParkingTime + drivingTime(ii,jj);
+	M := lengthOfPlanningHorizon + unitHandlingTime*minlist(max(ww in Vehicles) vehicleCapacity(ww), max(ss in Stations) stationsCapacities(ss)) + vehicleParkingTime + max(kk in Stations)drivingTime(kk, ii)
+	+unitHandlingTime*minlist(max(ww in Vehicles)vehicleCapacity(ww),stationsCapacities(ii))+ vehicleParkingTime + drivingTime(ii,jj);
 	visitTimeConstraint(ii,mm,jj,nn) := 
 		visitTime(ii,mm) + unitHandlingTime*(sum(vv in Vehicles)(loadingQuantity(ii,mm,vv) + unloadingQuantity(ii,mm,vv))) + vehicleParkingTime + drivingTime(ii,jj) - visitTime(jj,nn) - M*(1 - sum(vv in Vehicles)flow(ii,mm,jj,nn,vv)) <= 0;
 end-do
 
 forall (ii in Stations, mm in Visits | mm <> 1) do
 	!(5.12)
-	M := 10000;
-	!lengthOfPlanningHorizon + unitHandlingTime*minlist(max(ww in Vehicles) vehicleCapacity(ww), max(ss in Stations) stationsCapacities(ss)) + vehicleParkingTime + max(kk in Stations)drivingTime(kk, ii)
-	!+ sum(ww in Vehicles) (unitHandlingTime*minlist(max(aa in Vehicles)vehicleCapacity(aa),stationsCapacities(ii)))+ vehicleParkingTime;
+	M := lengthOfPlanningHorizon + unitHandlingTime*minlist(max(ww in Vehicles) vehicleCapacity(ww), max(ss in Stations) stationsCapacities(ss)) + vehicleParkingTime + max(kk in Stations)drivingTime(kk, ii)
+	+ sum(ww in Vehicles) (unitHandlingTime*minlist(max(aa in Vehicles)vehicleCapacity(aa),stationsCapacities(ii)))+ vehicleParkingTime;
 	singleVisit(ii,mm) := 
 		visitTime(ii,mm)-(visitTime(ii,mm-1)+sum (vv in Vehicles) (unitHandlingTime*(loadingQuantity(ii,mm-1,vv)+unloadingQuantity(ii, mm-1, vv)))+vehicleParkingTime)+M*(1-sum(jj in Stations, nn in Visits, vv in Vehicles)flow(ii,mm,jj,nn,vv)) >= 0;
 end-do
 
 forall (vv in Vehicles ) do
 	!(5.13)
-	initialTime1(vv) := 
+	initialTime(vv) := 
 		visitTime(vehicleInitialStation(vv),1) >= vehicleRemainingTimeToInitialStation(vv);
-	initialTime2(vv) := 
-		visitTime(vehicleInitialStation(vv),1) <= vehicleRemainingTimeToInitialStation(vv);
 end-do
 
 forall (ii in Stations, mm in Visits, vv in Vehicles | ii <> artificialStation) do
 	!(5.14)
-	M := 10000; 
-	!lengthOfPlanningHorizon + max(jj in Stations, kk in Stations)(drivingTime(jj,kk)) + vehicleParkingTime + unitHandlingTime*minlist(vehicleCapacity(vv), max(jj in Stations)stationsCapacities(jj));
+	M := lengthOfPlanningHorizon + max(jj in Stations, kk in Stations)(drivingTime(jj,kk)) + vehicleParkingTime + unitHandlingTime*minlist(vehicleCapacity(vv), max(jj in Stations)stationsCapacities(jj));
 	endTime1(ii,mm,vv) :=
 		remainingTimeToFinalStation(vv)-visitTime(ii,mm)+lengthOfPlanningHorizon - M*(1-flow(ii,mm,artificialStation,1,vv)) <= 0;
 	endTime2(ii,mm,vv) :=
@@ -455,21 +442,18 @@ end-do
 
 forall (ii in Stations, mm in Visits | ii <> artificialStation) do
 	!(5.15)
-	M :=  10000;
-	!max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
+	M :=  max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
 	timeHorizon(ii,mm) := 
 		visitTime(ii,mm) - lengthOfPlanningHorizon - M*(sum(vv in Vehicles)flow(ii,mm,artificialStation,1,vv))<=0;
 	!(5.16)
-	M := 10000;
-	!lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
+	M := lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
 	timeIfVisit(ii,mm) :=
 		visitTime(ii,mm) <= M*(sum(jj in Stations, nn in Visits, vv in Vehicles) flow(ii,mm,jj,nn,vv));
 end-do
 
 forall (ii in Stations, mm in Visits | mm <> 1) do
 	!(5.17) 
-	M := 1000;
-	!lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
+	M := lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
 	visitSequence(ii,mm) := 
 		visitTime(ii,mm) <= M*(sum(jj in Stations, nn in Visits, vv in Vehicles)flow(ii,mm-1,jj,nn,vv));
 end-do
@@ -500,8 +484,7 @@ end-do
 
 forall (ii in Stations, mm in Visits | ii<>artificialStation) do
 	!(5.20)
-	M := 10000;
-	!abs(stationDemand(ii))*(lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk)));
+	M := abs(stationDemand(ii))*(lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk)));
 	violationIfCongestion1(ii,mm) :=
 		loadAtStation(ii,mm)-stationsCapacities(ii)*deltaFull(ii,mm) >= 0;
 	violationIfCongestion2(ii,mm) :=
@@ -539,8 +522,7 @@ M := 1000;
 !-----------BINARY RESTRICTIONS-------------------
 !Delta = 1 if last visit is after time horizon
 forall (ii in Stations, mm in Visits | ii <> artificialStation) do
-	M := 1000;
-	!lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
+	M := lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk));
 	binary1(ii,mm):=
 		visitTime(ii,mm)<=lengthOfPlanningHorizon + M*delta(ii,mm);
 	binary2(ii,mm):=
@@ -613,7 +595,7 @@ end-do
 forall (ii in Stations, mm in Visits | ii <> artificialStation) do
 	M := 1100;
 	ascenario3(ii,mm) :=
-		inventoryAtHorizon(ii) >= -starvationAfterHorizon(ii) +congestionAfterHorizon(ii) + loadAtStation(ii,mm)
+		inventoryAtHorizon(ii) >= starvationAfterHorizon(ii) +congestionAfterHorizon(ii) + loadAtStation(ii,mm)
 		- stationDemand(ii)*(visitTime(ii,mm)-lengthOfPlanningHorizon) 
 		- M*(2-delta(ii,mm)-theta(ii,mm));
 	bscenario3(ii,mm) :=
@@ -623,12 +605,14 @@ forall (ii in Stations, mm in Visits | ii <> artificialStation) do
 end-do
 
 
+
+
 !Only violation before horizon if inventory at horizon = 0
 
 forall (ii in Stations| ii<>artificialStation) do
 	!M := abs(stationDemand(ii))*(lengthOfPlanningHorizon + max(jj in Stations)(drivingTime(jj,ii)) + vehicleParkingTime + unitHandlingTime*minlist(max(vv in Vehicles)vehicleCapacity(vv), max(kk in Stations)stationsCapacities(kk)));
 	!violationIfCongestion1(ii,mm) :=
-	M := 1000;
+	M := 800;
 	violationIfStarvationHorizon1(ii) :=
 		inventoryAtHorizon(ii) + stationsCapacities(ii)*deltaEmptyHorizon(ii) <= stationsCapacities(ii); !deltaEmpty blir 0 hvis inventory at horizon > 0
 	violationIfStarvationHorizon2(ii) := 
@@ -698,12 +682,12 @@ deviation1 :=
 	
 totalReward :=
 	-0.75*sum(ii in Stations) deviationReward(ii)
-	+ 0.1*sum(vv in Vehicles) timePenalty(vv);
+	+ 0.2*sum(vv in Vehicles) remainingTimeToFinalStation(vv);
 
 Objective1 := 
 				violations11
 	+ 0.75*		deviation1
-	+ 0.2*		totalReward;
+	+ 0.1*		totalReward;
 	
 minimize(Objective1);
 
@@ -731,24 +715,15 @@ fopen("outputXpress.txt",F_OUTPUT);
 		write(" ");
 		
 		!Time
-		if (getsol(visitTime(ii,mm))<0.1) then 
-			write(0.0);
-		else	
-			write(getsol(visitTime(ii,mm)));
-		end-if
+		write(getsol(visitTime(ii,mm)));
 		write(" ");
 		
 		!Vehicle
-		
 		write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*vv));
 		write(" ");
 		
 		!Next stationId
-		if (sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*jj) < 0.5) then 
-			write("0");
-		else
-			write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*jj));	
-		end-if
+		write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*jj));
 		write(" ");
 		
 		!Next stationVisit
@@ -756,13 +731,8 @@ fopen("outputXpress.txt",F_OUTPUT);
 		write(" ");
 		
 		!Time next stationVisit
-		if (sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn))<0.1) then 
-			write(0.0);
-		else	
-			write(sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn)));
-		end-if
+		write(sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn)));
 		write(" ");
-		
 		
 		!First station
 		forall (vv in Vehicles) do
@@ -782,12 +752,7 @@ fopen("outputXpress.txt",F_OUTPUT);
 	fclose(F_OUTPUT);
 	
 	
-
 	
-end-model
-
-
-
 	!PRINT
 	
 	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
@@ -808,15 +773,6 @@ writeln('deviation: ' + getsol(deviation1));
 writeln('Reward: ' + getsol(totalReward));
 writeln('Objective value: ' + getsol(Objective1));
 writeln;
-
-forall(vv in Vehicles) do
-	writeln('Remaining time to final station: ' + getsol(remainingTimeToFinalStation(vv)));
-	writeln('Penalty time for station ' + vv + ': ' + getsol(timePenalty(vv)));
-end-do
-
-forall(ii in Stations) do 
-	writeln("Deviation for station " + ii + ": " + getsol(deviation(ii)));
-end-do
 
 	
 	forall (ii in Stations | ii<> artificialStation) do
@@ -902,5 +858,111 @@ end-do
 		
 	end-do
 
+
+end-model
+
+
+
+
+
+	writeln('Objective value: ' + getsol(Objective1));
 	
 	
+	forall (ii in Stations, jj in Stations, mm in Visits, nn in Visits, vv in Vehicles | getsol(flow(ii,mm,jj,nn,vv)) > 0.1) do
+		writeln('x(' + ii + ',' + mm + ',' + jj + ',' + nn + ',' + vv + ') = ' + getsol(flow(ii,mm,jj,nn,vv)));
+	end-do
+	
+	forall (ii in Stations, mm in Visits ) do
+		writeln('t(' + ii + ',' + mm +') = ' + getsol(visitTime(ii,mm)));
+	end-do
+	
+	forall (vv in Vehicles) do
+	writeln('Remaining time to final station: ' + getsol(remainingTimeToFinalStation(vv)));
+	end-do
+	
+	
+	forall (ii in Stations | ii<> artificialStation) do
+		writeln;
+		writeln('STATION ' + ii +':');
+		writeln("Initial load: " + stationsInitialLoad(ii));
+		writeln("Load at horizon: " + getsol(inventoryAtHorizon(ii)));
+		writeln("Deviation: " + getsol(deviation(ii)));
+		
+		!Scenario 1
+		if (getsol(gamma(ii))<0.5) then
+			writeln("No visits");
+			if(getsol(starvationBeforeHorizon(ii))>0.001) then
+				writeln('Starvation before horizon: ' + getsol(starvationBeforeHorizon(ii)));
+			elif (getsol(congestionBeforeHorizon(ii))>0.001) then
+				writeln('Congestion before horizon: ' + getsol(congestionBeforeHorizon(ii)));
+			else
+				writeln("No violations before horizon");
+			end-if	
+		
+		!Scenario 2 or 3
+		elif(getsol(gamma(ii))>0.5) then
+			forall (mm in Visits) do
+				if(sum(jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))> 0.1) then
+					writeln("-----------------");
+					writeln("Visit nr. " + mm);
+					writeln("Visit time: " + getsol(visitTime(ii,mm)));
+					if(mm = 1) then
+						writeln('Demand before visit: ' + getsol(visitTime(ii,mm))*stationDemand(ii)); 
+					elif (getsol(visitTime(ii,mm))=0) then
+						writeln('Demand before visit: ' + (getsol(visitTime(ii,mm)))*stationDemand(ii)); 	
+					else
+						writeln('Demand before visit: ' + (getsol(visitTime(ii,mm))-getsol(visitTime(ii,mm-1)))*stationDemand(ii)); 	
+					end-if
+					writeln('Station load when starting visit ' + mm + ' : ' + getsol(loadAtStation(ii,mm))); 
+					if (sum(vv in Vehicles) getsol(loadingQuantity(ii,mm,vv)) > 0.1) then
+						writeln('Quantity loaded to station: ' + sum(vv in Vehicles)getsol(loadingQuantity(ii,mm,vv)));
+					elif (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv)) > 0.1) then
+						writeln('Quantity unloaded from station: ' + sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm,vv)));
+					end-if
+					
+					
+					!If not last visit and before T
+					if (getsol(theta(ii,mm)) < 0.5 and getsol(delta(ii,mm)) < 0.5) then 		
+						if(getsol(starvation(ii,mm))>0.001) then
+							writeln('Starvation: ' + getsol(starvation(ii,mm)));
+						elif(getsol(congestion(ii,mm))>0.001) then
+							writeln('Congestion: ' + getsol(congestion(ii,mm)));
+						end-if	
+					
+					!If last visit before T
+					elif (getsol(theta(ii,mm)) > 0.5 and getsol(delta(ii,mm)) < 0.5) then 
+						if(getsol(starvation(ii,mm))>0.001) then
+							writeln('Starvation: ' + getsol(starvation(ii,mm)));
+						elif(getsol(congestion(ii,mm))>0.001) then
+							writeln('Congestion: ' + getsol(congestion(ii,mm)));
+						end-if	
+						if(getsol(starvationBeforeHorizon(ii))>0.001) then
+							writeln('Starvation before horizon: ' + getsol(starvationBeforeHorizon(ii)));
+						elif (getsol(congestionBeforeHorizon(ii))>0.001) then
+							writeln('Congestion before horizon: ' + getsol(congestionBeforeHorizon(ii)));
+						else
+							writeln("No violations before horizon");
+						end-if	
+					
+					!If last visit is after T
+					elif(getsol(theta(ii,mm)) > 0.5 and getsol(delta(ii,mm)) > 0.5) then
+						if(getsol(starvation(ii,mm))>0.001) then
+							writeln('Starvation: ' + getsol(starvation(ii,mm)));
+						elif(getsol(congestion(ii,mm))>0.001) then
+							writeln('Congestion: ' + getsol(congestion(ii,mm)));
+						end-if	
+						if(getsol(starvationAfterHorizon(ii))>0.001) then
+							writeln('Starvation After horizon: ' + getsol(starvationAfterHorizon(ii)));
+						elif(getsol(congestionAfterHorizon(ii))>0.001) then
+							writeln('Congestion After horizon: ' + getsol(congestionAfterHorizon(ii)));
+						end-if
+					end-if
+				end-if	
+			end-do
+		end-if
+		
+		
+	end-do
+
+
+	end-model

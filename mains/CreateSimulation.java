@@ -21,12 +21,12 @@ public class CreateSimulation {
     private ArrayList<Integer> stationIdList;
     private HashMap<Integer, Station> stations;
     private ArrayList<ArrayList<Double>> arrivalTimes;
-    private String outPutFileName = "simulation1";
+    private String outPutFileName = "simulationSet8-20.txt";
 
 
     public static void main(String[] args) throws IOException, JSONException {
         CreateSimulation simulation = new CreateSimulation();                   //Read input data
-        simulation.run(8, 12);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
+        simulation.run(6, 4);           //Simulate 'durationOfSimulation' hour, starting at 'startTime'
         simulation.printArrivalTimes();
     }
 

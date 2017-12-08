@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput4.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput4.txt';
+	DataFileFixedInput 				= 'fixedInput.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInput.txt';
 end-parameters
 
 !SETS
@@ -185,11 +185,15 @@ end-do
 forall (ii in Stations, mm in Visits, vv in Vehicles) do
 	if(ii <> artificialStation) then
 		create(loadingQuantity(ii,mm,vv));
-		loadingQuantity(ii,mm,vv) is_integer;
 		create(unloadingQuantity(ii,mm,vv));
-		unloadingQuantity(ii,mm,vv) is_integer;
+		!if (ii = vehicleInitialStation(vv)) then
+			!if (mm = 1) then
+				!loadingQuantity(ii,mm,vv) is_integer;
+				!unloadingQuantity(ii,mm,vv) is_integer;
+			!end-if	
+		!end-if
 		create(loadAtVehicle(ii,mm,vv));
-		loadAtVehicle(ii,mm,vv) is_integer;
+		!loadAtVehicle(ii,mm,vv) is_integer;
 	end-if	
 end-do
 
@@ -783,9 +787,6 @@ fopen("outputXpress.txt",F_OUTPUT);
 	
 	
 
-	
-end-model
-
 
 
 	!PRINT
@@ -904,3 +905,6 @@ end-do
 
 	
 	
+	
+end-model
+

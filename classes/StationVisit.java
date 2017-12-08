@@ -11,7 +11,7 @@ public class StationVisit {
     private int nextStationId;
     private int nextStationVisit;
     private double timeNextVisit;
-    private boolean firstvisit;
+    private boolean firstVisit;
 
 
     public StationVisit(int stationId, int stationVisitNr, int stationLoad, double time, int vehicle, int nextStationId, int nextStationVisit, double timeNextVisit, boolean firstVisit) {
@@ -23,7 +23,7 @@ public class StationVisit {
         this.nextStationId = nextStationId;
         this.nextStationVisit = nextStationVisit;
         this.timeNextVisit = timeNextVisit;
-        this.firstvisit = firstVisit;
+        this.firstVisit = firstVisit;
     }
 
     //GETTERS AND SETTERS
@@ -92,11 +92,11 @@ public class StationVisit {
     }
 
     public boolean isFirstvisit() {
-        return firstvisit;
+        return firstVisit;
     }
 
     public void setFirstvisit(boolean firstvisit) {
-        this.firstvisit = firstvisit;
+        this.firstVisit = firstvisit;
     }
 
 }

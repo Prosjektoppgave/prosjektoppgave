@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput4.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput4.txt';
+	DataFileFixedInput 				= 'fixedInputXpress.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInputXpress.txt';
 end-parameters
 
 !SETS
@@ -140,14 +140,10 @@ end-declarations
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
 	if (jj <> vehicleInitialStation(vv))then
 		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
-			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
+		flow(ii,mm,jj,nn,vv) is_binary;
 	elif (nn <> 1) then
 		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
-			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
+		flow(ii,mm,jj,nn,vv) is_binary;
 	end-if
 end-do
 
@@ -184,10 +180,13 @@ end-do
 
 forall (ii in Stations, mm in Visits, vv in Vehicles) do
 	if(ii <> artificialStation) then
-		create(loadingQuantity(ii,mm,vv));
-		loadingQuantity(ii,mm,vv) is_integer;
-		create(unloadingQuantity(ii,mm,vv));
-		unloadingQuantity(ii,mm,vv) is_integer;
+		!if (stationDemand(ii) <= 0 ) then		
+			create(loadingQuantity(ii,mm,vv));
+			loadingQuantity(ii,mm,vv) is_integer;
+		!else
+			create(unloadingQuantity(ii,mm,vv));
+			unloadingQuantity(ii,mm,vv) is_integer;
+		!end-if
 		create(loadAtVehicle(ii,mm,vv));
 		loadAtVehicle(ii,mm,vv) is_integer;
 	end-if	
@@ -780,11 +779,6 @@ fopen("outputXpress.txt",F_OUTPUT);
 	end-do
 	
 	fclose(F_OUTPUT);
-	
-	
-
-	
-end-model
 
 
 
@@ -904,3 +898,4 @@ end-do
 
 	
 	
+end-model

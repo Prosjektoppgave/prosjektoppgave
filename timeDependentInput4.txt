@@ -1,7 +1,7 @@
 lengthOfPlanningHorizon : 30.0
-maxVisits : 1
+maxVisits : 2
 vehicleInitialStation : [
-44
+35
 ]
 
 vehicleRemainingTimeToInitialStation : [
@@ -9,55 +9,43 @@ vehicleRemainingTimeToInitialStation : [
 ]
 
 vehicleInitialLoad : [
-10
+23
 ]
 
 stationsInitialLoad : [
 0.0
 0.0
-29.0
-39.0
-3.0
-39.0
-28.0
-2.0
+30.0
+37.0
+34.0
 0
 ]
 
 optimalState : [
-15.0
-21.0
-17.0
-10.0
-15.0
-18.0
 16.0
+20.0
+15.0
 10.0
+20.0
 0
 ]
 
 stationDemand : [
--0.5637566522575902
--0.7265579813839832
-0.28581483582724637
-0.8173322134554571
--0.46484457806140256
-0.13898737767692523
-0.6219084975320125
--0.5979061856648878
+-0.5804554449850883
+-0.6960143247850384
+0.35
+0.7064577990416093
+-0.041666666666666664
 0
 ]
 
 StarvationStations : [
 35
 148
-152
-44
+154
 ]
 
 CongestionStations : [
 101
 103
-154
-75
 ]

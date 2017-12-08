@@ -69,4 +69,30 @@ public class PrintResults {
 
     }
 
+    public static void printTotalResults (double averageViolation, double averagePercentage, double sdViolations, double sdPercentage, double timeHorizon, int numberOfRuns, int maxVisits) {
+
+        try(FileWriter fw = new FileWriter("ResultsTotal.txt", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw))
+        {
+            out.println("--------------------------------------------------");
+            out.println("INPUT PARAMETERS");
+            String formatStr = "%-42s %-5s %n";
+            out.print(String.format(formatStr, "Time horizon, Xpress: ", timeHorizon));
+            out.print(String.format(formatStr, "Number of simulations: ", numberOfRuns));
+            out.print(String.format(formatStr, "Number of max visits, M: ", maxVisits));
+            out.print(String.format(formatStr, "Average violation: ", averageViolation));
+            out.print(String.format(formatStr, "SD of violations: ", sdViolations));
+            out.print(String.format(formatStr, "Average percentage of happy customers: ", averagePercentage));
+            out.print(String.format(formatStr, "SD of percentage of happy customers: ", sdPercentage));
+
+            out.println();
+            out.println();
+            out.println();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

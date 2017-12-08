@@ -1,0 +1,120 @@
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      10.0  
+Number of simulations:                     15    
+Average violation:                         1106.1333333333334 
+Average violation:                         1106.1333333333334 
+SD of violations:                          157.89637952361883 
+Average percentage of happy customers:     61.6036220007157 
+SD of percentage of happy customers:       4.229982303385966 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      20.0  
+Number of simulations:                     15    
+Average violation:                         936.9333333333333 
+Average violation:                         936.9333333333333 
+SD of violations:                          154.6929985795214 
+Average percentage of happy customers:     67.55551155520024 
+SD of percentage of happy customers:       4.1865726886022685 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Average violation:                         947.8 
+Average violation:                         947.8 
+SD of violations:                          152.89921984291297 
+Average percentage of happy customers:     67.2114765759208 
+SD of percentage of happy customers:       4.029659155509169 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      40.0  
+Number of simulations:                     15    
+Average violation:                         953.0 
+Average violation:                         953.0 
+SD of violations:                          145.43776283050718 
+Average percentage of happy customers:     66.99510446711119 
+SD of percentage of happy customers:       3.8466822337551116 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      50.0  
+Number of simulations:                     15    
+Average violation:                         944.6666666666666 
+Average violation:                         944.6666666666666 
+SD of violations:                          142.27823177877647 
+Average percentage of happy customers:     67.29457195332549 
+SD of percentage of happy customers:       3.6645482919244396 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      60.0  
+Number of simulations:                     15    
+Average violation:                         961.2666666666667 
+Average violation:                         961.2666666666667 
+SD of violations:                          155.57059337744238 
+Average percentage of happy customers:     66.76622079148649 
+SD of percentage of happy customers:       4.313191511786213 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      100.0 
+Number of simulations:                     15    
+Average violation:                         972.2666666666667 
+Average violation:                         972.2666666666667 
+SD of violations:                          161.4958940949392 
+Average percentage of happy customers:     66.3609738832858 
+SD of percentage of happy customers:       4.643066209555743 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      25.0  
+Number of simulations:                     15    
+Average violation:                         1016.6 
+Average violation:                         1016.6 
+SD of violations:                          167.45182676135332 
+Average percentage of happy customers:     64.80579279622931 
+SD of percentage of happy customers:       4.449597069999762 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         542.3333333333334 
+SD of violations:                          150.25961660057695 
+Average percentage of happy customers:     70.54966739910718 
+SD of percentage of happy customers:       6.324315312361915 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   2     
+Average violation:                         529.0666666666667 
+SD of violations:                          146.73468119932204 
+Average percentage of happy customers:     71.28744873761268 
+SD of percentage of happy customers:       6.105209951291325 
+
+
+

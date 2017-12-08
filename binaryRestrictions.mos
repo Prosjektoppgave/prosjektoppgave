@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput4.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput4.txt';
+	DataFileFixedInput 				= 'fixedInput.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInput.txt';
 end-parameters
 
 !SETS
@@ -140,14 +140,14 @@ end-declarations
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
 	if (jj <> vehicleInitialStation(vv))then
 		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
+		if (ii = vehicleInitialStation(vv))then 
 			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
+		end-if	
 	elif (nn <> 1) then
 		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
+		if (ii = vehicleInitialStation(vv))then 
 			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
+		end-if	
 	end-if
 end-do
 
@@ -288,6 +288,9 @@ declarations
 	test: 	linctr;
 	test2: 	linctr;
 end-declarations
+
+!-----BINARY RESTRICTION ON FLOW-------------------
+
 
 !-----REWARD FUNCTIONS-----------
 
@@ -784,7 +787,7 @@ fopen("outputXpress.txt",F_OUTPUT);
 	
 
 	
-end-model
+!end-model
 
 
 
@@ -904,3 +907,4 @@ end-do
 
 	
 	
+end-model

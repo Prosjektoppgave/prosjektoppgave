@@ -1,0 +1,59 @@
+a1 : 1
+lengthOfPlanningHorizon : 30.0
+artificialStation: 0
+maxVisits: 1
+visitInterval: 8
+
+Stations : [
+35
+44
+75
+100
+101
+103
+105
+148
+152
+154
+0
+]
+
+stationsCapacities : [
+24
+12
+36
+15
+30
+42
+15
+24
+18
+39
+0
+]
+
+safetyInventoryMargin : [
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0
+]
+vehicleParkingTime: 2.0
+unitHandlingTime: 0.25
+
+Vehicles : [
+1
+2
+]
+
+vehicleCapacity : [
+23
+23
+]

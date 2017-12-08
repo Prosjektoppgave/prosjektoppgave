@@ -12,9 +12,18 @@ import java.util.HashMap;
 
 public class WriteXpressFiles {
 
-    public static void printTimeDependentInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double currentTime) throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "timeDependentInput.txt";
+    public static void printTimeDependentInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles,
+                                                double currentTime, double lengthOfPlanningHorizon, int maxVisits) throws FileNotFoundException, UnsupportedEncodingException {
+        String filename = "timeDependentInput4.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
+
+        //lengthOfPlanningHorizon
+        writer.print("lengthOfPlanningHorizon : ");
+        writer.println(lengthOfPlanningHorizon);
+
+        //MmxVisit
+        writer.print("maxVisits : ");
+        writer.println(maxVisits);
 
         //vehicleInitialStation
         writer.println("vehicleInitialStation : [");
@@ -90,8 +99,10 @@ public class WriteXpressFiles {
                 writer.println(station.getId());
             }
         }
+
         writer.println("]");
 
+        /*
         //drivingTime
         writer.println();
         writer.println("drivingTime : [");
@@ -111,18 +122,19 @@ public class WriteXpressFiles {
         writer.println("0");
         writer.println("]");
 
+    */
+
         writer.close();
     }
 
-    public static void printFixedInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double timeHorizon, int maxVisits, double vehicleParkingTime, double vehicleUnitHandlingTime, int visitInterval)
+
+    public static void printFixedInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles, double vehicleParkingTime, double vehicleUnitHandlingTime, int visitInterval)
             throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "fixedInput.txt";
+        String filename = "fixedInput4.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
         writer.println("a1 : 1");
-        writer.println("lengthOfPlanningHorizon : " + timeHorizon );
         writer.println("artificialStation: 0");
-        writer.println("maxVisits: " + maxVisits);
         writer.println("visitInterval: " + visitInterval);
 
         //Stations

@@ -11,7 +11,7 @@ public class NextSimulation {
 
         for (StationVisit stationVisit: stationVisits) {
             double time = stationVisit.getTime();
-            if (time > 0 & time < nextSimulation) {
+            if (time > 0.01 & time < nextSimulation) {
                 nextSimulation = time;
             }
         }
