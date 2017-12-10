@@ -1,0 +1,114 @@
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0                 
+Max number of visits, Xpress:              1                    
+Simulation file:                           simulering.txt       
+Start time simulation (min):               8.0                  
+Stop time simulation (min):                10.0                 
+Number of stations:                        8                    
+Number of vehicles:                        1                    
+
+STATIONS
+Id    Name                                 Initial load   
+162   Vulkan                               10.0           
+67    Jernbanetorget                       10.0           
+148   Hallings gate                        17.0           
+69    Tinghuset                            10.0           
+118   Ila                                  0.0            
+230   St. Olavs gate                       3.0            
+90    St. Hanshaugen park vest             20.0           
+142   Jakob kirke                          10.0           
+
+VEHICLES
+Id    Initial load    Initial station      Time to initial station 
+1     10              162                  5.0                  
+
+RESULTS
+Number of customers:                       898   
+Number of starvations:                     95.0  
+Number of congestions:                     110.0 
+Violation percentage:                      22.828507795100222 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0                 
+Max number of visits, Xpress:              1                    
+Simulation file:                           simulering.txt       
+Start time simulation (min):               8.0                  
+Stop time simulation (min):                10.0                 
+Number of stations:                        2                    
+Number of vehicles:                        1                    
+
+STATIONS
+Id    Name                                 Initial load   
+162   Vulkan                               10.0           
+142   Jakob kirke                          0.0            
+
+VEHICLES
+Id    Initial load    Initial station      Time to initial station 
+1     10              162                  5.0                  
+
+RESULTS
+Number of customers:                       372   
+Number of starvations:                     29.0  
+Number of congestions:                     17.0  
+Violation percentage:                      12.365591397849462 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0                 
+Max number of visits, Xpress:              1                    
+Simulation file:                           simulering.txt       
+Start time simulation (min):               8.0                  
+Stop time simulation (min):                10.0                 
+Number of stations:                        2                    
+Number of vehicles:                        1                    
+
+STATIONS
+Id    Name                                 Initial load   
+162   Vulkan                               10.0           
+142   Jakob kirke                          0.0            
+
+VEHICLES
+Id    Initial load    Initial station      Time to initial station 
+1     10              162                  5.0                  
+
+RESULTS
+Number of customers:                       372   
+Number of starvations:                     29.0  
+Number of congestions:                     17.0  
+Violation percentage:                      12.365591397849462 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0                 
+Max number of visits, Xpress:              1                    
+Simulation file:                           simulering.txt       
+Start time simulation (min):               8.0                  
+Stop time simulation (min):                10.0                 
+Number of stations:                        2                    
+Number of vehicles:                        1                    
+
+STATIONS
+Id    Name                                 Initial load   
+162   Vulkan                               10.0           
+142   Jakob kirke                          0.0            
+
+VEHICLES
+Id    Initial load    Initial station      Time to initial station 
+1     10              162                  5.0                  
+
+RESULTS
+Number of customers:                       378   
+Number of starvations:                     30.0  
+Number of congestions:                     14.0  
+Violation percentage:                      11.64021164021164 
+
+
+
