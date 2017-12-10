@@ -1,7 +1,8 @@
-package functions;
+package xpress;
 
 import classes.Station;
 import classes.Vehicle;
+import functions.TimeConverter;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -13,9 +14,23 @@ import java.util.HashMap;
 public class WriteXpressFiles {
 
     public static void printTimeDependentInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles,
-                                                double currentTime, double lengthOfPlanningHorizon, int maxVisits) throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "timeDependentInput.txt";
+                                                double currentTime, double lengthOfPlanningHorizon, int maxVisits,
+                                                double weightVoilation, double weightDeviation, double weightReward) throws FileNotFoundException, UnsupportedEncodingException {
+        String filename = "timeDependentInputWeights.txt";
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
+
+        //weightViolation
+        writer.print("weightViolation : ");
+        writer.println(weightVoilation);
+
+        //weightDeviation
+        writer.print("weightDeviation : ");
+        writer.println(weightDeviation);
+
+        //weightReward
+        writer.print("weightReward : ");
+        writer.println(weightReward);
+
 
         //lengthOfPlanningHorizon
         writer.print("lengthOfPlanningHorizon : ");

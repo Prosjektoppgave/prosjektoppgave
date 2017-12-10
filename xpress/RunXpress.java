@@ -19,13 +19,13 @@ public class RunXpress {
         mosel = new XPRM();
 
         //Compile model
-        mosel.compile("subproblem.mos");
+        mosel.compile("variableWeights.mos");
 
         //Load bim file
-        mod = mosel.loadModel("subproblem.bim");
+        mod = mosel.loadModel("variableWeights.bim");
 
         //Execute model
-        System.out.println("Run 'Subproblem.mos'");
+        System.out.println("Run 'variableWeights.mos'");
         mod.run();
 
         //Stop if no solution is found
