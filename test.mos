@@ -13,8 +13,8 @@ uses "mmsystem";
 
 !DATA FILES
 parameters
-	DataFileFixedInput 				= 'fixedInput4.txt';
-	DataFileTimeDependentInput 		= 'timeDependentInput4Xpress.txt';
+	DataFileFixedInput 				= 'fixedInputXpress.txt';
+	DataFileTimeDependentInput 		= 'timeDependentInputXpress.txt';
 end-parameters
 
 !SETS
@@ -140,10 +140,14 @@ end-declarations
 forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
 	if (jj <> vehicleInitialStation(vv))then
 		create(flow(ii, mm, jj, nn, vv));
-		flow(ii,mm,jj,nn,vv) is_binary;
+		!if (ii = vehicleInitialStation(vv))then 
+			flow(ii,mm,jj,nn,vv) is_binary;
+		!end-if	
 	elif (nn <> 1) then
 		create(flow(ii, mm, jj, nn, vv));
-		flow(ii,mm,jj,nn,vv) is_binary;
+		!if (ii = vehicleInitialStation(vv))then 
+			flow(ii,mm,jj,nn,vv) is_binary;
+		!end-if	
 	end-if
 end-do
 
@@ -183,6 +187,9 @@ forall (ii in Stations, mm in Visits, vv in Vehicles | ii <> artificialStation) 
 	loadingQuantity(ii,mm,vv) is_integer;
 	create(unloadingQuantity(ii,mm,vv));
 	unloadingQuantity(ii,mm,vv) is_integer;
+end-do
+
+forall (ii in Stations, mm in Visits, vv in Vehicles) do
 	create(loadAtVehicle(ii,mm,vv));
 	loadAtVehicle(ii,mm,vv) is_integer;
 end-do
@@ -284,7 +291,7 @@ declarations
 end-declarations
 
 !-----REWARD FUNCTIONS-----------
-
+ 
 
 forall (ii in Stations) do
 	!Only reward if station is visited after horizon
@@ -705,7 +712,7 @@ minimize(Objective1);
 
 !PRINT TO FILE IKKE ENDRE!!!!!!
 
-!fopen("outputXpress.txt",F_OUTPUT);
+fopen("outputXpress.txt",F_OUTPUT);
 	forall (ii in Stations, mm in Visits | getsol(sum(vv in Vehicles)loadingQuantity(ii,mm,vv)) > 0.1 or getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm,vv))>0.1) do
 		
 		!Station
@@ -721,8 +728,6 @@ minimize(Objective1);
 			write(getsol(sum(vv in Vehicles)loadingQuantity(ii,mm, vv)));
 		elif (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm, vv)) > 0.1) then
 			write(-getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm, vv)));
-		else
-			write("0");	
 		end-if
 		write(" ");
 		
@@ -759,13 +764,15 @@ minimize(Objective1);
 		end-if
 		write(" ");
 		
-		!First station
 		
-		if (ii = sum(vv in Vehicles) vehicleInitialStation(vv) and mm = 1) then
-			write("1");
-		else
-			write("0");
-		end-if
+		!First station
+		forall (vv in Vehicles) do
+			if (ii = vehicleInitialStation(vv) and mm = 1) then
+				write("1");
+			else
+				write("0");
+			end-if
+		end-do
 		
 		writeln;
 
@@ -773,7 +780,7 @@ minimize(Objective1);
 			
 	end-do
 	
-!	fclose(F_OUTPUT);
+	fclose(F_OUTPUT);
 	
 	
 

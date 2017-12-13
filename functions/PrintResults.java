@@ -59,7 +59,9 @@ public class PrintResults {
 
     public static void printTotalResults (double averageViolation, double averagePercentageViolations, double sdViolations,
                                           double sdPercentageViolations, double timeHorizon, int numberOfRuns, int maxVisits,
-                                          double weightViolation, double weightDeviation, double weightReward) {
+                                          double weightViolation, double weightDeviation, double weightReward, double weightDeviationReward,
+                                          double weightDrivingTimePenalty, double averageNumberOfXpressRuns, double avergaeTimeToNextSimulation,
+                                          String moselFile, int testInstance) {
 
         try(FileWriter fw = new FileWriter("ResultsTotal.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -67,10 +69,15 @@ public class PrintResults {
         {
             out.println("--------------------------------------------------");
             out.println("INPUT PARAMETERS");
+            out.println("Second visit");
             String formatStr = "%-42s %-5s %n";
             out.print(String.format(formatStr, "Weight Violation: ", weightViolation));
             out.print(String.format(formatStr, "Weight Deviation: ", weightDeviation));
             out.print(String.format(formatStr, "Weight Reward: ", weightReward));
+            out.print(String.format(formatStr, "Weight Deviation reward: ", weightDeviationReward));
+            out.print(String.format(formatStr, "Weight driving time penalty: ", weightDrivingTimePenalty));
+            out.print(String.format(formatStr, "Mosel file: ", moselFile));
+            out.print(String.format(formatStr, "Test instance: ", testInstance));
             out.print(String.format(formatStr, "Time horizon, Xpress: ", timeHorizon));
             out.print(String.format(formatStr, "Number of simulations: ", numberOfRuns));
             out.print(String.format(formatStr, "Number of max visits, M: ", maxVisits));
@@ -78,6 +85,8 @@ public class PrintResults {
             out.print(String.format(formatStr, "SD of violations: ", sdViolations));
             out.print(String.format(formatStr, "Average percentage of violations: ", averagePercentageViolations));
             out.print(String.format(formatStr, "SD of percentage of violations: ", sdPercentageViolations));
+            out.print(String.format(formatStr, "Average number of Xpress runs: ", averageNumberOfXpressRuns));
+            out.print(String.format(formatStr, "Average time to next simulation: ", avergaeTimeToNextSimulation));
 
             out.println();
             out.println();
@@ -92,7 +101,8 @@ public class PrintResults {
     public static void printResults (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles,
                                      double congestions, double starvations, int visits, int happyCustomers,
                                      double timeHorizon, double initialStartTime, double stopTime, int maxVisit,
-                                     int numberOfXpress, String simulationFile) {
+                                     double numberOfXpress, String simulationFile, double weightViolation, double weightDeviation,
+                                     double weightReward, double weightDeviationReward, double weightDrivingTimePenalty, String moselFile, int testInstance) {
 
         try(FileWriter fw = new FileWriter("Results.txt", true);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -109,14 +119,14 @@ public class PrintResults {
             out.print(String.format(formatStr, "Stop time simulation (hr): ", stopTime/60));
             out.print(String.format(formatStr, "Number of stations: ", stations.values().size()));
             out.print(String.format(formatStr, "Number of vehicles: ", vehicles.values().size()));
+            out.print(String.format(formatStr, "Weight violation: ", weightViolation));
+            out.print(String.format(formatStr, "Weight deviation: ", weightDeviation));
+            out.print(String.format(formatStr, "Weight reward: ", weightReward));
+            out.print(String.format(formatStr, "Weight deviation reward: ", weightDeviationReward));
+            out.print(String.format(formatStr, "Weight driving time penalty: ", weightDrivingTimePenalty));
+            out.print(String.format(formatStr, "Mosel file: ", moselFile));
             out.println();
-            out.println("STATIONS");
-            //Stations
-            formatStr = "%-5s %-36s %-15s%n";
-            out.print(String.format(formatStr, "Id", "Name", "Initial load"));
-            for (Station station: stations.values()) {
-                out.print(String.format(formatStr, station.getId(), station.getPlace(), station.getInitialLoad()));
-            }
+            out.print(String.format(formatStr, "Test instance: ", testInstance));
             out.println();
 
             out.println("VEHICLES");

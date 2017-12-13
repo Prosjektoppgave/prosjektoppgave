@@ -11,14 +11,14 @@ import java.util.Scanner;
 public class ReadDemandAndNumberOfBikes {
 
 
-    public static HashMap<Integer, Station> simulatedDemand(ArrayList<Integer> stationIdList) throws FileNotFoundException {
+    public static HashMap<Integer, Station> simulatedDemand(ArrayList<Integer> stationIdList, int testInstance) throws FileNotFoundException {
         HashMap<Integer, Station> stations = new HashMap<>();
 
         //Read demand.txt file
         File inputFile = new File("demand.txt");
         Scanner in = new Scanner(inputFile);
         int previousValueRead = 0;
-        HashMap<Integer, Integer> stationInitialNUmberOfBikesMap = readNumberOfBikes();
+        HashMap<Integer, Integer> stationInitialNUmberOfBikesMap = readNumberOfBikes(testInstance);
         Station station = new Station(-1, -1);
 
         while (in.hasNextLine()){
@@ -54,11 +54,16 @@ public class ReadDemandAndNumberOfBikes {
 
     }
 
-    // Reads inputfile stationInitial.txt and returns a hashmap with station id vs. initial number of bikes.
-    public static HashMap<Integer, Integer> readNumberOfBikes() throws FileNotFoundException {
+    // Reads inputfile stationInitialInstance1.txt and returns a hashmap with station id vs. initial number of bikes.
+    public static HashMap<Integer, Integer> readNumberOfBikes(int testInstance) throws FileNotFoundException {
         HashMap<Integer, Integer> stationToNumberOfBikesMap = new HashMap<>();
 
-        File inputFile = new File("stationInitial.txt");
+        String testInstanceString = " ";
+        if (testInstance == 1 ) {testInstanceString = "stationInitialInstance1.txt";}
+        else if (testInstance == 2 ) {testInstanceString = "stationInitialInstance2.txt";}
+        else if (testInstance == 3 ) {testInstanceString = "stationInitialInstance3.txt";}
+
+        File inputFile = new File(testInstanceString);
         Scanner in = new Scanner(inputFile);
         while (in.hasNextLine()){
             String line = in.nextLine();

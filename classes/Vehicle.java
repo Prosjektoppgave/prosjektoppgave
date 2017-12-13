@@ -10,7 +10,7 @@ public class Vehicle {
     private int nextStationInitial;
     private double timeToNextStation;
     private double timeToNextStationInitial;
-    private int capacity = 30;
+    private int capacity = 23;
     private int load;
     private int initialLoad;
 

@@ -15,8 +15,9 @@ public class WriteXpressFiles {
 
     public static void printTimeDependentInput (HashMap<Integer, Station> stations, HashMap<Integer, Vehicle> vehicles,
                                                 double currentTime, double lengthOfPlanningHorizon, int maxVisits,
-                                                double weightVoilation, double weightDeviation, double weightReward) throws FileNotFoundException, UnsupportedEncodingException {
-        String filename = "timeDependentInputWeights.txt";
+                                                double weightVoilation, double weightDeviation, double weightReward,
+                                                double weightDeviationReward, double weightDrivingTimePenalty, String timeDependentInputFile) throws FileNotFoundException, UnsupportedEncodingException {
+        String filename = timeDependentInputFile;
         PrintWriter writer = new PrintWriter(filename, "UTF-8");
 
         //weightViolation
@@ -31,6 +32,14 @@ public class WriteXpressFiles {
         writer.print("weightReward : ");
         writer.println(weightReward);
 
+        //weightDeviation
+        writer.print("weightDeviationReward : ");
+        writer.println(weightDeviationReward);
+
+        //weightReward
+        writer.print("weightDrivingTimePenalty : ");
+        writer.println(weightDrivingTimePenalty);
+        writer.println();
 
         //lengthOfPlanningHorizon
         writer.print("lengthOfPlanningHorizon : ");
@@ -39,6 +48,7 @@ public class WriteXpressFiles {
         //MmxVisit
         writer.print("maxVisits : ");
         writer.println(maxVisits);
+        writer.println();
 
         //vehicleInitialStation
         writer.println("vehicleInitialStation : [");

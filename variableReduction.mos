@@ -137,9 +137,9 @@ declarations
 	timePenalty:					dynamic array(Vehicles)											of mpvar;
 end-declarations
 	
-forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
+forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles) do
 	if (jj <> vehicleInitialStation(vv))then
-		create(flow(ii, mm, jj, nn, vv));
+		create(flow(ii, mm, jj, nn, vv)); 
 		flow(ii,mm,jj,nn,vv) is_binary;
 	elif (nn <> 1) then
 		create(flow(ii, mm, jj, nn, vv));
@@ -178,18 +178,13 @@ forall (vv in Vehicles) do
 	create(timePenalty(vv));
 end-do
 
-forall (ii in Stations, mm in Visits, vv in Vehicles) do
-	if(ii <> artificialStation) then
-		!if (stationDemand(ii) <= 0 ) then		
-			create(loadingQuantity(ii,mm,vv));
-			loadingQuantity(ii,mm,vv) is_integer;
-		!else
-			create(unloadingQuantity(ii,mm,vv));
-			unloadingQuantity(ii,mm,vv) is_integer;
-		!end-if
-		create(loadAtVehicle(ii,mm,vv));
-		loadAtVehicle(ii,mm,vv) is_integer;
-	end-if	
+forall (ii in Stations, mm in Visits, vv in Vehicles | ii <> artificialStation) do
+	create(loadingQuantity(ii,mm,vv));
+	loadingQuantity(ii,mm,vv) is_integer;
+	create(unloadingQuantity(ii,mm,vv));
+	unloadingQuantity(ii,mm,vv) is_integer;
+	create(loadAtVehicle(ii,mm,vv));
+	loadAtVehicle(ii,mm,vv) is_integer;
 end-do
 
 forall (ii in Stations) do
@@ -779,6 +774,11 @@ fopen("outputXpress.txt",F_OUTPUT);
 	end-do
 	
 	fclose(F_OUTPUT);
+	
+	
+
+	
+!end-model
 
 
 

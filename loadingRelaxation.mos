@@ -186,14 +186,13 @@ forall (ii in Stations, mm in Visits, vv in Vehicles) do
 	if(ii <> artificialStation) then
 		create(loadingQuantity(ii,mm,vv));
 		create(unloadingQuantity(ii,mm,vv));
-		!if (ii = vehicleInitialStation(vv)) then
-			!if (mm = 1) then
-				!loadingQuantity(ii,mm,vv) is_integer;
-				!unloadingQuantity(ii,mm,vv) is_integer;
-			!end-if	
-		!end-if
+		if (ii = vehicleInitialStation(vv)) then
+			if (mm = 1) then
+				loadingQuantity(ii,mm,vv) is_integer;
+				unloadingQuantity(ii,mm,vv) is_integer;
+			end-if	
+		end-if
 		create(loadAtVehicle(ii,mm,vv));
-		!loadAtVehicle(ii,mm,vv) is_integer;
 	end-if	
 end-do
 
@@ -728,10 +727,20 @@ fopen("outputXpress.txt",F_OUTPUT);
 		
 		!Load
 		if (sum(vv in Vehicles)getsol(loadingQuantity(ii,mm, vv)) > 0.1) then
-			write(getsol(sum(vv in Vehicles)loadingQuantity(ii,mm, vv)));
+			if (sum(vv in Vehicles)getsol(loadingQuantity(ii,mm, vv))>23) then 
+				write("23");
+			else
+			write(floor(getsol(sum(vv in Vehicles)loadingQuantity(ii,mm, vv))));
+			end-if
 		elif (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm, vv)) > 0.1) then
-			write(-getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm, vv)));
-		end-if
+			if (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm, vv))>23) then
+				write("-23");
+			else
+				write(-floor(getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm, vv))));
+			end-if
+		else
+			write("0");
+		end-if			
 		write(" ");
 		
 		!Time
@@ -783,10 +792,9 @@ fopen("outputXpress.txt",F_OUTPUT);
 			
 	end-do
 	
-	fclose(F_OUTPUT);
+fclose(F_OUTPUT);
 	
-	
-
+end-model
 
 
 	!PRINT

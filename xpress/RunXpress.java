@@ -7,25 +7,21 @@ import java.io.*;
 
 public class RunXpress {
 
-    public static void runXpress() throws XPRMCompileException, IOException {
+    public static void runXpress(String moselFile) throws XPRMCompileException, IOException {
         XPRM mosel;
         XPRMModel mod;
-        Double lastSimulationTime = 0.0;
-        Double nextSimulationTime;
-        String currentTime;
-        ArrayList<String> moselOutput;
 
         //Initialize model
         mosel = new XPRM();
 
         //Compile model
-        mosel.compile("variableWeights.mos");
+        mosel.compile(moselFile+ ".mos");
 
         //Load bim file
-        mod = mosel.loadModel("variableWeights.bim");
+        mod = mosel.loadModel(moselFile + ".bim");
 
         //Execute model
-        System.out.println("Run 'variableWeights.mos'");
+        System.out.println("Run " + moselFile + ".mos");
         mod.run();
 
         //Stop if no solution is found

@@ -1,22 +1,25 @@
 package functions;
 
-import classes.Station;
 import classes.Vehicle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class ReadVehicleInput {
 
-    public static HashMap<Integer, Vehicle> readVehicleInput() throws FileNotFoundException {
+    public static HashMap<Integer, Vehicle> readVehicleInput(int numberOfVehicles) throws FileNotFoundException {
 
         HashMap<Integer, Vehicle> vehicles = new HashMap<>();
 
-        //Read vehicleInitial.txt file
-        File inputFile = new File("vehicleInitial.txt");
+        String vehicleInputFile = " ";
+        if (numberOfVehicles == 1) {vehicleInputFile = "vehicleInitial1.txt";}
+        else if (numberOfVehicles == 2) {vehicleInputFile = "vehicleInitial2.txt";}
+        else if (numberOfVehicles == 3) {vehicleInputFile = "vehicleInitial3.txt";}
+
+        //Read vehicleInitial3.txt file
+        File inputFile = new File(vehicleInputFile);
         Scanner in = new Scanner(inputFile);
         while (in.hasNextLine()){
             String line = in.nextLine();

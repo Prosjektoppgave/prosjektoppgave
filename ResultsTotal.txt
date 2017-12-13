@@ -118,3 +118,1333 @@ SD of percentage of happy customers:       6.105209951291325
 
 
 
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   2     
+Average violation:                         801.6666666666666 
+SD of violations:                          163.5860047570725 
+Average percentage of violations:          43.292829322280355 
+SD of percentage of violations:            6.414431913080626 
+--------------------------------------------------
+INPUT PARAMETERS
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   0     
+Average violation:                         1223.1333333333334 
+SD of violations:                          168.5699798162119 
+Average percentage of violations:          42.07877843645291 
+SD of percentage of violations:            4.545816927368357 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Binary restrictions on flow variable!!
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1089.2666666666667 
+SD of violations:                          162.79323725277442 
+Average percentage of violations:          37.64516393137443 
+SD of percentage of violations:            4.48938107782074 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+integer relaxation on loading variables
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         954.2 
+SD of violations:                          151.5629053750102 
+Average percentage of violations:          32.97711132853628 
+SD of percentage of violations:            3.964787761176291 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Integer and binary relaxaation
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1079.6666666666667 
+SD of violations:                          173.4044268122796 
+Average percentage of violations:          37.305831794683534 
+SD of percentage of violations:            4.966369871628337 
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.6   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         933.7333333333333 
+SD of violations:                          160.6875702663253 
+Average percentage of violations:          32.29075812940256 
+SD of percentage of violations:            4.583547375383808 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.5   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         927.7333333333333 
+SD of violations:                          156.17451187988243 
+Average percentage of violations:          32.07495254643031 
+SD of percentage of violations:            4.3807330904319315 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.39999999999999997 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         929.0444444444445 
+SD of violations:                          151.54446625504096 
+Average percentage of violations:          32.120051871816635 
+SD of percentage of violations:            4.17494106384659 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.29999999999999993 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         932.0833333333334 
+SD of violations:                          148.43423375829587 
+Average percentage of violations:          32.22369725303632 
+SD of percentage of violations:            4.0410999621232495 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.19999999999999996 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.56 
+SD of violations:                          147.97701063231298 
+Average percentage of violations:          32.306854180271344 
+SD of percentage of violations:            3.996668425367186 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.09999999999999998 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         938.1444444444444 
+SD of violations:                          148.55124800349458 
+Average percentage of violations:          32.42745147397942 
+SD of percentage of violations:            4.008183071274744 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.4   
+Weight Deviation:                          0.6   
+Weight Reward:                             0.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         942.1047619047619 
+SD of violations:                          150.23039509939926 
+Average percentage of violations:          32.560163124050916 
+SD of percentage of violations:            4.045943314152881 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.5   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         933.5333333333333 
+SD of violations:                          160.99506055717836 
+Average percentage of violations:          32.28273362358023 
+SD of percentage of violations:            4.601283822767495 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.4   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         929.4 
+SD of violations:                          156.56498045044515 
+Average percentage of violations:          32.1305378757893 
+SD of percentage of violations:            4.390742982564651 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.3   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         928.9555555555555 
+SD of violations:                          150.8522690273735 
+Average percentage of violations:          32.117949783910916 
+SD of percentage of violations:            4.1676753146732235 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.19999999999999996 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         931.4166666666666 
+SD of violations:                          149.5131411566591 
+Average percentage of violations:          32.20144311266436 
+SD of percentage of violations:            4.092323538396698 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.09999999999999998 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.76 
+SD of violations:                          148.80322940407265 
+Average percentage of violations:          32.31650331373303 
+SD of percentage of violations:            4.052682441455004 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         935.7111111111111 
+SD of violations:                          148.33088160242895 
+Average percentage of violations:          32.346660460384655 
+SD of percentage of violations:            4.020498251518299 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.6   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.4   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         935.0666666666667 
+SD of violations:                          159.5370385417338 
+Average percentage of violations:          32.335246325702876 
+SD of percentage of violations:            4.530589015904399 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.6   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.30000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         931.3 
+SD of violations:                          156.06743679443895 
+Average percentage of violations:          32.19805509669098 
+SD of percentage of violations:            4.361036326614287 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.6   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.2   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         928.4222222222222 
+SD of violations:                          155.20799664393013 
+Average percentage of violations:          32.09260718049346 
+SD of percentage of violations:            4.291037828162686 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.6   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.09999999999999998 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         930.1833333333333 
+SD of violations:                          151.98221257059362 
+Average percentage of violations:          32.152438613440644 
+SD of percentage of violations:            4.147978287175572 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.6   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         932.4133333333333 
+SD of violations:                          150.19780591240638 
+Average percentage of violations:          32.229993126568374 
+SD of percentage of violations:            4.076181519829882 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.30000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         932.8 
+SD of violations:                          161.1668168611109 
+Average percentage of violations:          32.25755180120733 
+SD of percentage of violations:            4.6137518953689485 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.20000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         929.0 
+SD of violations:                          156.2696608320109 
+Average percentage of violations:          32.118883420633296 
+SD of percentage of violations:            4.372513666891455 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.10000000000000003 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         925.7777777777778 
+SD of violations:                          154.72231561573446 
+Average percentage of violations:          32.002671254512855 
+SD of percentage of violations:            4.285772803702963 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         925.65 
+SD of violations:                          152.8249053489491 
+Average percentage of violations:          31.996495625339026 
+SD of percentage of violations:            4.1997450532782885 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7999999999999999 
+Weight Deviation:                          0.0   
+Weight Reward:                             0.20000000000000007 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         933.4666666666667 
+SD of violations:                          161.72324979361974 
+Average percentage of violations:          32.28058489605504 
+SD of percentage of violations:            4.625015766987055 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7999999999999999 
+Weight Deviation:                          0.1   
+Weight Reward:                             0.10000000000000006 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.4 
+SD of violations:                          159.17732467174832 
+Average percentage of violations:          32.31307565510517 
+SD of percentage of violations:            4.550337578230534 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.7999999999999999 
+Weight Deviation:                          0.2   
+Weight Reward:                             5.551115123125783E-17 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         929.3111111111111 
+SD of violations:                          157.62236548475633 
+Average percentage of violations:          32.128998826846036 
+SD of percentage of violations:            4.453843701314652 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.8999999999999999 
+Weight Deviation:                          0.0   
+Weight Reward:                             0.10000000000000009 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         932.2 
+SD of violations:                          161.4462316509299 
+Average percentage of violations:          32.23648720142024 
+SD of percentage of violations:            4.618027126685675 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.8999999999999999 
+Weight Deviation:                          0.1   
+Weight Reward:                             8.326672684688674E-17 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         933.4 
+SD of violations:                          158.6283011667038 
+Average percentage of violations:          32.280312160689554 
+SD of percentage of violations:            4.53392524332428 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.9999999999999999 
+Weight Deviation:                          0.0   
+Weight Reward:                             1.1102230246251565E-16 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         931.1333333333333 
+SD of violations:                          162.99249179318778 
+Average percentage of violations:          32.20201359807915 
+SD of percentage of violations:            4.702656999530338 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.5128205128205129 
+Weight Deviation:                          0.38461538461538464 
+Weight Reward:                             0.10256410256410248 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         948.8666666666667 
+SD of violations:                          150.75091407762045 
+Average percentage of violations:          32.80443486867929 
+SD of percentage of violations:            4.0203144849923165 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.7   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         937.3333333333334 
+SD of violations:                          161.6250805619804 
+Average percentage of violations:          32.413976263082674 
+SD of percentage of violations:            4.606350728770669 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.6   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         927.1666666666666 
+SD of violations:                          154.31809586903177 
+Average percentage of violations:          32.052246120899724 
+SD of percentage of violations:            4.294185475671795 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.49999999999999994 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         931.3333333333334 
+SD of violations:                          148.87990889548286 
+Average percentage of violations:          32.19865533897476 
+SD of percentage of violations:            4.075180406598254 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.3999999999999999 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         935.2833333333333 
+SD of violations:                          146.98357935113043 
+Average percentage of violations:          32.334394366397284 
+SD of percentage of violations:            3.980038453494383 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.0   
+Weight Reward:                             1.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1198.3333333333333 
+SD of violations:                          167.5728697214041 
+Average percentage of violations:          41.34444009451783 
+SD of percentage of violations:            4.511810326171924 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.9   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1180.1333333333334 
+SD of violations:                          165.99038886454326 
+Average percentage of violations:          40.81002741711715 
+SD of percentage of violations:            4.6353611660495 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.8   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1182.088888888889 
+SD of violations:                          165.0334431978482 
+Average percentage of violations:          40.894476364956084 
+SD of percentage of violations:            4.556328483100184 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.7   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1183.4 
+SD of violations:                          162.05452106192584 
+Average percentage of violations:          40.954578256958705 
+SD of percentage of violations:            4.463141726307506 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.6   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1183.56 
+SD of violations:                          161.85230504583072 
+Average percentage of violations:          40.96438211820489 
+SD of percentage of violations:            4.46415222716226 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.5   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1184.9888888888888 
+SD of violations:                          160.75918863035056 
+Average percentage of violations:          41.017137051524536 
+SD of percentage of violations:            4.412718136965705 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.6   
+Weight Reward:                             0.4   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1184.009523809524 
+SD of violations:                          161.3530228577946 
+Average percentage of violations:          40.98243081538616 
+SD of percentage of violations:            4.406708622553093 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.7   
+Weight Reward:                             0.30000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1182.2416666666666 
+SD of violations:                          161.73715557347109 
+Average percentage of violations:          40.92131610215164 
+SD of percentage of violations:            4.413999983290475 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.7999999999999999 
+Weight Reward:                             0.20000000000000007 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1177.8666666666666 
+SD of violations:                          163.81103966588427 
+Average percentage of violations:          40.767566924170886 
+SD of percentage of violations:            4.500490633421838 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.8999999999999999 
+Weight Reward:                             0.10000000000000009 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1177.8 
+SD of violations:                          165.11342450879073 
+Average percentage of violations:          40.764580117933804 
+SD of percentage of violations:            4.554589651902017 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.0   
+Weight Deviation:                          0.9999999999999999 
+Weight Reward:                             1.1102230246251565E-16 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1178.5757575757575 
+SD of violations:                          163.81340334672996 
+Average percentage of violations:          40.794976111658556 
+SD of percentage of violations:            4.518873538972881 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.9   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         927.0 
+SD of violations:                          151.64997291695863 
+Average percentage of violations:          32.04467392115153 
+SD of percentage of violations:            4.083938834903715 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.8   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         937.1666666666666 
+SD of violations:                          149.59740992902007 
+Average percentage of violations:          32.39301936987188 
+SD of percentage of violations:            4.00790870942627 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.7   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         954.2444444444444 
+SD of violations:                          149.99835689335757 
+Average percentage of violations:          32.98848516219538 
+SD of percentage of violations:            4.08916439864152 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.6   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1003.8 
+SD of violations:                          178.1631132284521 
+Average percentage of violations:          34.70273476937028 
+SD of percentage of violations:            5.133930614189319 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.5   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1036.6266666666668 
+SD of violations:                          187.78745700660897 
+Average percentage of violations:          35.844316968553734 
+SD of percentage of violations:            5.490985951865971 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.4   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1058.3111111111111 
+SD of violations:                          189.1930613999827 
+Average percentage of violations:          36.600869648484796 
+SD of percentage of violations:            5.544270363375703 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.6   
+Weight Reward:                             0.30000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1068.1619047619047 
+SD of violations:                          187.3021583826479 
+Average percentage of violations:          36.9404160819405 
+SD of percentage of violations:            5.428173975336645 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.7   
+Weight Reward:                             0.20000000000000007 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1070.0083333333334 
+SD of violations:                          182.6143705553682 
+Average percentage of violations:          37.0060704384396 
+SD of percentage of violations:            5.250095448128471 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.7999999999999999 
+Weight Reward:                             0.10000000000000009 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1071.237037037037 
+SD of violations:                          181.2094610313566 
+Average percentage of violations:          37.04603325195498 
+SD of percentage of violations:            5.182466793487281 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.1   
+Weight Deviation:                          0.8999999999999999 
+Weight Reward:                             1.1102230246251565E-16 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         1080.8933333333334 
+SD of violations:                          182.90409511257133 
+Average percentage of violations:          37.38513288571252 
+SD of percentage of violations:            5.282797800335283 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.0   
+Weight Reward:                             0.8   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         932.1333333333333 
+SD of violations:                          153.06621660793303 
+Average percentage of violations:          32.215151960120934 
+SD of percentage of violations:            4.124413902811275 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.1   
+Weight Reward:                             0.7000000000000001 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.6 
+SD of violations:                          145.80823495026044 
+Average percentage of violations:          32.30885593034863 
+SD of percentage of violations:            3.8774908176922303 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.6000000000000001 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         938.1777777777778 
+SD of violations:                          145.1200582729049 
+Average percentage of violations:          32.43077907130166 
+SD of percentage of violations:            3.8420113555821698 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.30000000000000004 
+Weight Reward:                             0.5   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         945.9333333333333 
+SD of violations:                          143.2880075489384 
+Average percentage of violations:          32.698863547968 
+SD of percentage of violations:            3.7812650665201843 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.4   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         951.4666666666667 
+SD of violations:                          143.11215912734352 
+Average percentage of violations:          32.891424982715414 
+SD of percentage of violations:            3.803546322508564 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.30000000000000004 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         958.1333333333333 
+SD of violations:                          145.36016485987446 
+Average percentage of violations:          33.12516203145173 
+SD of percentage of violations:            3.9348778652703764 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.6   
+Weight Reward:                             0.20000000000000007 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         965.5714285714286 
+SD of violations:                          148.0344851418371 
+Average percentage of violations:          33.38406670784523 
+SD of percentage of violations:            4.045898194000996 
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.7   
+Weight Reward:                             0.10000000000000009 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         974.1666666666666 
+SD of violations:                          155.10274899271786 
+Average percentage of violations:          33.677526961746246 
+SD of percentage of violations:            4.285415457742856 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.2   
+Weight Deviation:                          0.7999999999999999 
+Weight Reward:                             1.1102230246251565E-16 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         983.5851851851852 
+SD of violations:                          159.83435386175822 
+Average percentage of violations:          34.00476937494585 
+SD of percentage of violations:            4.481715799734276 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.30000000000000004 
+Weight Deviation:                          0.0   
+Weight Reward:                             0.7   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         938.3333333333334 
+SD of violations:                          159.7666453061494 
+Average percentage of violations:          32.44752876518177 
+SD of percentage of violations:            4.519176325217729 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.4   
+Weight Reward:                             0.29999999999999993 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         960.4666666666667 
+SD of violations:                          150.73338177375436 
+Average percentage of violations:          33.190682125416 
+SD of percentage of violations:            3.997801674873351 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.5   
+Weight Reward:                             0.19999999999999996 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         961.9666666666667 
+SD of violations:                          149.57375837827402 
+Average percentage of violations:          33.240443351996824 
+SD of percentage of violations:            3.9837698642485813 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.6   
+Weight Reward:                             0.09999999999999998 
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         967.0888888888888 
+SD of violations:                          150.54987428246045 
+Average percentage of violations:          33.424055809499535 
+SD of percentage of violations:            4.071305384076028 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          0.3   
+Weight Deviation:                          0.7   
+Weight Reward:                             0.0   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         983.5333333333333 
+SD of violations:                          161.6417325987139 
+Average percentage of violations:          33.98850857929833 
+SD of percentage of violations:            4.46367397496919 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          1.0   
+Weight Deviation:                          0.75  
+Weight Reward:                             0.2   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   0     
+Average violation:                         441.2 
+SD of violations:                          89.23980534012195 
+Average percentage of violations:          43.97759829192845 
+SD of percentage of violations:            6.518729137451334 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Weight Violation:                          1.0   
+Weight Deviation:                          0.75  
+Weight Reward:                             0.2   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         949.2666666666667 
+SD of violations:                          148.06343556861347 
+Average percentage of violations:          32.71437466283053 
+SD of percentage of violations:            3.9021298493412564 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+First visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         916.6 
+SD of violations:                          158.16031649654002 
+Average percentage of violations:          31.672757214788135 
+SD of percentage of violations:            4.2956654057001735 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.2666666666667 
+SD of violations:                          155.66790047435993 
+Average percentage of violations:          32.19797980806016 
+SD of percentage of violations:            4.238809150093995 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         959.7333333333333 
+SD of violations:                          162.75769311054597 
+Average percentage of violations:          33.070410320322175 
+SD of percentage of violations:            4.513014741645328 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          1.0   
+Weight Deviation:                          0.75  
+Weight Reward:                             0.2   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   0     
+Average violation:                         441.2 
+SD of violations:                          89.23980534012195 
+Average percentage of violations:          43.97759829192845 
+SD of percentage of violations:            6.518729137451334
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+First visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         916.6 
+SD of violations:                          158.16031649654002 
+Average percentage of violations:          31.672757214788135 
+SD of percentage of violations:            4.2956654057001735 
+Average number of Xpress runs:             18.133333333333333 
+
+
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.2666666666667 
+SD of violations:                          155.66790047435993 
+Average percentage of violations:          32.19797980806016 
+SD of percentage of violations:            4.238809150093995 
+Average number of Xpress runs:             9.466666666666667 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Third visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         959.7333333333333 
+SD of violations:                          162.75769311054597 
+Average percentage of violations:          33.070410320322175 
+SD of percentage of violations:            4.513014741645328 
+Average number of Xpress runs:             9.0   
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+First visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         916.6 
+SD of violations:                          158.16031649654002 
+Average percentage of violations:          31.672757214788135 
+SD of percentage of violations:            4.2956654057001735 
+Average number of Xpress runs:             18.133333333333333 
+Average time to next simulation:           13.651993333218668 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         934.2666666666667 
+SD of violations:                          155.66790047435993 
+Average percentage of violations:          32.19797980806016 
+SD of percentage of violations:            4.238809150093995 
+Average number of Xpress runs:             9.466666666666667 
+Average time to next simulation:           26.796312222222223 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Third visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         959.7333333333333 
+SD of violations:                          162.75769311054597 
+Average percentage of violations:          33.070410320322175 
+SD of percentage of violations:            4.513014741645328 
+Average number of Xpress runs:             9.0   
+Average time to next simulation:           28.565065185185187 
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Every 15 min
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         936.3333333333334 
+SD of violations:                          161.40926981109968 
+Average percentage of violations:          32.34988446495422 
+SD of percentage of violations:            4.667852948424456 
+Average number of Xpress runs:             16.0  
+Average time to next simulation:           15.0  
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+10 min
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         915.9333333333333 
+SD of violations:                          155.1950232388115 
+Average percentage of violations:          31.726060406142103 
+SD of percentage of violations:            4.309888368939705 
+Average number of Xpress runs:             24.0  
+Average time to next simulation:           10.0  
+
+
+
+--------------------------------------------------
+INPUT PARAMETERS
+Second visit
+Weight Violation:                          0.7   
+Weight Deviation:                          0.2   
+Weight Reward:                             0.1   
+Time horizon, Xpress:                      30.0  
+Number of simulations:                     15    
+Number of max visits, M:                   1     
+Average violation:                         917.6 
+SD of violations:                          158.52255360042622 
+Average percentage of violations:          31.70990313520781 
+SD of percentage of violations:            4.333575060827601 
+Average number of Xpress runs:             18.133333333333333 
+Average time to next simulation:           13.654384222313956 
+
+
+

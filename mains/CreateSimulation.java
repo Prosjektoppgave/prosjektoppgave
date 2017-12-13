@@ -22,6 +22,7 @@ public class CreateSimulation {
     private HashMap<Integer, Station> stations;
     private ArrayList<ArrayList<Double>> arrivalTimes;
     private String outPutFileName = "simulationSet8-20.txt";
+    private int testInstance = 1;
 
 
     public static void main(String[] args) throws IOException, JSONException {
@@ -33,8 +34,8 @@ public class CreateSimulation {
 
     //Constructor for mains
     private CreateSimulation() throws IOException, JSONException {
-        stationIdList = ReadStationList.readStationIdList();
-        stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList);
+        stationIdList = ReadStationList.readStationIdList(testInstance);
+        stations = ReadDemandAndNumberOfBikes.simulatedDemand(stationIdList, testInstance);
         arrivalTimes = new ArrayList<>();
     }
 

@@ -291,6 +291,7 @@ end-declarations
 
 !-----BINARY RESTRICTION ON FLOW-------------------
 
+test:= flow(vehicleInitialStation(1),1,0,1,1)<=0;
 
 !-----REWARD FUNCTIONS-----------
 
@@ -715,10 +716,9 @@ minimize(Objective1);
 !PRINT TO FILE IKKE ENDRE!!!!!!
 
 fopen("outputXpress.txt",F_OUTPUT);
-	forall (ii in Stations, mm in Visits | getsol(sum(vv in Vehicles)loadingQuantity(ii,mm,vv)) > 0.1 or getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm,vv))>0.1) do
-		
+	forall (mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | getsol(flow(vehicleInitialStation(vv),mm,jj,nn,vv))> 0.9) do
 		!Station
-		write(ii);
+		write(vehicleInitialStation(vv));
 		write(" ");
 		
 		!Visit
@@ -726,55 +726,95 @@ fopen("outputXpress.txt",F_OUTPUT);
 		write(" ");
 		
 		!Load
-		if (sum(vv in Vehicles)getsol(loadingQuantity(ii,mm, vv)) > 0.1) then
-			write(getsol(sum(vv in Vehicles)loadingQuantity(ii,mm, vv)));
-		elif (sum(vv in Vehicles)getsol(unloadingQuantity(ii,mm, vv)) > 0.1) then
-			write(-getsol(sum(vv in Vehicles)unloadingQuantity(ii,mm, vv)));
+		if (getsol(loadingQuantity(vehicleInitialStation(vv),mm,vv)) > 0.1) then
+			write(getsol(loadingQuantity(vehicleInitialStation(vv),mm, vv)));
+		elif (getsol(unloadingQuantity(vehicleInitialStation(vv),mm,vv)) > 0.1) then
+			write(-getsol(unloadingQuantity(vehicleInitialStation(vv),mm, vv)));
+		else
+			write("0");	
 		end-if
 		write(" ");
 		
 		!Time
-		if (getsol(visitTime(ii,mm))<0.1) then 
+		if (getsol(visitTime(vehicleInitialStation(vv),mm))<0.1) then 
 			write(0.0);
 		else	
-			write(getsol(visitTime(ii,mm)));
+			write(getsol(visitTime(vehicleInitialStation(vv),mm)));
 		end-if
 		write(" ");
 		
 		!Vehicle
 		
-		write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*vv));
+		write (vv);
 		write(" ");
 		
 		!Next stationId
-		if (sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*jj) < 0.5) then 
+		if ( jj < 0.5) then 
 			write("0");
 		else
-			write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*jj));	
+			write(jj);	
 		end-if
 		write(" ");
 		
 		!Next stationVisit
-		write(sum(jj in Stations, nn in Visits, vv in Vehicles) (getsol(flow(ii,mm,jj,nn,vv))*nn));
+		write( nn );
 		write(" ");
 		
 		!Time next stationVisit
-		if (sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn))<0.1) then 
+		if ( getsol(visitTime(jj,nn))<0.1) then 
 			write(0.0);
 		else	
-			write(sum (jj in Stations, nn in Visits, vv in Vehicles) getsol(flow(ii,mm,jj,nn,vv))*getsol(visitTime(jj,nn)));
+			write( getsol(visitTime(jj,nn)));
 		end-if
 		write(" ");
 		
 		
 		!First station
-		forall (vv in Vehicles) do
-			if (ii = vehicleInitialStation(vv) and mm = 1) then
-				write("1");
-			else
-				write("0");
-			end-if
-		end-do
+		if (vehicleInitialStation(vv) = vehicleInitialStation(vv) and mm = 1) then
+			write("1");
+		else
+			write("0");
+		end-if
+		
+		writeln;
+		!NEXT VISIT
+		
+		!Station
+		write(jj);
+		write(" ");
+		
+		!Visit
+		write(nn);
+		write(" ");
+		
+		!Load
+		write("0 ");
+		
+		!Time
+		if (getsol(visitTime(jj,nn))<0.1) then 
+			write(0.0);
+		else	
+			write(getsol(visitTime(jj,nn)));
+		end-if
+		write(" ");
+		
+		!Vehicle
+		write (vv);
+		write(" ");
+		
+		!Next stationId
+		write("0 ");
+		
+		!Next stationVisit
+
+		write("0 ");
+		
+		!Time next stationVisit
+		write("0.0 ");
+		
+		
+		!First station
+		write("0");
 		
 		writeln;
 
@@ -782,12 +822,12 @@ fopen("outputXpress.txt",F_OUTPUT);
 			
 	end-do
 	
-	fclose(F_OUTPUT);
+fclose(F_OUTPUT);
 	
 	
 
 	
-!end-model
+end-model
 
 
 

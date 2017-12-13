@@ -132,68 +132,56 @@ declarations
 	theta:							dynamic array(Stations, Visits)									of mpvar;
 	deviation:						dynamic array(Stations)											of mpvar;
 	deviationReward:				dynamic array(Stations)											of mpvar;
-	sigmaLow:						dynamic array(Stations, Visits, Vehicles)						of mpvar;	
-	sigmaHigh:						dynamic array(Stations, Visits, Vehicles)						of mpvar;	
+	sigmaLow:						dynamic array(Vehicles)											of mpvar;	
+	sigmaHigh:						dynamic array(Vehicles)											of mpvar;	
 	timePenalty:					dynamic array(Vehicles)											of mpvar;
 end-declarations
 	
-forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles | ii<> artificialStation and ii<>jj) do
-	if (jj <> vehicleInitialStation(vv))then
-		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
-			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
-	elif (nn <> 1) then
-		create(flow(ii, mm, jj, nn, vv));
-		!if (ii = vehicleInitialStation(vv))then 
-			flow(ii,mm,jj,nn,vv) is_binary;
-		!end-if	
-	end-if
+forall (ii in Stations, mm in Visits, jj in Stations, nn in Visits, vv in Vehicles) do
+	create(flow(ii, mm, jj, nn, vv));
+	flow(ii,mm,jj,nn,vv) is_binary;
 end-do
 
 forall (ii in Stations, mm in Visits) do
-	create(visitTime(ii, mm));
 	create(deltaFull(ii,mm));
 	deltaFull(ii,mm) is_binary;
 	create(deltaEmpty(ii,mm));
 	deltaEmpty(ii,mm) is_binary;
 	create(delta(ii,mm));
 	delta(ii,mm) is_binary;
-	
-	if(ii <> artificialStation)then
-		create(loadAtStation(ii, mm));
-		create(congestion(ii, mm));
-		create(starvation(ii, mm));
-		create(theta(ii,mm));
-		theta(ii,mm) is_binary;
-	end-if	
+	create(loadAtStation(ii, mm));
+	create(congestion(ii, mm));
+	create(starvation(ii, mm));
+	create(theta(ii,mm));
+	theta(ii,mm) is_binary;
+	create(visitTime(ii, mm));	
 end-do
-
 
 
 forall (vv in Vehicles) do
 	create(remainingTimeToFinalStation(vv));
 	remainingTimeToFinalStation(vv) is_free;
 	create(inventoryAtHorizonVehicle(vv));
+	create(sigmaLow(vv));
+	sigmaLow(vv) is_binary;
+	create(sigmaHigh(vv));
+	sigmaHigh(vv) is_binary;
 	create(timePenalty(vv));
 end-do
 
-forall(ii in Stations, mm in Visits, vv in Vehicles) do
-	create(sigmaLow(ii,mm,vv));
-	sigmaLow(ii,mm,vv) is_binary;
-	create(sigmaHigh(ii,mm,vv));
-	sigmaHigh(ii,mm,vv) is_binary;
+forall (ii in Stations, mm in Visits, vv in Vehicles) do
+	create(loadAtVehicle(ii,mm,vv));
+	loadAtVehicle(ii,mm,vv) is_integer;
 end-do
 
-forall (ii in Stations, mm in Visits, vv in Vehicles) do
-	if(ii <> artificialStation) then
-		create(loadingQuantity(ii,mm,vv));
-		loadingQuantity(ii,mm,vv) is_integer;
-		create(unloadingQuantity(ii,mm,vv));
-		unloadingQuantity(ii,mm,vv) is_integer;
-		create(loadAtVehicle(ii,mm,vv));
-		loadAtVehicle(ii,mm,vv) is_integer;
-	end-if	
+forall (ii in StarvationStations, mm in Visits, vv in Vehicles) do 
+	create(unloadingQuantity(ii,mm,vv));
+	unloadingQuantity(ii,mm,vv) is_integer;
+end-do		
+
+forall (ii in CongestionStations, mm in Visits, vv in Vehicles) do 
+	create(loadingQuantity(ii,mm,vv));
+	loadingQuantity(ii,mm,vv) is_integer;
 end-do
 
 forall (ii in Stations) do
@@ -202,16 +190,17 @@ forall (ii in Stations) do
 	create(congestionAfterHorizon(ii));		
 	create(starvationAfterHorizon(ii));	
 	create(inventoryAtHorizon(ii));	
-	create(gamma(ii));
-	gamma(ii) is_binary;
+	create(deviationReward(ii));
 	create(deltaFullHorizon(ii));
 	deltaFullHorizon(ii)is_binary;
 	create(deltaEmptyHorizon(ii));
 	deltaEmptyHorizon(ii) is_binary;
 	create(deviation(ii));
-	if(ii <> artificialStation) then 
-		create(deviationReward(ii));
-	end-if 	
+end-do
+
+forall(ii in Stations) do
+	create(gamma(ii));
+	gamma(ii) is_binary;
 end-do
 
 
@@ -284,17 +273,16 @@ declarations
 	rewardIfAfterHorizon:	dynamic array(Stations)								of linctr;
 	deviationRev1: 			dynamic array(Stations)								of linctr;
 	deviationRev2: 			dynamic array(Stations)								of linctr;
-	sigmaH:				dynamic array(Stations, Visits, Vehicles)								of linctr;
-	sigmaL:				dynamic array(Stations, Visits, Vehicles)								of linctr;
-	lowVisit:				dynamic array(Stations, Visits, StarvationStations, Visits, Vehicles)	of linctr;
-	highVisit: 				dynamic array(Stations, Visits, CongestionStations, Visits, Vehicles) 	of linctr;
+	sigmaH:				dynamic array(Vehicles)								of linctr;
+	sigmaL:				dynamic array(Vehicles)								of linctr;
+	lowVisit:				dynamic array(StarvationStations, Visits, Vehicles)	of linctr;
 	penalty:				dynamic array(Vehicles) 							of linctr;
 	test: 	linctr;
 	test2: 	linctr;
 end-declarations
 
 !-----REWARD FUNCTIONS-----------
-
+ 
 
 forall (ii in Stations) do
 	!Only reward if station is visited after horizon
@@ -308,28 +296,26 @@ end-do
 
 
 forall (vv in Vehicles) do
+	!SigmaLow is 1 if inventory level at vehicle v is below visitInterval at time horizon
+	SigmaL(vv) :=
+		inventoryAtHorizonVehicle(vv) >= visitInterval-visitInterval*sigmaLow(vv);
+	!SigmaHigh is 1 if inventory level at vehicle v is above (capacity-visitInterval) at time horizon
+	SigmaH(vv) :=
+		inventoryAtHorizonVehicle(vv) <= vehicleCapacity(vv)-visitInterval+visitInterval*sigmaHigh(vv);
+	!only penalty if after timehorizon
 	penalty(vv) :=
 		 timePenalty(vv) >= remainingTimeToFinalStation(vv);
 end-do
 
-!forall(ii in Stations, mm in Visits, vv in Vehicles) do
-	!SigmaLow is 1 if inventory level at vehicle v is below visitInterval
-!	SigmaL(ii,mm,vv) :=
-!		loadAtVehicle(ii,mm,vv) >= visitInterval-visitInterval*sigmaLow(ii,mm,vv);
-	!SigmaHigh is 1 if inventory level at vehicle v is above (capacity-visitInterval)
-!	SigmaH(ii,mm,vv) :=
-!		loadAtVehicle(ii,mm,vv) <= vehicleCapacity(vv)-visitInterval+visitInterval*sigmaHigh(ii,mm,vv);
-!end-do
-	
-!forall(ii in Stations, mm in Visits, jj in StarvationStations, nn in Visits, vv in Vehicles) do
-!	lowVisit(ii,mm,jj,nn,vv) :=
-!		flow(ii,mm,jj,nn,vv) <= (1-sigmaLow(ii,mm,vv));
-!end-do
+forall(ii in StarvationStations, mm in Visits, vv in Vehicles) do
+	lowVisit(ii,mm,vv) :=
+		flow(ii,mm,artificialStation,1,vv) <= (1-sigmaLow(vv)) + (1-delta(ii,mm));
+end-do
 
-!forall(ii in Stations, mm in Visits, jj in CongestionStations, nn in Visits, vv in Vehicles) do
-!	highVisit(ii,mm,jj,nn,vv) :=
-!		flow(ii,mm,jj,nn,vv) <= (1-sigmaHigh(ii,mm,vv));
-!end-do
+forall(ii in CongestionStations, mm in Visits, vv in Vehicles) do
+	highVisit(ii,mm,vv) :=
+		flow(ii,mm,artificialStation,1,vv) <= (1-sigmaHigh(vv)) + (1-delta(ii,mm));
+end-do
 
 !----------------------------------
 

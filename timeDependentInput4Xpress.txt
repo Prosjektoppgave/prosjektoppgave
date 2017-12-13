@@ -1,5 +1,5 @@
-lengthOfPlanningHorizon : 30.0
-maxVisits : 1
+lengthOfPlanningHorizon : 20.0
+maxVisits : 2
 vehicleInitialStation : [
 35
 ]

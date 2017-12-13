@@ -2,8 +2,6 @@ a1 : 1
 artificialStation: 0
 visitInterval: 8
 
-Ta bort dette
-
 Stations : [
 35
 148

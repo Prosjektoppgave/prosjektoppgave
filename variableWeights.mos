@@ -96,6 +96,8 @@ declarations
 	weightViolation: real;
 	weightDeviation: real;
 	weightReward: real;
+	weightDeviationReward: real;
+	weightDrivingTimePenalty: real;
 end-declarations
 
 initializations from DataFileTimeDependentInput
@@ -109,6 +111,8 @@ initializations from DataFileTimeDependentInput
 	weightViolation;
 	weightDeviation;
 	weightReward;
+	weightDeviationReward;
+	weightDrivingTimePenalty;
 end-initializations
 
 !VARIABLES
@@ -697,8 +701,8 @@ deviation1 :=
 	sum(ii in Stations)deviation(ii);
 	
 totalReward :=
-	-0.75*sum(ii in Stations) deviationReward(ii)
-	+ 0.1*sum(vv in Vehicles) timePenalty(vv);
+	-weightDeviationReward*sum(ii in Stations) deviationReward(ii)
+	+ weightDrivingTimePenalty*sum(vv in Vehicles) timePenalty(vv);
 
 Objective1 := 
 	weightViolation*violations11

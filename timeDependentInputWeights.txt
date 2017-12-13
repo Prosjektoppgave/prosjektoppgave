@@ -1,8 +1,12 @@
-weightViolation : 0.2
-weightDeviation : 0.5
-weightReward : 0.30000000000000004
-lengthOfPlanningHorizon : 30.0
+weightViolation : 0.5
+weightDeviation : 0.4
+weightReward : 0.1
+weightDeviationReward : 0.9
+weightDrivingTimePenalty : 0.1
+
+lengthOfPlanningHorizon : 10.0
 maxVisits : 1
+
 vehicleInitialStation : [
 35
 ]
@@ -12,42 +16,42 @@ vehicleRemainingTimeToInitialStation : [
 ]
 
 vehicleInitialLoad : [
-23
+0
 ]
 
 stationsInitialLoad : [
-0.0
-0.0
+24.0
+7.0
 30.0
-42.0
-0.0
-31.0
-35.0
-0.0
+38.0
+5.0
+27.0
+36.0
+5.0
 0
 ]
 
 optimalState : [
-13.0
-22.0
-6.0
-6.0
-14.0
-4.0
-4.0
-11.0
+16.0
+20.0
+15.0
+10.0
+15.0
+20.0
+18.0
+9.0
 0
 ]
 
 stationDemand : [
--0.8713396896878363
--0.9120798191234794
-0.9730445275576867
-1.3299762747772839
--0.6641183546039581
-1.3377158859983989
-0.7384170186141091
--0.8884405110154255
+-0.5804554449850883
+-0.6960143247850384
+0.35
+0.7064577990416093
+-0.4476390126482374
+-0.041666666666666664
+0.6439298880492262
+-0.5698116803119443
 0
 ]
 
@@ -55,12 +59,12 @@ StarvationStations : [
 35
 148
 152
+154
 44
 ]
 
 CongestionStations : [
 101
 103
-154
 75
 ]

@@ -7,10 +7,15 @@ import java.util.Scanner;
 
 public class ReadStationList {
 
-    public static ArrayList<Integer> readStationIdList() throws FileNotFoundException {
+    public static ArrayList<Integer> readStationIdList(int testInstance) throws FileNotFoundException {
         ArrayList<Integer> stationIdList = new ArrayList<>();
 
-        File inputfile = new File("stationInitial.txt");
+        String testInstanceString = " ";
+        if (testInstance == 1 ) {testInstanceString = "stationInitialInstance1.txt";}
+        else if (testInstance == 2 ) {testInstanceString = "stationInitialInstance2.txt";}
+        else if (testInstance == 3 ) {testInstanceString = "stationInitialInstance3.txt";}
+
+        File inputfile = new File(testInstanceString);
         Scanner in = new Scanner(inputfile);
 
         while (in.hasNextLine()) {

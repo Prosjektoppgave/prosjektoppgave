@@ -1,5 +1,6 @@
-package mains;
+/*package mains;
 
+import classes.Input;
 import classes.StationVisit;
 import classes.Vehicle;
 import com.dashoptimization.XPRMCompileException;
@@ -30,38 +31,45 @@ public class RunNoVehicles {
     private int totalNumberOfCustomers = 0;
 
     public static void main(String[] args) throws IOException, JSONException, XPRMCompileException {
-        //for (int M = 1; M<3; M++) {
         ArrayList<Double> violationList = new ArrayList<>();
         ArrayList<Double> percentageViolationsList = new ArrayList<>();
-        double timeHorizon = 30;
-        int numberOfRuns = 15;
-        double weightVoilation = 1;
-        double weightDeviation = 0.75;
-        double weightReward = 0.2;
-        for (int i = 1; i<numberOfRuns+1; i++) {
+        ArrayList<Double> numberOfXpressRunsList = new ArrayList<>();
+        ArrayList<Double> simulationIntervalList = new ArrayList<>();
+        Input inputParameters = new Input();
+        for (int i = 1; i<inputParameters.getNumberOfRuns()+1; i++) {
             String simulationFile = "simulationSet8-"+i+".txt";
+            System.out.println("Time horizon: " + inputParameters.getTimeHorizon());
             System.out.println("Run number: " + i);
-            RunNoVehicles simulation = new RunNoVehicles();                 //Read initial data
-            simulation.run(simulationFile);
-            double totalViolations = simulation.getCongestions()+simulation.getStarvations();
+            RunNoVehicles noVehicles = new RunNoVehicles();                 //Read initial data
+            noVehicles.run(simulationFile, inputParameters.getTimeHorizon(), inputParameters.getM(),
+                    inputParameters.getWeightViolation(), inputParameters.getWeightDeviation(), inputParameters.getWeightReward(),
+                    inputParameters.getWeightDeviationReward(), inputParameters.getWeightDrivingTimePenalty(),
+                    inputParameters.getSimulationStartTime(), inputParameters.getSimulationStopTime());
+            double totalViolations = noVehicles.getCongestions()+noVehicles.getStarvations();
             violationList.add(totalViolations);
-            double percentageViolations = (double)totalViolations/(double)simulation.getTotalNumberOfCustomers()*100;
+            double percentageViolations = (double)totalViolations/(double)noVehicles.getTotalNumberOfCustomers()*100;
             percentageViolationsList.add(percentageViolations);
+            numberOfXpressRunsList.add(noVehicles.getNumberOfXpress());
+            double averageTimeToNextSimulation = average(noVehicles.getTimeToNextSimulationList());
+            simulationIntervalList.add(averageTimeToNextSimulation);
         }
         double averageViolation = average(violationList);
         double averagePercentageHappyCustomers = average(percentageViolationsList);
         double sdViolation = sd(violationList, averageViolation);
         double sdPercentageHappyCustomers = sd(percentageViolationsList, averagePercentageHappyCustomers);
-
+        double averageNumberOfXpressRuns = average(numberOfXpressRunsList);
+        double avergaeTimeToNextSimulation = average(simulationIntervalList);
         print(averageViolation, averagePercentageHappyCustomers, sdViolation, sdPercentageHappyCustomers,
-                timeHorizon, numberOfRuns, 0, weightVoilation, weightDeviation, weightReward);
-        //}
+                inputParameters.getTimeHorizon(), inputParameters.getNumberOfRuns(), inputParameters.getM(),
+                inputParameters.getWeightViolation(), inputParameters.getWeightDeviation(), inputParameters.getWeightReward(),
+                inputParameters.getWeightDeviationReward(), inputParameters.getWeightDrivingTimePenalty(), averageNumberOfXpressRuns, avergaeTimeToNextSimulation);
+
     }
 
     private static void print(double averageViolation, double averagePercentage, double sdViolations, double sdPercentage,
                               double timeHorizon, int numberOfRuns, int maxVisit, double weightViolation, double weightDeviation, double weightReward) {
         PrintResults.printTotalResults(averageViolation, averagePercentage, sdViolations, sdPercentage,
-                timeHorizon, numberOfRuns, maxVisit, weightViolation, weightDeviation, weightReward);
+                timeHorizon, numberOfRuns, maxVisit, weightViolation, weightDeviation, weightReward, 0, 0 );
     }
 
     private static double average(ArrayList<Double> list) {
@@ -181,5 +189,5 @@ public class RunNoVehicles {
         return totalNumberOfCustomers;
     }
 
-}
+}*/
 
